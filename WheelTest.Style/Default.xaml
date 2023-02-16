@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:Converter="clr-namespace:WheelTest.Style.Converters"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Images/Generic.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <Converter:EnumDisplayNameConverter x:Key="EnumDisplayNameConverter" />
+    <Converter:ColorConverter x:Key="ColorConverter" />
+    <Converter:StringIsNullOrEmptyConverter x:Key="StringIsNullOrEmptyConverter" />
+    <Converter:RotateFlipConverter x:Key="RotateFlipConverter" />
+</ResourceDictionary>
