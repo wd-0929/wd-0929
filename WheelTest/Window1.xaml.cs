@@ -25,7 +25,7 @@ namespace WheelTest
         public Window1()
         {
             InitializeComponent();
-            GetJsMethd(new object[] { "b319aafe27d217cda2a547d803956e39", "{\"dataType\":\"moduleData\",\"argString\":\"{\\\\\"memberId\\\\\":\\\\\"packpal\\\\\",\\\\\"appName\\\\\":\\\\\"pcmodules\\\\\",\\\\\"resourceName\\\\\":\\\\\"wpOfferColumn\\\\\",\\\\\"type\\\\\":\\\\\"view\\\\\",\\\\\"version\\\\\":\\\\\"1.0.0\\\\\",\\\\\"appdata\\\\\":{\\\\\"sortType\\\\\":\\\\\"wangpu_score\\\\\",\\\\\"sellerRecommendFilter\\\\\":false,\\\\\"mixFilter\\\\\":false,\\\\\"tradenumFilter\\\\\":false,\\\\\"quantityBegin\\\\\":null,\\\\\"pageNum\\\\\":1,\\\\\"count\\\\\":30}}\"}" });
+            GetJsMethd(new object[] { "{\"dataType\":\"moduleData\",\"argString\":\"{\\\\\"memberId\\\\\":\\\\\"packpal\\\\\",\\\\\"appName\\\\\":\\\\\"pcmodules\\\\\",\\\\\"resourceName\\\\\":\\\\\"wpOfferColumn\\\\\",\\\\\"type\\\\\":\\\\\"view\\\\\",\\\\\"version\\\\\":\\\\\"1.0.0\\\\\",\\\\\"appdata\\\\\":{\\\\\"sortType\\\\\":\\\\\"wangpu_score\\\\\",\\\\\"sellerRecommendFilter\\\\\":false,\\\\\"mixFilter\\\\\":false,\\\\\"tradenumFilter\\\\\":false,\\\\\"quantityBegin\\\\\":null,\\\\\"pageNum\\\\\":1,\\\\\"count\\\\\":30}}\"}", "b319aafe27d217cda2a547d803956e39" });
         }
 
         /// <summary>
@@ -132,23 +132,7 @@ namespace WheelTest
             sb.Append("     ");
             sb.Append(" }");
             sb.Append("}");
-
-            CompilerParameters parameters = new CompilerParameters();
-
-            parameters.GenerateInMemory = true;
-
-            CodeDomProvider _provider = new Microsoft.JScript.JScriptCodeProvider();
-
-            CompilerResults results = _provider.CompileAssemblyFromSource(parameters, sb.ToString());
-
-            Assembly assembly = results.CompiledAssembly;
-
-            Type _evaluateType = assembly.GetType("aa.JScript");
-
-            object obj = _evaluateType.InvokeMember("test", BindingFlags.InvokeMethod,
-            null, null, para);
-
-            return obj.ToString();
+            return Helper.GetJsMethd(sb.ToString(), para);
         }
     }
 }

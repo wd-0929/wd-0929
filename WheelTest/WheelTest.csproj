@@ -84,6 +84,7 @@
     <Compile Include="DynamicImages.xaml.cs">
       <DependentUpon>DynamicImages.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helper.cs" />
     <Compile Include="HtmlImage.xaml.cs">
       <DependentUpon>HtmlImage.xaml</DependentUpon>
     </Compile>
