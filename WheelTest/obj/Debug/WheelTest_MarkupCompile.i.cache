@@ -1,7 +1,7 @@
 ﻿WheelTest
 
 
-winexe
+exe
 C#
 .cs
 D:\Gtihui线上项目\wd-0929\WheelTest\obj\Debug\
@@ -13,8 +13,8 @@ D:\Gtihui线上项目\wd-0929\WheelTest\App.xaml
 12-1442191271
 11855445255
 25-724830123
-25263226801
+26939957219
 ClassDynamicGeneration.xaml;DoDragDrop.xaml;DynamicImages.xaml;HtmlImage.xaml;HttpListenerTest.xaml;HttpsGet.xaml;Images\InputDialog.xaml;MainWindow.xaml;MultipleComBoBox.xaml;VideoSurfacePlot.xaml;WatermarkingTemplate.xaml;Window1.xaml;
 
-False
+True
 

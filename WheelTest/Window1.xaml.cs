@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.CodeDom.Compiler;
 using System.Reflection;
+using WheelTest.CSDN.DailyExercise;
 
 namespace WheelTest
 {
@@ -25,7 +26,12 @@ namespace WheelTest
         public Window1()
         {
             InitializeComponent();
-            GetJsMethd(new object[] { "{\"dataType\":\"moduleData\",\"argString\":\"{\\\\\"memberId\\\\\":\\\\\"packpal\\\\\",\\\\\"appName\\\\\":\\\\\"pcmodules\\\\\",\\\\\"resourceName\\\\\":\\\\\"wpOfferColumn\\\\\",\\\\\"type\\\\\":\\\\\"view\\\\\",\\\\\"version\\\\\":\\\\\"1.0.0\\\\\",\\\\\"appdata\\\\\":{\\\\\"sortType\\\\\":\\\\\"wangpu_score\\\\\",\\\\\"sellerRecommendFilter\\\\\":false,\\\\\"mixFilter\\\\\":false,\\\\\"tradenumFilter\\\\\":false,\\\\\"quantityBegin\\\\\":null,\\\\\"pageNum\\\\\":1,\\\\\"count\\\\\":30}}\"}", "b319aafe27d217cda2a547d803956e39" });
+            {
+                new DailyExercise().DailyExercise2023020181();
+            }
+            {
+                //GetJsMethd(new object[] { "{\"dataType\":\"moduleData\",\"argString\":\"{\\\\\"memberId\\\\\":\\\\\"packpal\\\\\",\\\\\"appName\\\\\":\\\\\"pcmodules\\\\\",\\\\\"resourceName\\\\\":\\\\\"wpOfferColumn\\\\\",\\\\\"type\\\\\":\\\\\"view\\\\\",\\\\\"version\\\\\":\\\\\"1.0.0\\\\\",\\\\\"appdata\\\\\":{\\\\\"sortType\\\\\":\\\\\"wangpu_score\\\\\",\\\\\"sellerRecommendFilter\\\\\":false,\\\\\"mixFilter\\\\\":false,\\\\\"tradenumFilter\\\\\":false,\\\\\"quantityBegin\\\\\":null,\\\\\"pageNum\\\\\":1,\\\\\"count\\\\\":30}}\"}", "b319aafe27d217cda2a547d803956e39" });
+            }
         }
 
         /// <summary>

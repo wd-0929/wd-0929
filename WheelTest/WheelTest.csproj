@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{74B252C4-9594-4908-B943-B20ABECD85D9}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>WheelTest</RootNamespace>
     <AssemblyName>WheelTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -33,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Imazen.WebP, Version=0.1.0.34753, Culture=neutral, processorArchitecture=MSIL">
@@ -212,6 +215,10 @@
     <ProjectReference Include="..\Test.BasicLibrary\Test.BasicLibrary.csproj">
       <Project>{a1c6fbff-1060-4d07-ba61-7bbcfeff34df}</Project>
       <Name>Test.BasicLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WheelTest.CSDN.DailyExercise\WheelTest.CSDN.DailyExercise.csproj">
+      <Project>{d1505434-3344-4b79-8473-7652605cc655}</Project>
+      <Name>WheelTest.CSDN.DailyExercise</Name>
     </ProjectReference>
     <ProjectReference Include="..\WheelTest.Style\WheelTest.Style.csproj">
       <Project>{4a9c60a6-2f01-4494-93a9-4c24583853a4}</Project>
