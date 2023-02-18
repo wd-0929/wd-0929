@@ -84,6 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="AppUtility.cs" />
+    <Compile Include="ClassDynamicGeneration.xaml.cs">
+      <DependentUpon>ClassDynamicGeneration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DoDragDrop.xaml.cs">
       <DependentUpon>DoDragDrop.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="ClassDynamicGeneration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DoDragDrop.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
