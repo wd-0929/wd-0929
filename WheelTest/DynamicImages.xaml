@@ -1,0 +1,118 @@
+﻿<Window x:Class="WheelTest.DynamicImages"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WheelTest"
+        mc:Ignorable="d"
+        xmlns:c="http://wpf.cnfth.com/Controls"
+        xmlns:CL="http://wpf.cnfth.com/ControlLibrary"
+        Title="DynamicImages"
+        x:Name="root"
+        Height="450"
+        Width="800">
+    <StackPanel>
+        <Button Click="CheckBox_Checked"
+                Content="测试" />
+        <ItemsControl ItemsSource="{Binding Datas}"
+                      Visibility="Collapsed"
+                      x:Name="_to">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl Grid.Column="2"
+                                  Margin="20,0,0,0"
+                                  ItemsSource="{Binding DataContext.Datas,ElementName=root}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel  Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="Transparent"
+                                      x:Name="_grid">
+                                    <CL:PopupContentControl Placement="Right"
+                                                            Tag="{Binding}"
+                                                            x:Name="_clpopup">
+                                        <CL:PopupContentControl.Header>
+                                            <Grid Margin="0,0,5,0">
+                                                <c:Image Name="imgPic1"
+                                                         Width="23"
+                                                         UriSource="{Binding DataContext.ImageUrl,ElementName=root}"
+                                                         Height="22">
+                                                    <c:Image.ToolTip>
+                                                        <Border Height="283"
+                                                                Width="266"
+                                                                Background="#fbfcfc"
+                                                                BorderBrush="#e8ca7b"
+                                                                BorderThickness="1,1,1,1">
+                                                            <Image Height="283"
+                                                                   Width="266"
+                                                                   Source="{Binding DataContext.ImageUrl,ElementName=root}"
+                                                                   Stretch="Uniform" />
+                                                        </Border>
+                                                    </c:Image.ToolTip>
+
+                                                </c:Image>
+                                            </Grid>
+                                        </CL:PopupContentControl.Header>
+                                        <CL:PopupContentControl.Content>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+                                                <Border  Background="#fbfcfc"
+                                                         BorderBrush="#e8ca7b"
+                                                         BorderThickness="1,1,1,0">
+                                                    <Grid Margin="30,0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+                                                        <TextBlock>
+                                                            <Hyperlink>
+                                                                保存图片
+                                                            </Hyperlink></TextBlock>
+                                                        <TextBlock Grid.Column="1">
+                                                            <Hyperlink>
+                                                                复制路径
+                                                            </Hyperlink></TextBlock>
+                                                        <TextBlock Grid.Column="2">
+                                                            <Hyperlink>
+                                                                删除图片
+                                                            </Hyperlink></TextBlock>
+                                                    </Grid>
+                                                </Border>
+                                                <Border BorderThickness="1"
+                                                        CornerRadius="3"
+                                                        Background="#fbfcfc"
+                                                        Grid.Row="1"
+                                                        Padding="3"
+                                                        Height="283"
+                                                        Width="266">
+                                                    <Image Source="{Binding ElementName=imgPic1,Path=Source}"
+                                                           ToolTip="{Binding ElementName=imgPic1,Path=Source}"
+                                                           Stretch="Uniform" />
+                                                </Border>
+                                            </Grid>
+                                        </CL:PopupContentControl.Content>
+                                    </CL:PopupContentControl>
+                                    <CL:ImageButton x:Name="Delete"
+                                                    Cursor="Hand"
+                                                    Width="12"
+                                                    Height="12"
+                                                    ToolTip="移除图片"
+                                                    HorizontalAlignment="Right"
+                                                    VerticalAlignment="Top"
+                                                    Margin="0,1,1,0" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl >
+    </StackPanel>
+</Window>

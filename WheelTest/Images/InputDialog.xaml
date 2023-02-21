@@ -1,0 +1,54 @@
+﻿<Window x:Class="WheelTest.Images.InputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Name="window"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        ResizeMode="CanMinimize"
+        Title="InputDialog"
+        Height="450"
+        Width="800">
+    <DockPanel>
+        <Grid DockPanel.Dock="Bottom"
+              Margin="0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="70" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="message"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Foreground="Red"
+                       VerticalAlignment="Center"
+                       Margin="5,0" />
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Height="21"
+                    Width="60"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource DefaultButtonStyle}"
+                    Content="确定"
+                    Click="confirm_Click"
+                    VerticalAlignment="Bottom" />
+            <Button Grid.Row="1"
+                    Grid.Column="2"
+                    Height="21"
+                    Width="60"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource DefaultButtonStyle}"
+                    Content="取消"
+                    Click="cancelClick"
+                    VerticalAlignment="Bottom" />
+        </Grid>
+        <TextBox x:Name="value"
+                 Margin="3"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 AcceptsReturn="True"
+                 Grid.ColumnSpan="3"
+                 Grid.Row="0" />
+    </DockPanel>
+</Window>
