@@ -42,6 +42,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Assembly\Imazen.WebP.dll</HintPath>
     </Reference>
+    <Reference Include="IopSdk, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assembly\IopSdk.dll</HintPath>
+    </Reference>
     <Reference Include="JSON.GTA.Caching, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>NewFolder1\JSON.GTA.Caching.dll</HintPath>
@@ -227,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assembly\Imazen.WebP.dll" />
+    <Content Include="Assembly\IopSdk.dll" />
     <Content Include="Assembly\JSON.GTA.Caching.dll" />
     <Content Include="Assembly\JSON.GTA.ControlLibrary.dll" />
     <Content Include="Assembly\JSON.GTA.Controls.dll" />

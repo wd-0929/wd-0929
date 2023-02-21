@@ -182,13 +182,16 @@ D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.exe.config
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.exe
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.pdb
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\Imazen.WebP.dll
+D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\IopSdk.dll
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\JSON.GTA.Caching.dll
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\JSON.GTA.ControlLibrary.dll
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\JSON.GTA.Controls.dll
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\JSON.GTA.Style.dll
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\Microsoft.WindowsAPICodePack.dll
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.CSDN.DailyExercise.dll
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.Style.dll
+D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.CSDN.DailyExercise.pdb
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.Style.pdb
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\Microsoft.WindowsAPICodePack.xml
 D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
@@ -231,5 +234,3 @@ D:\Gtihui线上项目\wd-0929\WheelTest\obj\Debug\WheelTest.csproj.CoreCompileIn
 D:\Gtihui线上项目\wd-0929\WheelTest\obj\Debug\WheelTest.csproj.CopyComplete
 D:\Gtihui线上项目\wd-0929\WheelTest\obj\Debug\WheelTest.exe
 D:\Gtihui线上项目\wd-0929\WheelTest\obj\Debug\WheelTest.pdb
-D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.CSDN.DailyExercise.dll
-D:\Gtihui线上项目\wd-0929\WheelTest\bin\Debug\WheelTest.CSDN.DailyExercise.pdb
