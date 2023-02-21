@@ -25,6 +25,8 @@ namespace WheelTest
             InitializeComponent();
             ShellFile shellFile = ShellFile.FromFilePath("C:\\Users\\天命长存\\Desktop\\mda-pa6436sgeqj0b9cg.mp4");
             shellFile.Thumbnail.ExtraLargeBitmap.Save("C:\\Users\\天命长存\\Desktop\\test.jpg");
+
+             
         }
     }
 }
