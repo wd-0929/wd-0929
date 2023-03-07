@@ -18,3 +18,9 @@ D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.csproj.CoreCompil
 D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.csproj.CopyComplete
 D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.exe
 D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.pdb
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\ICSharpCode.SharpZipLib.dll
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\NPOI.dll
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\NPOI.OOXML.dll
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\NPOI.OpenXml4Net.dll
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\NPOI.OpenXmlFormats.dll
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\NPOI.xml
