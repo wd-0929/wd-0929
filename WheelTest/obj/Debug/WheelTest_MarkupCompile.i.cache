@@ -1,19 +1,19 @@
 ﻿WheelTest
 
 
-exe
+winexe
 C#
 .cs
-D:\Gtihui线上项目\wd-0929\WheelTest\obj\Debug\
+D:\自己的项目\wd-0929\WheelTest\obj\Debug\
 WheelTest
 none
 false
 DEBUG;TRACE
-D:\Gtihui线上项目\wd-0929\WheelTest\App.xaml
+D:\自己的项目\wd-0929\WheelTest\App.xaml
 12-1442191271
 12952112591
 25-724830123
-271595819564
+27-1888204058
 ClassDynamicGeneration.xaml;DoDragDrop.xaml;DynamicImages.xaml;HtmlImage.xaml;HttpListenerTest.xaml;HttpsGet.xaml;Images\InputDialog.xaml;MainWindow.xaml;MultipleComBoBox.xaml;VideoSurfacePlot.xaml;WatermarkingTemplate.xaml;Window1.xaml;
 
 True

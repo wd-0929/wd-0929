@@ -27,7 +27,7 @@ namespace WheelTest
         {
             InitializeComponent();
             {
-                new SMTApiTest().Mian();
+                //new SMTApiTest().Mian();
             }
             {
                 //new DailyExercise().DailyExercise2023020181();
