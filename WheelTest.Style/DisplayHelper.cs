@@ -14,6 +14,20 @@ namespace WheelTest.Style
 
     public static class DisplayHelper
     {
+        /// <summary>
+        /// 判断该集合是否不为null，并且集合数量大于零
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static bool IsEmptyAndGreaterThanZero<TSource>(this IEnumerable<TSource> source)
+        {
+            if (source != null && source?.Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         public static bool TryGetCustomAttribute<T>(Type type, string propertyName, out T attr) where T : Attribute
         {
             MemberInfo[] infos = type.GetMember(propertyName);
@@ -67,7 +81,7 @@ namespace WheelTest.Style
             }
             else
             {
-                throw new Exception(string.Format("未找到资源文件“{0}”下的资源名称“{1}”", resourceType,resourceName));
+                throw new Exception(string.Format("未找到资源文件“{0}”下的资源名称“{1}”", resourceType, resourceName));
             }
         }
         /// <summary>
@@ -88,7 +102,7 @@ namespace WheelTest.Style
             return enumeration.ToString();
         }
 
-       
+
 
         public static string GetDisplayName(this Enum value)
         {

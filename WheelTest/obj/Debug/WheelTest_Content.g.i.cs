@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assembly/imazen.webp.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assembly/iopsdk.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assembly/json.gta.caching.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assembly/json.gta.controllibrary.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assembly/json.gta.controls.dll")]

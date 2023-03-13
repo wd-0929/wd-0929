@@ -34,10 +34,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Imazen.WebP, Version=0.1.0.34753, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Assembly\Imazen.WebP.dll</HintPath>
+    </Reference>
+    <Reference Include="IopSdk, Version=2.0.0.4, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assembly\IopSdk.dll</HintPath>
     </Reference>
     <Reference Include="JSON.GTA.Caching, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -84,6 +91,9 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Compile Include="AppUtility.cs" />
+    <Compile Include="ClassDynamicGeneration.xaml.cs">
+      <DependentUpon>ClassDynamicGeneration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DoDragDrop.xaml.cs">
       <DependentUpon>DoDragDrop.xaml</DependentUpon>
     </Compile>
@@ -121,6 +131,10 @@
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="ClassDynamicGeneration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DoDragDrop.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +220,10 @@
       <Project>{a1c6fbff-1060-4d07-ba61-7bbcfeff34df}</Project>
       <Name>Test.BasicLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WheelTest.CSDN.DailyExercise\WheelTest.CSDN.DailyExercise.csproj">
+      <Project>{d1505434-3344-4b79-8473-7652605cc655}</Project>
+      <Name>WheelTest.CSDN.DailyExercise</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WheelTest.Style\WheelTest.Style.csproj">
       <Project>{4a9c60a6-2f01-4494-93a9-4c24583853a4}</Project>
       <Name>WheelTest.Style</Name>
@@ -213,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assembly\Imazen.WebP.dll" />
+    <Content Include="Assembly\IopSdk.dll" />
     <Content Include="Assembly\JSON.GTA.Caching.dll" />
     <Content Include="Assembly\JSON.GTA.ControlLibrary.dll" />
     <Content Include="Assembly\JSON.GTA.Controls.dll" />
