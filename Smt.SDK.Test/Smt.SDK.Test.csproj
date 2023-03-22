@@ -72,7 +72,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Excel\66a944fa-3d74-43d9-a149-dee7d0979057.xlsx" />
+    <Content Include="Excel\66a944fa-3d74-43d9-a149-dee7d0979057.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

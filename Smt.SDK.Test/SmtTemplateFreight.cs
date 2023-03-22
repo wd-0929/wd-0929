@@ -8,15 +8,15 @@ using NPOI.HSSF.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.UserModel;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Smt.SDK.Test
 {
     public class SmtTemplateFreight
     {
-        private string filePath = "D:\\自己的项目\\wd-0929\\Smt.SDK.Test\\Excel";
         private SmtTemplateFreight()
         {
-            DirectoryInfo root = new DirectoryInfo(filePath);
+            DirectoryInfo root = new DirectoryInfo(System.IO.Path.Combine(AppContext.BaseDirectory, "Excel"));
             FileInfo files = root.GetFiles().FirstOrDefault();
             var excelFileName = files.FullName;
             IWorkbook hssfworkbook = null;
@@ -61,11 +61,44 @@ namespace Smt.SDK.Test
                     foreach (var value in item.Value)
                     {
                         var codeIndex = value.Columns.IndexOf("Code");
-
-                        foreach (DataRow row in value.Rows)
+                        string name = string.Empty;
+                        foreach (DataRow rows in value.Rows)
                         {
-                            
-                        }   
+                            var code = rows.ItemArray[codeIndex].ToString();
+                            string freightDatas = null;
+                            for (int i = codeIndex + 1; i < rows.ItemArray.Length; i++)
+                            {
+                                if ((codeIndex - i) % 2 == 0)
+                                {
+
+                                }
+                                else
+                                {
+                                    LogisticsFreightDatas logistics = null;
+                                    var cloumn = value.Columns[i].ColumnName;
+                                    if (Freights.FirstOrDefault(v => v.SheetName == item.Key) == null)
+                                    {
+                                        logistics = new LogisticsFreightDatas(item.Key);
+                                        Freights.Add(logistics);
+                                    }
+                                    else 
+                                    {
+                                        logistics = Freights.FirstOrDefault(v => v.SheetName == item.Key);
+                                    }
+                                    LogisticsFreightItem logisticsFreightItem = new LogisticsFreightItem();
+                                    //【普通的
+                                    string[] regexes = new string[] { "(\\d+)(-|~)(\\d+)", "(\\d+)克\\(不含\\)-(\\d+)克" };
+                                    foreach (var regexekg in regexes)
+                                    {
+                                        Regex regex = new Regex(regexekg);
+                                        if (regex.IsMatch(cloumn)) 
+                                        {
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -112,7 +145,7 @@ namespace Smt.SDK.Test
                                             {
                                                 Columns.Add(data[q]);
                                             }
-                                            else
+                                            else if(!string.IsNullOrWhiteSpace(data[q]))
                                             {
                                                 Columns[q] = Columns[q] + "\r\n" + data[q];
                                             }
@@ -124,9 +157,9 @@ namespace Smt.SDK.Test
                                         int columnIndex = 1;
                                         foreach (var columnName in Columns)
                                         {
-                                            if (columnName == "Code")
+                                            if (columnName.Trim() == "Code")
                                             {
-                                                dt.Columns.Add(new DataColumn(columnName, typeof(string)));
+                                                dt.Columns.Add(new DataColumn(columnName.Trim(), typeof(string)));
                                             }
                                             else
                                                 dt.Columns.Add(new DataColumn(string.Format("{0}.{1}", columnIndex, columnName), typeof(string)));
@@ -212,7 +245,7 @@ namespace Smt.SDK.Test
     }
     public class LogisticsFreightDatas
     {
-        private LogisticsFreightDatas(string sheetName) 
+        public LogisticsFreightDatas(string sheetName) 
         {
             SheetName = sheetName;
             Datas = new List<LogisticsFreightItem>();

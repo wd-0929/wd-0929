@@ -28,12 +28,7 @@ E:\自己的项目\wd-0929\WheelTest.Style\bin\Debug\Images\Example.png
 E:\自己的项目\wd-0929\WheelTest.Style\bin\Debug\WheelTest.Style.dll
 E:\自己的项目\wd-0929\WheelTest.Style\bin\Debug\WheelTest.Style.pdb
 E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\WheelTest.Style.csproj.AssemblyReference.cache
-E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\Images\Generic.baml
-E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\WheelTest.Style_MarkupCompile.cache
-E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\WheelTest.Style_MarkupCompile.lref
-E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\Default.baml
-E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\WheelTest.Style.g.resources
 E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\WheelTest.Style.csproj.CoreCompileInputs.cache
 E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\WheelTest.Style.dll
 E:\自己的项目\wd-0929\WheelTest.Style\obj\Debug\WheelTest.Style.pdb
