@@ -15,6 +15,13 @@ using System.Windows.Shapes;
 using System.CodeDom.Compiler;
 using System.Reflection;
 using WheelTest.CSDN.DailyExercise;
+using Imazen.WebP.Extern;
+using System.Runtime.InteropServices;
+using System.Windows.Navigation;
+using WebKit;
+using System.ComponentModel;
+using System.Net;
+using System.Windows.Forms;
 
 namespace WheelTest
 {
@@ -35,6 +42,9 @@ namespace WheelTest
             {
                 //GetJsMethd(new object[] { "{\"dataType\":\"moduleData\",\"argString\":\"{\\\\\"memberId\\\\\":\\\\\"packpal\\\\\",\\\\\"appName\\\\\":\\\\\"pcmodules\\\\\",\\\\\"resourceName\\\\\":\\\\\"wpOfferColumn\\\\\",\\\\\"type\\\\\":\\\\\"view\\\\\",\\\\\"version\\\\\":\\\\\"1.0.0\\\\\",\\\\\"appdata\\\\\":{\\\\\"sortType\\\\\":\\\\\"wangpu_score\\\\\",\\\\\"sellerRecommendFilter\\\\\":false,\\\\\"mixFilter\\\\\":false,\\\\\"tradenumFilter\\\\\":false,\\\\\"quantityBegin\\\\\":null,\\\\\"pageNum\\\\\":1,\\\\\"count\\\\\":30}}\"}", "b319aafe27d217cda2a547d803956e39" });
             }
+            string szTmp = "https://login.aliexpress.com/";
+            Uri uri = new Uri(szTmp);
+            webBrowser.Navigate(uri);
         }
 
         /// <summary>
@@ -43,7 +53,7 @@ namespace WheelTest
         /// <param name="sExpression">参数体</param>
         /// <param name="sCode">JavaScript代码的字符串</param>
         /// <returns></returns>
-        private static string GetJsMethd( object[] para)
+        private static string GetJsMethd(object[] para)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("package aa{");
@@ -142,6 +152,33 @@ namespace WheelTest
             sb.Append(" }");
             sb.Append("}");
             return Helper.GetJsMethd(sb.ToString(), para);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CookieContainer myCookieContainer = new CookieContainer();
+            if (webBrowser.Document.Cookie != null)
+            {
+                string cookieStr = webBrowser.Document.Cookie;
+                string[] cookstr = cookieStr.Split(';');
+                foreach (string str in cookstr)
+                {
+                    string[] cookieNameValue = str.Split('=');
+                    Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), cookieNameValue[1].Trim().ToString());
+                    ck.Domain = "www.google.com";
+                    myCookieContainer.Add(ck);
+                }
+            }
+        }
+
+        private void webBrowser_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void webBrowser_DocumentCompleted(object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e)
+        {
+
         }
     }
 }

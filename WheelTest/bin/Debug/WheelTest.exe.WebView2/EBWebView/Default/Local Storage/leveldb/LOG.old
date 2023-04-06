@@ -1,0 +1,14 @@
+2023/04/04-10:53:49.894 3e60 Reusing MANIFEST D:\自己的项目\wd-0929\WheelTest\bin\Debug\WheelTest.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2023/04/04-10:53:49.896 3e60 Recovering log #6
+2023/04/04-10:53:50.032 3e60 Level-0 table #9: started
+2023/04/04-10:53:50.110 3e60 Level-0 table #9: 87153 bytes OK
+2023/04/04-10:53:50.110 3e60 Recovering log #8
+2023/04/04-10:53:50.317 3e60 Level-0 table #10: started
+2023/04/04-10:53:50.354 3e60 Level-0 table #10: 130603 bytes OK
+2023/04/04-10:53:50.422 3e60 Delete type=0 #6
+2023/04/04-10:53:50.422 3e60 Delete type=0 #8
+2023/04/04-10:54:08.607 3e60 Level-0 table #13: started
+2023/04/04-10:54:08.630 3e60 Level-0 table #13: 87854 bytes OK
+2023/04/04-10:54:08.697 3e60 Delete type=0 #11
+2023/04/04-10:54:21.234 488 Level-0 table #15: started
+2023/04/04-10:54:21.460 488 Level-0 table #15: 88059 bytes OK

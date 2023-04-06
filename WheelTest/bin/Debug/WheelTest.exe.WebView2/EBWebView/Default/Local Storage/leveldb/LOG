@@ -1,0 +1,19 @@
+2023/04/04-10:55:04.548 38bc Reusing MANIFEST D:\自己的项目\wd-0929\WheelTest\bin\Debug\WheelTest.exe.WebView2\EBWebView\Default\Local Storage\leveldb/MANIFEST-000001
+2023/04/04-10:55:04.549 38bc Recovering log #12
+2023/04/04-10:55:04.549 38bc Level-0 table #15: started
+2023/04/04-10:55:04.575 38bc Level-0 table #15: 88059 bytes OK
+2023/04/04-10:55:04.576 38bc Recovering log #14
+2023/04/04-10:55:04.577 38bc Level-0 table #16: started
+2023/04/04-10:55:04.632 38bc Level-0 table #16: 132163 bytes OK
+2023/04/04-10:55:04.666 38bc Delete type=0 #12
+2023/04/04-10:55:04.666 38bc Delete type=0 #14
+2023/04/04-10:55:04.685 367c Compacting 5@0 + 1@1 files
+2023/04/04-10:55:04.735 367c Generated table #18@0: 80 keys, 392242 bytes
+2023/04/04-10:55:04.735 367c Compacted 5@0 + 1@1 files => 392242 bytes
+2023/04/04-10:55:04.774 367c compacted to: files[ 0 1 1 0 0 0 0 ]
+2023/04/04-10:55:04.776 367c Delete type=2 #7
+2023/04/04-10:55:04.776 367c Delete type=2 #9
+2023/04/04-10:55:04.776 367c Delete type=2 #10
+2023/04/04-10:55:04.776 367c Delete type=2 #13
+2023/04/04-10:55:04.776 367c Delete type=2 #15
+2023/04/04-10:55:04.776 367c Delete type=2 #16

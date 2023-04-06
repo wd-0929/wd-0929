@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WheelTest"
         mc:Ignorable="d"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         Title="Window1" Height="450" Width="800">
     <Grid>
-        <DatePicker />
+        <!--<wv2:WebView2 x:Name="Browser"
+                      NavigationCompleted="Browser_NavigationCompleted"
+                      Source="https://www.aliexpress.com/item/1005004771584733.html" />-->
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <WindowsFormsHost HorizontalAlignment="Stretch"
+                          Margin="15,0,15,5"
+                          x:Name="wfHost">
+            <wf:WebBrowser x:Name="webBrowser"
+                           ScriptErrorsSuppressed="True"
+                           DocumentCompleted="webBrowser_DocumentCompleted"
+                           SizeChanged="webBrowser_SizeChanged"></wf:WebBrowser>
+        </WindowsFormsHost>
+        <Button Grid.Row="1"
+                Content="Get Cookie"
+                Click="Button_Click" />
     </Grid>
 </Window>
