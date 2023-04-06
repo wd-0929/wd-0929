@@ -1,0 +1,11 @@
+D:\自己的项目\wd-0929\WheelTest.Console\bin\Debug\WheelTest.Console.exe.config
+D:\自己的项目\wd-0929\WheelTest.Console\bin\Debug\WheelTest.Console.exe
+D:\自己的项目\wd-0929\WheelTest.Console\bin\Debug\WheelTest.Console.pdb
+D:\自己的项目\wd-0929\WheelTest.Console\bin\Debug\Newtonsoft.Json.dll
+D:\自己的项目\wd-0929\WheelTest.Console\bin\Debug\Newtonsoft.Json.xml
+D:\自己的项目\wd-0929\WheelTest.Console\obj\Debug\WheelTest.Console.csproj.AssemblyReference.cache
+D:\自己的项目\wd-0929\WheelTest.Console\obj\Debug\WheelTest.Console.csproj.SuggestedBindingRedirects.cache
+D:\自己的项目\wd-0929\WheelTest.Console\obj\Debug\WheelTest.Console.csproj.CoreCompileInputs.cache
+D:\自己的项目\wd-0929\WheelTest.Console\obj\Debug\WheelTest.Console.csproj.CopyComplete
+D:\自己的项目\wd-0929\WheelTest.Console\obj\Debug\WheelTest.Console.exe
+D:\自己的项目\wd-0929\WheelTest.Console\obj\Debug\WheelTest.Console.pdb
