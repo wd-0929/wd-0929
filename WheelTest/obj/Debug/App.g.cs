@@ -17,7 +17,10 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
+<<<<<<< HEAD
 using System.Windows.Forms.Integration;
+=======
+>>>>>>> 57d826551d4f1e6eb8e5347053d17893165becc5
 using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Markup;
