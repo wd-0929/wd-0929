@@ -20,12 +20,9 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("assembly/x86/sqlite.interop.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("js/jquery-3.4.1.js")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("js/test.html")]
-<<<<<<< HEAD
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("js/webmssdkes5.js")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("webview2loader.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("webview2loader.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("webview2loader.dll")]
-=======
->>>>>>> 57d826551d4f1e6eb8e5347053d17893165becc5
 
 

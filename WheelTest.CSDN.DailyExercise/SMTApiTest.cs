@@ -1,5 +1,4 @@
-﻿using Iop.Api;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Policy;
@@ -15,13 +14,13 @@ namespace WheelTest.CSDN.DailyExercise
         private static string accessToken = "50000300a04N758i1f114860Bw2otcfyguDLuarug6iBy5nvXcJDPnXgrV2ICCkEp3v";
         public void Mian() 
         {
-            IIopClient client = new IopClient(url, appkey, appSecret);
-            IopRequest request = new IopRequest();
-            request.SetApiName("aliexpress.ascp.po.pageQuery");
-            request.AddApiParameter("param0", "{\"channel_user_id\":\"2673675313\",\"biz_type\":\"5110000\",\"page_index\":\"1\",\"order_type\":\"10\",\"page_size\":\"10\",\"status\":\"10\"}");
-            IopResponse response = client.Execute(request, accessToken,GopProtocolEnum.TOP);
-            Console.WriteLine(response.IsError());
-            Console.WriteLine(response.Body);
+            //IIopClient client = new IopClient(url, appkey, appSecret);
+            //IopRequest request = new IopRequest();
+            //request.SetApiName("aliexpress.ascp.po.pageQuery");
+            //request.AddApiParameter("param0", "{\"channel_user_id\":\"2673675313\",\"biz_type\":\"5110000\",\"page_index\":\"1\",\"order_type\":\"10\",\"page_size\":\"10\",\"status\":\"10\"}");
+            //IopResponse response = client.Execute(request, accessToken,GopProtocolEnum.TOP);
+            //Console.WriteLine(response.IsError());
+            //Console.WriteLine(response.Body);
         }
     }
 }

@@ -1,17 +1,3 @@
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\Images\Example.png
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.CSDN.DailyExercise.dll
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.CSDN.DailyExercise.pdb
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\IopSdk.dll
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.Style.dll
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.Style.pdb
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.AssemblyReference.cache
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.Resource.resources
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.GenerateResource.cache
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.CoreCompileInputs.cache
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.CopyComplete
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.dll
-D:\Gtihui线上项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.pdb
-<<<<<<< HEAD
 D:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\Images\Example.png
 D:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.CSDN.DailyExercise.dll
 D:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.CSDN.DailyExercise.pdb
@@ -24,17 +10,3 @@ D:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN
 D:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.CopyComplete
 D:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.dll
 D:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.pdb
-=======
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\Images\Example.png
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.CSDN.DailyExercise.dll
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.CSDN.DailyExercise.pdb
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.Style.dll
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\bin\Debug\WheelTest.Style.pdb
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.AssemblyReference.cache
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.Resource.resources
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.GenerateResource.cache
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.CoreCompileInputs.cache
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.csproj.CopyComplete
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.dll
-E:\自己的项目\wd-0929\WheelTest.CSDN.DailyExercise\obj\Debug\WheelTest.CSDN.DailyExercise.pdb
->>>>>>> 57d826551d4f1e6eb8e5347053d17893165becc5
