@@ -14,6 +14,7 @@ namespace Smt.SDK.Test
 {
     public class SmtTemplateFreight
     {
+        private double UsCurrencyRate = 7;
         private SmtTemplateFreight()
         {
             DirectoryInfo root = new DirectoryInfo(System.IO.Path.Combine(AppContext.BaseDirectory, "Excel"));
@@ -40,7 +41,11 @@ namespace Smt.SDK.Test
                 var Name = string.Empty;
                 try
                 {
-                   var sheet= hssfworkbook.GetSheetAt(index++);
+
+                    var sheet = hssfworkbook.GetSheetAt(index++);
+                    if (sheet.SheetName == "威海优选仓韩国经济专线")
+                    {
+                    }
                     Datas = GenerateDataFromExcelTall(sheet);
                     Name = sheet.SheetName;
                 }
@@ -56,50 +61,218 @@ namespace Smt.SDK.Test
             List<LogisticsFreightDatas> Freights = new List<LogisticsFreightDatas>();
             foreach (var item in sheets)
             {
-                if (item.Value.Length > 0)
+                if (item.Value.Length > 0 && item.Key != "菜鸟无忧物流-优先")
                 {
+                  
                     foreach (var value in item.Value)
                     {
                         var codeIndex = value.Columns.IndexOf("Code");
+                        if (item.Key == "中邮e邮宝")
+                        {
+                            codeIndex = codeIndex + 1;
+                        }
+                        var minimumNumberIndex = value.Columns.IndexOf("最低计费重量");
+                        if (minimumNumberIndex ==-1)
+                        {
+                            minimumNumberIndex= value.Columns.IndexOf("备注（适用于普货和带电）");
+                        }
                         string name = string.Empty;
                         foreach (DataRow rows in value.Rows)
                         {
                             var code = rows.ItemArray[codeIndex].ToString();
-                            string freightDatas = null;
-                            for (int i = codeIndex + 1; i < rows.ItemArray.Length; i++)
-                            {
-                                if ((codeIndex - i) % 2 == 0)
-                                {
+                            int OneWeight = 1;
 
+                            Regex regex = null;
+                            if (minimumNumberIndex > -1)
+                            {
+                                regex = new Regex("(\\d+)g");
+                                var oneweightText = rows.ItemArray[minimumNumberIndex].ToString();
+                                if (regex.IsMatch(oneweightText))
+                                {
+                                    OneWeight = int.Parse(regex.Match(oneweightText).Groups[1].Value);
+                                }
+                            }
+                            LogisticsFreightItem logisticsFreightItem = null;
+
+                            for (int i = 0; i < (rows.ItemArray.Length - (codeIndex + 1)) / 2; i++)
+                            {
+                                var itemIndex = (codeIndex + i * 2) + 1;
+                                var cloumn = value.Columns[itemIndex].ColumnName;
+                                if (rows.ItemArray[itemIndex].ToString() == "暂无服务")
+                                {
+                                    continue;
+                                }
+                                LogisticsFreightDatas logistics = null;
+                                if (Freights.FirstOrDefault(v => v.SheetName == item.Key) == null)
+                                {
+                                    logistics = new LogisticsFreightDatas(item.Key);
+                                    Freights.Add(logistics);
                                 }
                                 else
                                 {
-                                    LogisticsFreightDatas logistics = null;
-                                    var cloumn = value.Columns[i].ColumnName;
-                                    if (Freights.FirstOrDefault(v => v.SheetName == item.Key) == null)
+                                    logistics = Freights.FirstOrDefault(v => v.SheetName == item.Key);
+                                }
+                                logisticsFreightItem = new LogisticsFreightItem();
+                                logistics.Datas.Add(logisticsFreightItem);
+                                logisticsFreightItem.CountryCode = code;
+                                logisticsFreightItem.OneWeight = OneWeight;
+                                logisticsFreightItem.ContinueWeight = 1;
+                                //【普通的
+                                string[] regexes = new string[] { "(\\d+)(-|~)(\\d+)", "(\\d+)克\\((不含)\\)-(\\d+)克" };
+                                bool IsMatch = false;
+                                foreach (var regexekg in regexes)
+                                {
+                                    regex = new Regex(regexekg, RegexOptions.IgnoreCase);
+                                    if (regex.IsMatch(cloumn))
                                     {
-                                        logistics = new LogisticsFreightDatas(item.Key);
-                                        Freights.Add(logistics);
-                                    }
-                                    else 
-                                    {
-                                        logistics = Freights.FirstOrDefault(v => v.SheetName == item.Key);
-                                    }
-                                    LogisticsFreightItem logisticsFreightItem = new LogisticsFreightItem();
-                                    //【普通的
-                                    string[] regexes = new string[] { "(\\d+)(-|~)(\\d+)", "(\\d+)克\\(不含\\)-(\\d+)克" };
-                                    foreach (var regexekg in regexes)
-                                    {
-                                        Regex regex = new Regex(regexekg);
-                                        if (regex.IsMatch(cloumn)) 
+                                        logisticsFreightItem.StartWeight = int.Parse(regex.Match(cloumn).Groups[1].Value);
+                                        if (regex.Match(cloumn).Groups[2].Value=="不含") 
                                         {
-                                            break;
+                                            logisticsFreightItem.StartWeight = logisticsFreightItem.StartWeight + 1;
                                         }
+                                        logisticsFreightItem.EndWeight = int.Parse(regex.Match(cloumn).Groups[3].Value);
+                                        IsMatch = true;
+                                        break;
                                     }
                                 }
+                                if (!IsMatch)
+                                {
+                                    regex = new Regex("(\\d+)(K)?G以内", RegexOptions.IgnoreCase);
+                                    var regex1 = new Regex("限重(\\d+)(k)?g", RegexOptions.IgnoreCase);
+                                    if (regex.IsMatch(cloumn))
+                                    {
+                                        logisticsFreightItem.StartWeight = 1;
+                                        logisticsFreightItem.EndWeight = int.Parse(regex.Match(cloumn).Groups[1].Value);
+                                        if (!string.IsNullOrWhiteSpace(regex.Match(cloumn).Groups[2].Value))
+                                        {
+                                            logisticsFreightItem.EndWeight = logisticsFreightItem.EndWeight * 1000;
+                                        }
+                                    }
+                                    else if (regex1.IsMatch(cloumn))
+                                    {
+                                        logisticsFreightItem.StartWeight = 1;
+                                        logisticsFreightItem.EndWeight = int.Parse(regex1.Match(cloumn).Groups[1].Value);
+                                        if (!string.IsNullOrWhiteSpace(regex1.Match(cloumn).Groups[2].Value))
+                                        {
+                                            logisticsFreightItem.EndWeight = logisticsFreightItem.EndWeight * 1000;
+                                        }
+                                        if (cloumn.ToLower().Contains("0.5kg首重"))
+                                            logisticsFreightItem.OneWeight = 500;
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("----");
+                                    }
+                                }
+                                for (int r = 0; r < 2; r++)
+                                {
+                                    var itemIndexNew = itemIndex + r;
+                                    var cloumnNew = value.Columns[itemIndexNew].ColumnName;
+                                    if (cloumnNew.Contains("/包裹"))
+                                    {
+                                        if (cloumnNew.Contains("RMB"))
+                                        {
+                                            logisticsFreightItem.RegisteredFreight = double.Parse(rows.ItemArray[itemIndexNew].ToString());
+                                        }
+                                        else if (cloumnNew.Contains("美元"))
+                                        {
+                                            logisticsFreightItem.RegisteredFreight = double.Parse(rows.ItemArray[itemIndexNew].ToString()) * UsCurrencyRate;
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (cloumnNew.Contains("/KG"))
+                                        {
+                                            if (cloumnNew.Contains("RMB"))
+                                            {
+                                                if (rows.ItemArray[itemIndexNew].ToString() != "-")
+                                                    logisticsFreightItem.ContinueWeightFreight = double.Parse(rows.ItemArray[itemIndexNew].ToString()) / 1000;
+
+                                            }
+                                            else if (cloumnNew.Contains("美元"))
+                                            {
+                                                logisticsFreightItem.ContinueWeightFreight = (double.Parse(rows.ItemArray[itemIndexNew].ToString()) * UsCurrencyRate) / 1000;
+                                            }
+                                        }
+                                        else if (cloumnNew.Contains("/500G"))
+                                        {
+                                            if (cloumnNew.Contains("RMB"))
+                                            {
+                                                logisticsFreightItem.ContinueWeightFreight = double.Parse(rows.ItemArray[itemIndexNew].ToString()) / 500;
+                                            }
+                                            else if (cloumnNew.Contains("美元"))
+                                            {
+                                                logisticsFreightItem.ContinueWeightFreight = (double.Parse(rows.ItemArray[itemIndexNew].ToString()) * UsCurrencyRate) / 500;
+                                            }
+                                            else
+                                            {
+
+                                            }
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    }
+                                    if (cloumnNew.Contains("续重(每500G)"))
+                                    {
+                                        logisticsFreightItem.ContinueWeight = 500;
+                                    }
+                                }
+                                logisticsFreightItem.OneWeightFreight = logisticsFreightItem.OneWeight * logisticsFreightItem.ContinueWeightFreight;
                             }
                         }
                     }
+                }
+            }
+
+            foreach (var item in Freights)
+            {
+                var pathName = System.IO.Path.Combine(AppContext.BaseDirectory, "Excel", "运费模板"); 
+                if (!System.IO.Directory.Exists(pathName)) 
+                {
+                    System.IO.Directory.CreateDirectory(pathName);
+                }
+                pathName = System.IO.Path.Combine(pathName, item.SheetName+ ".xlsx");
+                string[] ColumnNames = new string[]
+                {
+                    "国家(二字码或中文)",
+                    "开始重量(g)\r\n （*必填）",
+                    "结束重量(g)\r\n(*必填)",
+                    "首重/起重(g)",
+                    "首重/起重运费/g(￥)",
+                    "续重单位重量(g)\r\n（*必填）",
+                    "单价(￥)/g\r\n（*必填）",
+                    "挂号费(￥)"
+                };
+                using (FileStream stream = new FileStream(pathName, FileMode.Create))
+                {
+                    var workbook = new XSSFWorkbook();
+                    var mySheet = workbook.CreateSheet("运费模板") ;//获取工作表
+                    mySheet.CreateRow(0);
+                    for (int i = 0; i < ColumnNames.Length; i++)
+                    {
+                        mySheet.GetRow(0).CreateCell(i).SetCellValue(ColumnNames[i]);
+                    }
+                    for (int i = 1; i <= item.Datas.Count; i++)
+                    {
+                        var data = item.Datas[i-1];
+                        mySheet.CreateRow(i);
+                        mySheet.GetRow(i).CreateCell(0).SetCellValue(data.CountryCode);
+                        mySheet.GetRow(i).CreateCell(1).SetCellValue(data.StartWeight?.ToString());
+                        mySheet.GetRow(i).CreateCell(2).SetCellValue(data.EndWeight?.ToString());
+                        mySheet.GetRow(i).CreateCell(3).SetCellValue(data.OneWeight?.ToString());
+                        mySheet.GetRow(i).CreateCell(4).SetCellValue(data.OneWeightFreight?.ToString());
+                        mySheet.GetRow(i).CreateCell(5).SetCellValue(data.ContinueWeight?.ToString());
+                        mySheet.GetRow(i).CreateCell(6).SetCellValue(data.ContinueWeightFreight?.ToString());
+                        mySheet.GetRow(i).CreateCell(7).SetCellValue(data.RegisteredFreight?.ToString());   
+                    }
+                    workbook.Write(stream);
+                    workbook.Close();
                 }
             }
         }
@@ -157,13 +330,17 @@ namespace Smt.SDK.Test
                                         int columnIndex = 1;
                                         foreach (var columnName in Columns)
                                         {
-                                            if (columnName.Trim() == "Code")
+                                            if (!string.IsNullOrWhiteSpace(columnName))
                                             {
-                                                dt.Columns.Add(new DataColumn(columnName.Trim(), typeof(string)));
+                                                string[] strings = new string[] { "Code", "最低计费重量", "备注（适用于普货和带电）" };
+                                                if (strings.Contains(columnName.Trim()))
+                                                {
+                                                    dt.Columns.Add(new DataColumn(columnName.Trim(), typeof(string)));
+                                                }
+                                                else
+                                                    dt.Columns.Add(new DataColumn(string.Format("{0}.{1}", columnIndex, columnName), typeof(string)));
+                                                columnIndex++;
                                             }
-                                            else
-                                                dt.Columns.Add(new DataColumn(string.Format("{0}.{1}", columnIndex, columnName), typeof(string)));
-                                            columnIndex++;
                                         }
                                         goto rety;
                                     }
@@ -196,7 +373,7 @@ namespace Smt.SDK.Test
         public List<List<string>> GenerateDataFromExcelTall(ISheet sheet)
         {
             List<List<string>> Datass = new List<List<string>>();
-            for (int i = 0; i < sheet.LastRowNum; i++)
+            for (int i = 0; i <= sheet.LastRowNum; i++)
             {
                 IRow row = sheet.GetRow(i);
                 List<string> datas = new List<string>();

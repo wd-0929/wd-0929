@@ -29,6 +29,7 @@ namespace WheelTest
     /// </summary>
     public partial class Window1 : Window
     {
+        string szTmp = "https://login.taobao.com/?redirectURL=https%3A%2F%2Fdetail.tmall.com%2Fitem.htm%3Fde_count%3D1%26id%3D711237195274";
         public Window1()
         {
             InitializeComponent();
@@ -41,7 +42,11 @@ namespace WheelTest
             {
                 //GetJsMethd(new object[] { "{\"dataType\":\"moduleData\",\"argString\":\"{\\\\\"memberId\\\\\":\\\\\"packpal\\\\\",\\\\\"appName\\\\\":\\\\\"pcmodules\\\\\",\\\\\"resourceName\\\\\":\\\\\"wpOfferColumn\\\\\",\\\\\"type\\\\\":\\\\\"view\\\\\",\\\\\"version\\\\\":\\\\\"1.0.0\\\\\",\\\\\"appdata\\\\\":{\\\\\"sortType\\\\\":\\\\\"wangpu_score\\\\\",\\\\\"sellerRecommendFilter\\\\\":false,\\\\\"mixFilter\\\\\":false,\\\\\"tradenumFilter\\\\\":false,\\\\\"quantityBegin\\\\\":null,\\\\\"pageNum\\\\\":1,\\\\\"count\\\\\":30}}\"}", "b319aafe27d217cda2a547d803956e39" });
             }
-            string szTmp = "https://login.aliexpress.com/";
+            Geta(szTmp);
+        }
+        public void Geta(string url) 
+        {
+            string szTmp = url;
             Uri uri = new Uri(szTmp);
             webBrowser.Navigate(uri);
         }
@@ -155,20 +160,23 @@ namespace WheelTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            CookieContainer myCookieContainer = new CookieContainer();
-            if (webBrowser.Document.Cookie != null)
-            {
-                string cookieStr = webBrowser.Document.Cookie;
-                string[] cookstr = cookieStr.Split(';');
-                foreach (string str in cookstr)
-                {
-                    string[] cookieNameValue = str.Split('=');
-                    Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), cookieNameValue[1].Trim().ToString());
-                    ck.Domain = "www.google.com";
-                    myCookieContainer.Add(ck);
-                }
-            }
+            //Geta("https://detail.tmall.com/item.htm?de_count=1&id=711237195274");
+            var a= WinInetHelper.GetCookieString("https://detail.tmall.com/");
+            //CookieContainer myCookieContainer = new CookieContainer();
+            //if (webBrowser.Document.Cookie != null)
+            //{
+            //    string cookieStr = webBrowser.Document.Cookie;
+            //    string[] cookstr = cookieStr.Split(';');
+            //    foreach (string str in cookstr)
+            //    {
+            //        string[] cookieNameValue = str.Split('=');
+            //        Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), cookieNameValue[1].Trim().ToString());
+            //        ck.Domain = "www.google.com";
+            //        myCookieContainer.Add(ck);
+            //    }
+            //}
         }
+       
 
         private void webBrowser_SizeChanged(object sender, EventArgs e)
         {
@@ -178,6 +186,30 @@ namespace WheelTest
         private void webBrowser_DocumentCompleted(object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e)
         {
 
+        }
+    }
+    public static class WinInetHelper
+    {
+        [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool InternetGetCookieEx(string pchURL, string pchCookieName, StringBuilder pchCookieData, ref System.UInt32 pcchCookieData, int dwFlags, IntPtr lpReserved);
+
+        [DllImport("wininet.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern int InternetSetCookieEx(string lpszURL, string lpszCookieName, string lpszCookieData, int dwFlags, IntPtr dwReserved);
+
+        public static string GetCookieString(string url)
+        {
+            // Determine the size of the cookie
+            uint datasize = 54010;
+            StringBuilder cookieData = new StringBuilder((int)datasize);
+
+            if (!InternetGetCookieEx(url, null, cookieData, ref datasize, 0x2000, IntPtr.Zero))
+            {
+                // Allocate stringbuilder large enough to hold the cookie
+                cookieData = new StringBuilder((int)datasize);
+                if (!InternetGetCookieEx(url, null, cookieData, ref datasize, 0x00002000, IntPtr.Zero))
+                    return null;
+            }
+            return cookieData.ToString();
         }
     }
 }
