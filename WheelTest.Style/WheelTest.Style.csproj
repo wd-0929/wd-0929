@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -51,7 +54,27 @@
     <Compile Include="Converters\RotateFlipConverter.cs" />
     <Compile Include="Converters\StringIsNullOrEmptyConverter.cs" />
     <Compile Include="DisplayHelper.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Multitask\AddedTaskEventArgs.cs" />
+    <Compile Include="Multitask\GTATask.cs" />
+    <Compile Include="Multitask\GTATaskCollection.cs" />
+    <Compile Include="Multitask\Multitask.cs" />
+    <Compile Include="Multitask\NotFoundMethodException.cs" />
+    <Compile Include="Multitask\TaskCompletedEventArgs.cs" />
+    <Compile Include="Multitask\TaskEngine.cs" />
+    <Compile Include="Multitask\TaskEqualityComparer.cs" />
+    <Compile Include="Multitask\TaskException.cs" />
+    <Compile Include="Multitask\TaskRecordBase.cs" />
+    <Compile Include="Multitask\TaskRemovedEventArgs.cs" />
+    <Compile Include="Multitask\TaskRemovingEventArgs.cs" />
+    <Compile Include="Multitask\Tasks.Designer.cs" />
+    <Compile Include="Multitask\TaskState.cs" />
+    <Compile Include="Multitask\TaskStateChangeEventArgs.cs" />
+    <Compile Include="Multitask\TaskWorker.cs" />
+    <Compile Include="Multitask\ThreadProxy.cs" />
+    <Compile Include="Multitask\WorkerThread.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebClientHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Default.xaml">
@@ -67,6 +90,12 @@
     <Content Include="Images\Example.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Multitask\Tasks.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

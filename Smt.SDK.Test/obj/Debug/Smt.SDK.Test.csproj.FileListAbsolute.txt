@@ -1,4 +1,3 @@
-D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Excel\66a944fa-3d74-43d9-a149-dee7d0979057.xlsx
 D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Smt.SDK.Test.exe.config
 D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Smt.SDK.Test.exe
 D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Smt.SDK.Test.pdb
@@ -15,3 +14,9 @@ D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.csproj.CoreCompil
 D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.csproj.CopyComplete
 D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.exe
 D:\自己的项目\wd-0929\Smt.SDK.Test\obj\Debug\Smt.SDK.Test.pdb
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Images\Example.png
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Newtonsoft.Json.dll
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\WheelTest.Style.dll
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\WheelTest.Style.pdb
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Newtonsoft.Json.xml
+D:\自己的项目\wd-0929\Smt.SDK.Test\bin\Debug\Excel\10fabd01-a153-4150-afec-f9ce63fc069d.xlsx
