@@ -29,7 +29,7 @@ namespace WheelTest
     /// </summary>
     public partial class Window1 : Window
     {
-        string szTmp = "https://login.taobao.com/?redirectURL=https%3A%2F%2Fdetail.tmall.com%2Fitem.htm%3Fde_count%3D1%26id%3D711237195274";
+        string szTmp = "https://v.douyin.com/2TLDUUg/";
         public Window1()
         {
             InitializeComponent();
