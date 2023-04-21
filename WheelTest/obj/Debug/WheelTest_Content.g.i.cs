@@ -21,8 +21,5 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("js/jquery-3.4.1.js")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("js/test.html")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("js/webmssdkes5.js")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("webview2loader.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("webview2loader.dll")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("webview2loader.dll")]
 
 

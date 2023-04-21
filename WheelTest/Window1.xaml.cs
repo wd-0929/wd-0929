@@ -21,6 +21,8 @@ using System.Windows.Navigation;
 using System.ComponentModel;
 using System.Net;
 using System.Windows.Forms;
+using Iop.Api.Util;
+using System.Security.Policy;
 
 namespace WheelTest
 {
@@ -29,9 +31,10 @@ namespace WheelTest
     /// </summary>
     public partial class Window1 : Window
     {
-        string szTmp = "https://v.douyin.com/2TLDUUg/";
+        string szTmp = "https://item.taobao.com/item.htm?spm=a211oj.24780012.3690372280.ditem2&id=698892741964&utparam=%7B%22ald_res%22%3A%2228320006%22%2C%22ald_solution%22%3A%22SmartHorseRace%22%2C%22ald_biz%22%3A1234%2C%22ump_item_price%22%3A%22639%22%2C%22traceId%22%3A%222147b31e16820640056328654e11ea%22%2C%22ald_st%22%3A%221682064005769%22%2C%22item_price%22%3A%22639%22%2C%22ald_price_field%22%3A%22itemActPrice%22%2C%22ump_invoke%22%3A%222%22%2C%22ump_sku_id%22%3A%225113921126542%22%2C%22ump_price_stage%22%3A%220%22%7D";
         public Window1()
         {
+            var a = WinInetHelper.GetCookieString("https://item.taobao.com/");
             InitializeComponent();
             {
                 //new SMTApiTest().Mian();
@@ -43,6 +46,7 @@ namespace WheelTest
                 //GetJsMethd(new object[] { "{\"dataType\":\"moduleData\",\"argString\":\"{\\\\\"memberId\\\\\":\\\\\"packpal\\\\\",\\\\\"appName\\\\\":\\\\\"pcmodules\\\\\",\\\\\"resourceName\\\\\":\\\\\"wpOfferColumn\\\\\",\\\\\"type\\\\\":\\\\\"view\\\\\",\\\\\"version\\\\\":\\\\\"1.0.0\\\\\",\\\\\"appdata\\\\\":{\\\\\"sortType\\\\\":\\\\\"wangpu_score\\\\\",\\\\\"sellerRecommendFilter\\\\\":false,\\\\\"mixFilter\\\\\":false,\\\\\"tradenumFilter\\\\\":false,\\\\\"quantityBegin\\\\\":null,\\\\\"pageNum\\\\\":1,\\\\\"count\\\\\":30}}\"}", "b319aafe27d217cda2a547d803956e39" });
             }
             Geta(szTmp);
+         
         }
         public void Geta(string url) 
         {
@@ -161,7 +165,7 @@ namespace WheelTest
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //Geta("https://detail.tmall.com/item.htm?de_count=1&id=711237195274");
-            var a= WinInetHelper.GetCookieString("https://detail.tmall.com/");
+            var a= WinInetHelper.GetCookieString("https://item.taobao.com/");
             //CookieContainer myCookieContainer = new CookieContainer();
             //if (webBrowser.Document.Cookie != null)
             //{
