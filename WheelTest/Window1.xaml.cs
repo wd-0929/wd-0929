@@ -170,7 +170,7 @@ namespace WheelTest
             //if (webBrowser.Document.Cookie != null) 
             //{
             //    string cookieStr = webBrowser.Document.Cookie;
-            //    string[] cookstr = cookieStr.Split(';');
+            //    string[] cookstr = cookieStr.Split(';'); 
             //    foreach (string str in cookstr)
             //    {
             //        string[] cookieNameValue = str.Split('=');
