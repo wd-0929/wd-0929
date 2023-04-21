@@ -167,7 +167,7 @@ namespace WheelTest
             //Geta("https://detail.tmall.com/item.htm?de_count=1&id=711237195274");
             var a= WinInetHelper.GetCookieString("https://item.taobao.com/");
             //CookieContainer myCookieContainer = new CookieContainer();
-            //if (webBrowser.Document.Cookie != null)
+            //if (webBrowser.Document.Cookie != null) 
             //{
             //    string cookieStr = webBrowser.Document.Cookie;
             //    string[] cookstr = cookieStr.Split(';');
