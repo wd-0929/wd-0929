@@ -31,10 +31,9 @@ namespace WheelTest
     /// </summary>
     public partial class Window1 : Window
     {
-        string szTmp = "https://item.taobao.com/item.htm?spm=a211oj.24780012.3690372280.ditem2&id=698892741964&utparam=%7B%22ald_res%22%3A%2228320006%22%2C%22ald_solution%22%3A%22SmartHorseRace%22%2C%22ald_biz%22%3A1234%2C%22ump_item_price%22%3A%22639%22%2C%22traceId%22%3A%222147b31e16820640056328654e11ea%22%2C%22ald_st%22%3A%221682064005769%22%2C%22item_price%22%3A%22639%22%2C%22ald_price_field%22%3A%22itemActPrice%22%2C%22ump_invoke%22%3A%222%22%2C%22ump_sku_id%22%3A%225113921126542%22%2C%22ump_price_stage%22%3A%220%22%7D";
+        string szTmp = "https://chaoshi.detail.tmall.com/item.htm?de_count=1&id=546391278622&degrade_pc=true";
         public Window1()
         {
-            var a = WinInetHelper.GetCookieString("https://item.taobao.com/");
             InitializeComponent();
             {
                 //new SMTApiTest().Mian();
@@ -164,8 +163,9 @@ namespace WheelTest
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Uri url = new Uri(szTmp);
             //Geta("https://detail.tmall.com/item.htm?de_count=1&id=711237195274");
-            var a= WinInetHelper.GetCookieString("https://item.taobao.com/");
+            var a= WinInetHelper.GetCookieString(url .Scheme+ "://"+ url.Host);
             //CookieContainer myCookieContainer = new CookieContainer();
             //if (webBrowser.Document.Cookie != null) 
             //{

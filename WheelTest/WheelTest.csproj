@@ -126,6 +126,9 @@
     </Compile>
     <Compile Include="PublicMethod\ThreadProxy.cs" />
     <Compile Include="PublicMethod\WebSnapshotsHelper.cs" />
+    <Compile Include="RichTextBox.xaml.cs">
+      <DependentUpon>RichTextBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="searchTextBox.xaml.cs">
       <DependentUpon>searchTextBox.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MultipleComBoBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RichTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

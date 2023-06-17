@@ -13,9 +13,10 @@ namespace Smt.SDK.Test
     {
         static void Main(string[] args)
         {
-            SmtTemplateFreight.Create();
+            postproduct();
+            //SmtTemplateFreight.Create();
         }
-        public void postproduct() 
+        public static void postproduct() 
         {
             var Channel = "AE_GLOBAL";
             var ChannelSellerId = "2673675313";
@@ -23,11 +24,11 @@ namespace Smt.SDK.Test
             var url = "https://api-sg.aliexpress.com/sync";
             string appkey = "24578631";
             string appSecret = "9de53317305962e960b1a8de288b734c";
-            IIopClient client = new IopClient(url, appkey, appSecret);  
+            IIopClient client = new IopClient(url, appkey, appSecret);
             IopRequest request = new IopRequest();
-            request.SetApiName("aliexpress.postproduct.redefining.findproductinfolistquery");
-            request.AddApiParameter("aeop_a_e_product_list_query", "{\"product_status_type\":\"onSelling\"}");
-            IopResponse response = client.Execute(request, accessToken, GopProtocolEnum.TOP);
+            request.SetApiName("aliexpress.ascp.scitem.update");
+            request.AddApiParameter("scitem_update_request", "{\"origin_box_package\":\"true\",\"biz_type\":\"288000\",\"length\":\"1\",\"specification\":\"test\u89C4\u683C\",\"weight\":\"1\",\"customs_unit_price\":\"1.2\",\"title\":\"\u6D4B\u8BD5-title\",\"is_hygroscopic\":\"true\",\"is_danger\":\"true\",\"GWeight\":\"1\",\"dangerous_type\":\"air_embargo\",\"feature\":\"{\\\"key\\\":\\\"value\\\"}\",\"width\":\"1\",\"include_battery\":\"1\",\"NWeight\":\"1\",\"sc_item_id\":\"2123423\",\"height\":\"1\"}");
+            IopResponse response = client.Execute(request, accessToken,GopProtocolEnum.TOP);
             Console.WriteLine(response.IsError());
             Console.WriteLine(response.Body);
         }

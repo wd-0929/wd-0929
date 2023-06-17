@@ -1,0 +1,21 @@
+﻿<Window x:Class="WheelTest.RichTextBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WheelTest"
+        mc:Ignorable="d"
+        Title="RichTextBox" Height="450" Width="800">
+    <Grid>
+        <RichTextBox GotMouseCapture="ChangeSelection"               IsReadOnly="True"
+                     Name="richTB">
+            <FlowDocument>
+                    <Paragraph>I am a flow document. Would you like to edit me?
+                        <Bold>Go ahead.</Bold>
+                    </Paragraph>
+                    <Paragraph Foreground="Blue" >
+                    <TextBlock Text=" I am blue I am blue I am blue."  ></TextBlock></Paragraph>
+            </FlowDocument>
+        </RichTextBox>
+    </Grid>
+</Window>
