@@ -13,15 +13,18 @@ using System.Net;
 using WheelTest.Style;
 using Newtonsoft.Json.Linq;
 using WheelTest.Style.Multitask;
+using NPOI.Util;
 
 namespace Smt.SDK.Test
 {
     public class SmtTemplateFreight
     {
-        private double UsCurrencyRate = 6.8861;
+        private double UsCurrencyRate = 7.2415;
         private SmtTemplateFreight()
         {
-            headerDic.Add("Cookie", "ali_apache_id=33.50.161.249.1680334096644.430508.6; cna=BVSEHI7bdwcCAXF0KKx78vOD; x_router_us_f=x_alimid=251551188; aep_common_f=hVRabZRXN0uYWTj1zMDXN22TXg1ds5MOWY4y897C89aOprn61CweaQ==; _gcl_au=1.1.584802380.1680574393; aep_history=keywords%5E%0Akeywords%09%0A%0Aproduct_selloffer%5E%0Aproduct_selloffer%091005005279196350; _ym_d=1680574396; _ym_uid=1678956230494930497; _ga_VED1YSGNC7=GS1.1.1680599592.4.0.1680599592.0.0.0; cto_bundle=veGeBF91cWxtQ21yQWQlMkJNaUpnak96QW9KTk5Ga2FJcWtaaklVNVQ1Y01qVEtlY3V4T08lMkZwRUtXR3IlMkY4V1ElMkJndGVlQTJ6SmQ5TnhEWW5YNFlQZ0FtWmVpU2xiWGQwZjZjckdHUWxScjh5WkZoWGlmQVk3b01JZW13RnkzMDB3VFFoWW04dG9EWnZKbExHRFhKb0JaV205UXpMQSUzRCUzRA; account_v=1; lzd_cid=d28607f5-4e88-43e5-8f99-21f3eb2f62c6; havana_tgc=eyJwYXRpYWxUZ2MiOnsiYWNjSW5mb3MiOnsxMzp7ImFjY2Vzc1R5cGUiOjEsIm1lbWJlcklkIjoyMjExMzU5MDI1NTMyLCJ0Z3RJZCI6IjdfSWJNNGFGVlZVbjZtR0V5UzVoaGRBIn19fX0; _hvn_login=13; xman_us_t=x_lid=cn1541248744bjyk&sign=y&rmb_pp=86-18938947182&x_user=GNL03zPmBD41GDWPE6PO8FuwSG4BWBHujtC65X3z5YM=&ctoken=1di1fai2aqo_0&l_source=aliexpress; xman_f=Wx3/0k3XZBE9T/QQ+DnXy3nSyxsS1xKL984OsZFL03pvfkLL8goRyy7RJAh1iTfQHHNXY8rkHhEJNl7WMQ2B1E3lUnaYby+ahWsCJLjf47BuevUwnWuf19QrNz0IxrEX/NogDGyljM7LbzvUkx2rlyHTOPtS9dWKZ/WcixoXyUtzrXS6HYyX42XKOF3NkP0BXvfBvg3mQHB+10ZMJ8w8FDF9jH8sDM3FyPslPwaziFtL27+S8LGVKA44ZqhqbijwTWbBUmVhfCxVmh1Ldxbm9lowu9kMMwfJaG0IcCMOBqqoB/6H4cLfg4fo9E3Letm2DnCgV1Etwed6TyFocCfOpSYlJ/UyNbJ/710hAmvPbDy8F1ZWcM3rbSraid4OuBb+o/mwH9VsOcRvl+j1IGJ+Sw==; aep_usuc_f=isfm=y&site=glo&c_tp=USD&x_alimid=251551188&iss=y&s_locale=zh_CN&region=CN&b_locale=en_US; _ga=GA1.2.418141741.1680574392; ali_apache_track=ms=|mt=2|mid=cn1541248744bjyk; xman_us_f=zero_order=y&x_locale=zh_CN&x_l=1&x_user=CN|null|null|cnfm|251551188&x_lid=cn1541248744bjyk&x_c_chg=0&acs_rt=7c46f3c19b6f4655840ffd889c2e224c; x-hng=lang=zh_CN&language=zh-CN; ali_apache_tracktmp=W_signed=Y; intl_locale=zh_CN; xlly_s=1; acs_usuc_t=x_csrf=tgwh2fq0jjw4&acs_rt=359fdfaac9f6498caae4eef758a3676d; XSRF-TOKEN=0ccc0eef-69cb-4ca1-bbe3-51b8884dc48f; gmp_sid=251551188; _lang=zh_CN; intl_common_forever=obA7ezTlNhcq501WWGp8wfhlynEjuzyK2ZYki33fh1SxOkagaT70+g==; _m_h5_tk=e2ddc570146c5d84d490d569e67b6cb0_1681180809999; _m_h5_tk_enc=f4265bf9993cb86b4ff61189100c3c03; l=fBgH6ESlTqwjpf42BOfZnurza779dIRAguPzaNbMi9fPOef9WGafW1gJlKTpCnGVF6u9R3-eWiOXBeYBqnqZ-ML4vixv2hkmnXr9aX5..; tfstk=c9VOB2TyMMjgEtjmTfBH0-nvvv2AZXWK0dikM7mqQUOOA0OAiuVuw3Uc54GPPwC..; isg=BHx8jShuNDuXVQcuYwZdyWs0TRoudSCfMQ-6zVb9rWdKIRyrfodlLgWTBUlZaVj3; JSESSIONID=5E1E7545FB284F5167F628C8962BC95C; xman_t=7t7O/8OmKp6JRElZ2AklWAxFF4QxqkWVrXovavk5ztRk0fpSuDPH3a5vj8r+57w+rYh2Sm7pNz2+DFb8346pTTk0yQobZjuLj4P2JcW461GasIBXWddAAB2w8dk4h3XoXQb84FX5wsuJRxXMILkyE3O05+tC54CKUquZrlY6DydxP9TAb3URp4ejmkO6kqfZWhUsMYItpRI9i/q4FVcbxP6P8HMkMscaml/YGpBYIZU0xnzKGNjQVPGgN8n4qI28rGQlncsCDTJWVXdB/YMNUYffg64sGvXiP8xS/65HjcC/ktnaRXduRDMM8+wV9zJQnQRW01d8IGdI2V99/H+8dqrsENQwq4NpinbRvgwU4ZD2ELEQI84B7K+H474WvBoFQuAvGQWg+welbZ/FMGnjt/PVhVrUAzI1szn7RN5lv4idisCSdNcknQ9wxeuNFXNgkTnHZT6k1vXoGTvFkMi1p54ATmPruYpTmo263TTBnt8vwzFGaSK1hd5b528I2nNIoDDEq6TY2ju9vG7f8WfGPKfNX21xO5WoLK2iPe2xK8+RnDtH2seAEcIgu7j9FY2OZm0KcqrwwJX9eO0tWZ8y5qHj1naoanbLhyCER+snS0SxpBWdjwKHjUsOzDCVczzQwp5MODfZ5icJgOCy5NX+dzy5AKQMntMvz5Y+nSDjU5Zh8Bxx+u2pnc6ozHlnhRLDoRZPUcr1LWOrwdAawGLhQX5jnfWX4B7s");
+            //StringWriter stringWriter = new StringWriter();
+            //Console.SetOut(stringWriter);
+            headerDic.Add("Cookie", " ali_apache_id=33.50.161.249.1680334096644.430508.6; aep_common_f=hVRabZRXN0uYWTj1zMDXN22TXg1ds5MOWY4y897C89aOprn61CweaQ==; _ym_d=1680574396; _ym_uid=1678956230494930497; cto_bundle=veGeBF91cWxtQ21yQWQlMkJNaUpnak96QW9KTk5Ga2FJcWtaaklVNVQ1Y01qVEtlY3V4T08lMkZwRUtXR3IlMkY4V1ElMkJndGVlQTJ6SmQ5TnhEWW5YNFlQZ0FtWmVpU2xiWGQwZjZjckdHUWxScjh5WkZoWGlmQVk3b01JZW13RnkzMDB3VFFoWW04dG9EWnZKbExHRFhKb0JaV205UXpMQSUzRCUzRA; account_v=1; lzd_cid=d28607f5-4e88-43e5-8f99-21f3eb2f62c6; aeu_cid=1a48a4c8222d449e9295e252273e2ed6-1681284373362-02387-_DnmN1av; af_ss_a=1; cna=+DnJHEl78iUCAXF2wKs4jn7y; aep_history=keywords%5E%0Akeywords%09%0A%0Aproduct_selloffer%5E%0Aproduct_selloffer%091005005279196350%091005005221820596; _hvn_login=13; e_id=pt20; _ga=GA1.1.418141741.1680574392; _ga_VED1YSGNC7=GS1.1.1685344117.8.0.1685344117.60.0.0; lazop_lang=zh_CN; _lang=zh_CN; intl_common_forever=3bKL/oCpO6KN60xmFmPJUGG+Ck5eUliZNDzzt1f/xD3bpLVvjN7HsQ==; xlly_s=1; _m_h5_tk=5410238acdf5b5faf00b8dc2208522c3_1688716469466; _m_h5_tk_enc=2837d19a4f602eee93cfd81c877e88bf; ali_apache_tracktmp=W_signed=Y; ali_apache_track=mt=2|mid=cn1072250313dqhae; acs_usuc_t=acs_rt=4b9308162cb743539ccf64aa78ac9e04&x_csrf=82zuu17diaf7; havana_tgc=NTGC_1d997bed07b4c57ae8d5071268e1266d; x_router_us_f=x_alimid=251551188; xman_us_t=x_lid=cn1541248744bjyk&sign=y&rmb_pp=86-18938947182&x_user=OzpIED8fWdCjznZT1YHBfeHo7k/yjDGjyEMGmpxkqms=&ctoken=rzbq_dlxdvk9&l_source=aliexpress; aep_usuc_f=site=usa&region=US&b_locale=en_US&province=922865760000000000&iss=y&s_locale=zh_CN&isfm=y&c_tp=USD&x_alimid=251551188&city=922865766013000000; sgcookie=E100/PQZsYesttboT4OykzRIn8PG/pNiinEvh8j3T/kpt3S5B/Kpjxa2CCOspCLLJHX6pw7ssmiNpRTifK9adtP4GDu6DAExpCqOV2U/xD1Bk2k=; xman_t=QpIt2eGcHBhh02joB1mpLsFDKZ5aEd2/2Gg1nJlWcm7el+SajxVCD3kGIcddQeI5+Ja/oR3kGgrMHDlMv+pX0cpOgQcaY32csyas9r5jvP+hsjpx58P6JQCMfDMZVdFHWWrYuyKoDOj9Tk7iCNw41AT2PzC/NlydX12K2LobkdNRdxePfHEQuQ0ATMVq4Ob+BBhTZVS/OiZyVywYpYFwUS6INkuFya9TktUh7ofLp9M3g6Kme4tdxeVs5Cu7uAu5Z3pERoYqiQMBH6VRh88niEDdKZo7+MiC+JBRi1waDkv6blzYyYo0YRKaxdYaRnezpCz5LNNPye+ybCf0l+DpTxhX6Vyi9a7QQc+QDtRXfYJtHBDvO/4SFRaYMcS6dHkkXXD+m0Y7k8MVjXJI2rpZa2fdfprx2v9kQZnVyvC77VRqgULGKcfpv/dC0CKsoLR0aFKX1YLV1IGG4Y0Tib/wOWX2HAdK282MlU7i9sRa67IyRlzlroP4LKdcYv4eOCr/nwIsU9R9ToA2ISMryXdIsACAx0FMz9bkRWY/4XOcn6otruYhVGdJgOQJhxsxj79jumGYIi12CxISfeE3FmG1LbFuI+s5nwtoAi7c00O+GsS6pV1wFKdF/wjdCjmgHwqn/pkYTYFlIcUStGC7ulSbeQoDs50xR4JXLAIkrfQsyYXOs2QbQxPkLZYygiYSR9iawMvAHyG+yZR8G8PtijF8EVCfY7ZgePYTwcDUNDCRstc=; xman_f=PXJIO5gPc1yiKc4Yrmr2yT4tlC+f/bVs9ni8eHfePmEIR9ubGwvaqx+OvCJaP8sEVhzo/0m19ug336Ih0bQoGMUFnzcG70LyGCUmsT+zVXoBvHTIqQAqX3mT7YMpZx/vOUzHZ795qBz8PVpNdbk4GoEfNTOSikbKjG8tiK7zVUvXmyn91RsTkKh+i5ixRoRoQE31S32HkgHsOeU86a+ZyZ7wYf0UynaTRslpx8Co51ivOJ6mGY5SlS654Hd53ACM/DEVtm1A09I1aMnlQkDF7vru+zJATPtS9ibf1hd79t4iIePZYD08nbCIjKtV4yR+jKEWtorAs7ShLWDfIMEDVjVJ73RCRVD47W0jxPLQk4PzgjsOVW8jhimZXEizZTp/UM7B1S5xYkarz5dmX7lQYg==; xman_us_f=zero_order=y&x_locale=en_US&x_l=0&x_user=CN|default%20firstName|default%20lastName|cnfm|2673675313&x_lid=cn1072250313dqhae&acs_rt=7c46f3c19b6f4655840ffd889c2e224c; gmp_sid=251551188; tfstk=c5wcBnVpDSljtVXTPrMfH4tNKXsRZO-rkPzbUGoKwe-73-ePiGAyTxCRZ4XItC1..; l=fBgH6ESlTqwjpR7AoOfwPurza77OSIRAguPzaNbMi9fP_X5p5CDVW1soQOL9C3GVF6PDR3-eWiOXBeYBqoxxMsdPHxu6KpDmnub0G7f..; isg=BBUVReRm3fO-Y_5VYoEkItq7JBHPEskkANAj1pe60Qzb7jXgX2LZ9CMovPLYbuHc");
             headerDic.Add("Accept-Encoding", "gzip, deflate, br");
             headerDic.Add("Accept-Language", "zh-CN,zh;q=0.9");
             DirectoryInfo root = new DirectoryInfo(System.IO.Path.Combine(AppContext.BaseDirectory, "Excel"));
@@ -160,23 +163,23 @@ namespace Smt.SDK.Test
                     FreightsNew.AddRange(Freights);
                 }
             }
-            //CountryAcquire();
-            //foreach (var item in FreightsNew)
-            //{
-            //    //if(item.SheetName== "中国邮政挂号小包" || item.SheetName == "中邮e邮宝")
-            //    {
-            //        Console.WriteLine($"开始对比模板------------{item.SheetName}");
-            //        using (Multitask<LogisticsFreightItem, string> s = new Multitask<LogisticsFreightItem, string>(10, item.Datas.ToArray(), (p) =>
-            //        {
-            //            Comparison(item.SheetName, p);
-            //            return "";
-            //        }))
-            //        {
-            //            s.WaitAll();
-            //        } 
-            //    }
-            //}
-            Console.ReadLine();
+            CountryAcquire();
+            foreach (var item in FreightsNew)
+            {
+                //if(item.SheetName== "中国邮政挂号小包" || item.SheetName == "中邮e邮宝")
+                {
+                    Console.WriteLine($"开始对比模板------------{item.SheetName}");
+
+                    using (Multitask<LogisticsFreightItem, string> s = new Multitask<LogisticsFreightItem, string>(10, item.Datas.ToArray(), (p) =>
+                    {
+                        Comparison(item.SheetName, p);
+                        return "";
+                    }))
+                    {
+                        s.WaitAll();
+                    }
+                }
+            }
             foreach (var item in FreightsNew)
             {
                 var pathName = System.IO.Path.Combine(AppContext.BaseDirectory, "Excel", "运费模板");
@@ -222,6 +225,9 @@ namespace Smt.SDK.Test
                     workbook.Close();
                 }
             }
+            Console.WriteLine("生成成功");
+            //string allConsoleOutput = stringWriter.ToString();
+            Console.ReadLine();
         }
 
         private void NewMethod(List<LogisticsFreightDatas> Freights, DataTable value, DataRow rows, Country code, int OneWeight, Regex regex, out LogisticsFreightItem logisticsFreightItem, int itemIndex, string cloumn, out LogisticsFreightDatas logistics, string sheetName)

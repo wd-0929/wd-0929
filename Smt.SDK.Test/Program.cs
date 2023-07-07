@@ -13,8 +13,8 @@ namespace Smt.SDK.Test
     {
         static void Main(string[] args)
         {
-            postproduct();
-            //SmtTemplateFreight.Create();
+            //postproduct();
+            SmtTemplateFreight.Create();
         }
         public static void postproduct() 
         {
