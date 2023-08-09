@@ -150,7 +150,13 @@ namespace WheelTest.Style
             }
             if (isHttps)
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Ssl3;
+                var version = Environment.Version;
+                if (version.Revision >= 42000)
+                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)(3072 | 768 | 192 | 48);
+                else
+                {
+                    ServicePointManager.SecurityProtocol = (SecurityProtocolType)(192 | 48);
+                }
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback((a, b, c, d) => true);
             }
             try
@@ -191,90 +197,98 @@ namespace WheelTest.Style
         {
             if (Headers != null)
             {
-                foreach (var item in Headers)
+                try
                 {
-                    if (!string.IsNullOrWhiteSpace(item.Key))
+                    foreach (var item in Headers)
                     {
-                        switch (item.Key.ToUpper())
+                        if (!string.IsNullOrWhiteSpace(item.Key))
                         {
-                            case "ACCEPT":
-                                myHttpWebRequest.Accept = item.Value;
-                                break;
-                            case "COBBECTION":
-                                myHttpWebRequest.Connection = item.Value;
-                                break;
-                            case "COOKIE":
-                                if (!string.IsNullOrWhiteSpace(item.Value))
-                                {
-                                    string[] cookstr = item.Value.Split(';');
-                                    CookieContainer myCookieContainer = new CookieContainer();
-                                    foreach (string str in cookstr)
+                            switch (item.Key.ToUpper())
+                            {
+                                case "ACCEPT":
+                                    myHttpWebRequest.Accept = item.Value;
+                                    break;
+                                case "COBBECTION":
+                                case "CONNECTION":
+                                    myHttpWebRequest.Connection = item.Value;
+                                    break;
+                                case "COOKIE":
+                                    if (!string.IsNullOrWhiteSpace(item.Value))
                                     {
-                                        string[] cookieNameValue = str.Split('=');
-                                        Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), cookieNameValue[1].Trim().ToString());
-                                        ck.Domain = myHttpWebRequest.Host;
-                                        myCookieContainer.Add(ck);
+                                        string[] cookstr = item.Value.Split(';');
+                                        CookieContainer myCookieContainer = new CookieContainer();
+                                        foreach (string str in cookstr)
+                                        {
+                                            string[] cookieNameValue = str.Split('=');
+                                            Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), cookieNameValue[1].Trim().ToString());
+                                            ck.Domain = myHttpWebRequest.Host;
+                                            myCookieContainer.Add(ck);
+                                        }
+                                        myHttpWebRequest.CookieContainer = myCookieContainer;
                                     }
-                                    myHttpWebRequest.CookieContainer = myCookieContainer;
-                                }
-                                break;
-                            case "CONTENT-LENGTH":
-                                try
-                                {
-                                    myHttpWebRequest.ContentLength = long.Parse(item.Value);
-                                }
-                                catch (Exception)
-                                {
+                                    break;
+                                case "CONTENT-LENGTH":
+                                    try
+                                    {
+                                        myHttpWebRequest.ContentLength = long.Parse(item.Value);
+                                    }
+                                    catch (Exception)
+                                    {
 
-                                }
-                                break;
-                            case "CONTENT-TYPE":
-                            case "CONTENTTYPE":
-                                myHttpWebRequest.ContentType = item.Value;
-                                break;
-                            case "EXPECT":
-                                myHttpWebRequest.Expect = item.Value;
-                                break;
-                            case "DATE":
-                                try
-                                {
-                                    myHttpWebRequest.Date = DateTime.Parse(item.Value);
-                                }
-                                catch (Exception)
-                                {
+                                    }
+                                    break;
+                                case "CONTENT-TYPE":
+                                case "CONTENTTYPE":
+                                    myHttpWebRequest.ContentType = item.Value;
+                                    break;
+                                case "EXPECT":
+                                    myHttpWebRequest.Expect = item.Value;
+                                    break;
+                                case "DATE":
+                                    try
+                                    {
+                                        myHttpWebRequest.Date = DateTime.Parse(item.Value);
+                                    }
+                                    catch (Exception)
+                                    {
 
-                                }
-                                break;
-                            case "HOST":
-                                myHttpWebRequest.Host = item.Value;
-                                break;
-                            case "IF-MODIFIED-SINCE":
-                                try
-                                {
-                                    myHttpWebRequest.IfModifiedSince = DateTime.Parse(item.Value);
-                                }
-                                catch (Exception)
-                                {
+                                    }
+                                    break;
+                                case "HOST":
+                                    myHttpWebRequest.Host = item.Value;
+                                    break;
+                                case "IF-MODIFIED-SINCE":
+                                    try
+                                    {
+                                        myHttpWebRequest.IfModifiedSince = DateTime.Parse(item.Value);
+                                    }
+                                    catch (Exception)
+                                    {
 
-                                }
-                                break;
-                            //case "Range":
-                            //    myHttpWebRequest.ad = item.Value;
-                            //    break;
-                            case "REFERER":
-                                myHttpWebRequest.Referer = item.Value;
-                                break;
-                            case "TRANSFET-ENCODING":
-                                myHttpWebRequest.TransferEncoding = item.Value;
-                                break;
-                            case "USER-AGENT":
-                                myHttpWebRequest.UserAgent = item.Value;
-                                break;
-                            default:
-                                myHttpWebRequest.Headers[item.Key] = item.Value;
-                                break;
+                                    }
+                                    break;
+                                //case "Range":
+                                //    myHttpWebRequest.ad = item.Value;
+                                //    break;
+                                case "REFERER":
+                                    myHttpWebRequest.Referer = item.Value;
+                                    break;
+                                case "TRANSFET-ENCODING":
+                                    myHttpWebRequest.TransferEncoding = item.Value;
+                                    break;
+                                case "USER-AGENT":
+                                    myHttpWebRequest.UserAgent = item.Value;
+                                    break;
+                                default:
+                                    myHttpWebRequest.Headers[item.Key] = item.Value;
+                                    break;
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
         }
