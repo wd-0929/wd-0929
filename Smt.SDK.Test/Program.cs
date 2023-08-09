@@ -1,4 +1,5 @@
 ﻿using Iop.Api;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,14 @@ namespace Smt.SDK.Test
     {
         static void Main(string[] args)
         {
+            List<datas> list = new List<datas>();
+            list.Add(new datas { ShopSites = new string[] { "BR" }, Multiple = 4 });
+            list.Add(new datas { ShopSites = new string[] { "VN", "TW", "TH", "PH", "MX" }, Multiple = 5 });
+            list.Add(new datas { ShopSites = new string[] { "SG", "ID", "MY" }, Multiple = 7 });
+            list.Add(new datas { ShopSites = new string[] { "CL", "CO" }, Multiple = 9 });
+
+            var datasd = JsonConvert.SerializeObject(list);
+
             //postproduct();
             SmtTemplateFreight.Create();
         }
@@ -32,5 +41,10 @@ namespace Smt.SDK.Test
             Console.WriteLine(response.IsError());
             Console.WriteLine(response.Body);
         }
+    }
+    public class datas
+    {
+        public string[] ShopSites { get; set; }
+        public int Multiple { get; set; }   
     }
 }
