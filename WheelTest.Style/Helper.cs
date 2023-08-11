@@ -73,7 +73,7 @@ namespace WheelTest.Style
         /// <returns></returns>
         public static double ToRound(this double value, int digit = 2)
         {
-            return Math.Round(value, digit);
+            return Math.Round(value, digit, MidpointRounding.AwayFromZero);
         }
         /// <summary>
         /// 序列化
