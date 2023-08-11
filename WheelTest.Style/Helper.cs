@@ -171,13 +171,7 @@ namespace WheelTest.Style
                     AddHeader(wbRequest, headerDic);
                 }
                 HttpWebResponse wbResponse = (HttpWebResponse)wbRequest.GetResponse();
-                using (Stream responseStream = wbResponse.GetResponseStream())
-                {
-                    using (StreamReader sread = new StreamReader(responseStream, encoding))
-                    {
-                        result = sread.ReadToEnd();
-                    }
-                }
+                result = GetHttpWebRulest(wbResponse);
                 return result;
             }
             catch (WebException ex)
@@ -197,9 +191,9 @@ namespace WheelTest.Style
         {
             if (Headers != null)
             {
-                try
+                foreach (var item in Headers)
                 {
-                    foreach (var item in Headers)
+                    try
                     {
                         if (!string.IsNullOrWhiteSpace(item.Key))
                         {
@@ -220,7 +214,7 @@ namespace WheelTest.Style
                                         foreach (string str in cookstr)
                                         {
                                             string[] cookieNameValue = str.Split('=');
-                                            Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), cookieNameValue[1].Trim().ToString());
+                                            Cookie ck = new Cookie(cookieNameValue[0].Trim().ToString(), str.Replace(cookieNameValue[0]+"=","").Trim().ToString());
                                             ck.Domain = myHttpWebRequest.Host;
                                             myCookieContainer.Add(ck);
                                         }
@@ -285,10 +279,10 @@ namespace WheelTest.Style
                             }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
+                    catch (Exception ex)
+                    {
 
+                    }
                 }
             }
         }
