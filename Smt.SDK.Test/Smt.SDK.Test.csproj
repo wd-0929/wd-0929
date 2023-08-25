@@ -57,6 +57,8 @@
     <Reference Include="NPOI.OpenXmlFormats, Version=2.3.0.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.3.0\lib\net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -64,11 +66,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoryQcquisition\CategoryQcquisitionBase.cs" />
+    <Compile Include="CategoryQcquisition\TmallCategoryQcquisition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmtTemplateFreight.cs" />
+    <Compile Include="CategoryQcquisition\TaobaoCategoryQcquisition.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assembly\IopSdk.dll" />
@@ -81,6 +87,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\WebLoginBLL.csproj">
+      <Project>{48c513d9-081e-4d6f-b309-6cab121ef7fb}</Project>
+      <Name>WebLoginBLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WheelTest.Style\WheelTest.Style.csproj">
       <Project>{4a9c60a6-2f01-4494-93a9-4c24583853a4}</Project>
       <Name>WheelTest.Style</Name>

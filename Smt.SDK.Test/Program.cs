@@ -1,5 +1,6 @@
 ﻿using Iop.Api;
 using Newtonsoft.Json;
+using Smt.SDK.Test.CategoryQcquisition;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,8 @@ namespace Smt.SDK.Test
     {
         static void Main(string[] args)
         {
-            ShopeeHttpGet();
+            new TaobaoCategoryQcquisition();
+            //ShopeeHttpGet();
             //postproduct();
             //SmtTemplateFreight.Create();
         }
