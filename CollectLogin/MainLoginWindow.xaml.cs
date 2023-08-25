@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
 
-namespace WebLogin
+namespace CollectLogin
 {
     /// <summary>
     /// MainWindow.xaml 的交互逻辑

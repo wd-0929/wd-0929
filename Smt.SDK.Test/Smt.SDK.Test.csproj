@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="CategoryQcquisition\CategoryQcquisitionBase.cs" />
     <Compile Include="CategoryQcquisition\TmallCategoryQcquisition.cs" />
+    <Compile Include="GZipFilesBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmtTemplateFreight.cs" />
@@ -87,9 +88,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\WebLoginBLL.csproj">
+    <ProjectReference Include="..\CollectLoginBLL\CollectLoginBLL.csproj">
       <Project>{48c513d9-081e-4d6f-b309-6cab121ef7fb}</Project>
-      <Name>WebLoginBLL</Name>
+      <Name>CollectLoginBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\WheelTest.Style\WheelTest.Style.csproj">
       <Project>{4a9c60a6-2f01-4494-93a9-4c24583853a4}</Project>

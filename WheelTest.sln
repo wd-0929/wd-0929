@@ -17,9 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fidder", "fidder\fidder.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WheelTest.DAL", "WheelTest.DAL\WheelTest.DAL.csproj", "{1C9D3D88-F34D-488F-BC9D-D8142A105734}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLogin", "WebLogin\WebLogin.csproj", "{285D17DA-CF78-4815-994A-2A3445544AEB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectLogin", "CollectLogin\CollectLogin.csproj", "{285D17DA-CF78-4815-994A-2A3445544AEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLoginBLL", "ClassLibrary1\WebLoginBLL.csproj", "{48C513D9-081E-4D6F-B309-6CAB121EF7FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectLoginBLL", "CollectLoginBLL\CollectLoginBLL.csproj", "{48C513D9-081E-4D6F-B309-6CAB121EF7FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

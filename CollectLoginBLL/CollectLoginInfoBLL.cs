@@ -14,9 +14,9 @@ using System.Threading;
 using System.IO.Compression;
 using ICSharpCode.SharpZipLib.Zip;
 
-namespace WebLoginBLL
+namespace CollectLoginBLL
 {
-    public class WebLoginInfoBLL
+    public class CollectLoginInfoBLL
     {
         //MainLoginSetting = new MainLoginSetting
         //{
@@ -38,13 +38,13 @@ namespace WebLoginBLL
         //};
         public string _path;
         public MainLoginSetting MainLoginSetting;
-        public WebLoginInfoBLL(MainLoginSetting mainLoginSetting)
+        public CollectLoginInfoBLL(MainLoginSetting mainLoginSetting)
         {
             MainLoginSetting = mainLoginSetting;
             Assembly entryAssembly = Assembly.GetEntryAssembly();
             var ExecFile = entryAssembly.Location;
             var ExecPath = Path.GetDirectoryName(ExecFile);
-            _path = System.IO.Path.Combine(ExecPath, "WebLogin");
+            _path = System.IO.Path.Combine(ExecPath, "CollectLogin");
             if (!Directory.Exists(_path))
                 Directory.CreateDirectory(_path);
         }
@@ -77,31 +77,26 @@ namespace WebLoginBLL
         /// <summary>
         /// 初始化组件
         /// </summary>
-        public static void  Init()
+        public static void Init(Action<int> setSrogress)
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
             var ExecFile = entryAssembly.Location;
             var ExecPath = Path.GetDirectoryName(ExecFile);
-            var path = System.IO.Path.Combine(ExecPath, "WebLogin");
-            var FileName = System.IO.Path.Combine(path, "WebLogin.exe");
-            if (!string.IsNullOrWhiteSpace(FileName))
+            var path = System.IO.Path.Combine(ExecPath, "CollectLogin");
+            var FileName = System.IO.Path.Combine(path, "CollectLogin.exe");
+            if (!System.IO.File.Exists(FileName))
             {
                 WebClient client = new WebClient();
                 Uri uri = new Uri("https://gta-data.oss-cn-zhangjiakou.aliyuncs.com/Packs/WebLogin.zip");
-
-                // Specify a DownloadFileCompleted handler here...
-
-                // Specify a progress notification handler.
                 client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback4);
-
-                client.DownloadFileAsync(uri, System.IO.Path.Combine(path , "WebLogin.zip"));
+                client.DownloadFileAsync(uri, System.IO.Path.Combine(path, "CollectLogin.zip"));
+                while (ProgressPercentage != 100)
+                {
+                    Thread.Sleep(1000);
+                    setSrogress?.Invoke(ProgressPercentage);
+                };
+                UnZip(System.IO.Path.Combine(path, "CollectLogin.zip"), path);
             }
-            while (ProgressPercentage != 100)
-            {
-                Thread.Sleep(1000);
-                Console.WriteLine(" {0} % complete...", ProgressPercentage);
-            };
-            UnZip(System.IO.Path.Combine(path  ,"WebLogin.zip"), path);
         }
         /// <summary>  
         /// 解压缩文件(压缩文件中含有子目录)  
@@ -178,8 +173,8 @@ namespace WebLoginBLL
             var arguments = JsonConvert.SerializeObject(MainLoginSetting);
             System.IO.File.WriteAllText(System.IO.Path.Combine(_path, "MainLoginSetting.txt"), arguments);
             Process proc = new Process();
-            proc.StartInfo.FileName = System.IO.Path.Combine(_path, "WebLogin.exe");
-          
+            proc.StartInfo.FileName = System.IO.Path.Combine(_path, "CollectLogin.exe");
+
             proc.StartInfo.CreateNoWindow = true;
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.RedirectStandardError = true;

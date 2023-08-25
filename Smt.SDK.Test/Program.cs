@@ -16,8 +16,9 @@ namespace Smt.SDK.Test
     {
         static void Main(string[] args)
         {
-            new TaobaoCategoryQcquisition();
-            //ShopeeHttpGet();
+            //new TaobaoCategoryQcquisition();
+            new GZipFilesBuilder().OnBuild();
+;            //ShopeeHttpGet();
             //postproduct();
             //SmtTemplateFreight.Create();
         }

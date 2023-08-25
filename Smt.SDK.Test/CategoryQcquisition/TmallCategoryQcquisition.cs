@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using WebLoginBLL;
+using CollectLoginBLL;
 using WheelTest.Style;
 
 namespace Smt.SDK.Test.CategoryQcquisition
@@ -17,16 +17,12 @@ namespace Smt.SDK.Test.CategoryQcquisition
             CategoryDatas = new Dictionary<long, string>();
             var MainLoginSetting = new MainLoginSetting
             {
-                AccountName = "13142149841",
-                AccountPassword = "wangzhe13.",
-                LoginId = "fm-login-id",
-                LoginPassword = "fm-login-password",
                 Address = "https://myseller.taobao.com/home.htm/QnworkbenchHome/",
                 LoginHost = "login.taobao.com",
                 OriginalString = "myseller.taobao.com"
             };
-            var webLoginInfoBLL = new WebLoginInfoBLL(MainLoginSetting);
-            WebLoginInfoBLL.Init();
+            var webLoginInfoBLL = new CollectLoginInfoBLL(MainLoginSetting);
+            CollectLoginInfoBLL.Init(null);
         rety:
             var cookie = webLoginInfoBLL.GetCookie();
             if (string.IsNullOrWhiteSpace(cookie))

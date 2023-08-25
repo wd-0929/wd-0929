@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
-using WebLoginBLL;
+using CollectLoginBLL;
 using WheelTest.Style;
 
 namespace Smt.SDK.Test
@@ -22,16 +22,12 @@ namespace Smt.SDK.Test
         {
             var MainLoginSetting = new MainLoginSetting
             {
-                AccountName = "13142149841",
-                AccountPassword = "wangzhe13.",
-                LoginId = "fm-login-id",
-                LoginPassword = "fm-login-password",
                 Address = "https://myseller.taobao.com/home.htm/QnworkbenchHome/",
                 LoginHost = "login.taobao.com",
                 OriginalString = "myseller.taobao.com"
             };
-            var webLoginInfoBLL = new WebLoginInfoBLL(MainLoginSetting);
-            WebLoginInfoBLL.Init();
+            var webLoginInfoBLL = new CollectLoginInfoBLL(MainLoginSetting);
+            CollectLoginInfoBLL.Init(null);
         rety:
             var cookie = webLoginInfoBLL.GetCookie();
             if (string.IsNullOrWhiteSpace(cookie))
