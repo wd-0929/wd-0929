@@ -60,7 +60,16 @@ namespace WheelTest.Style
                 return memberName;
             }
         }
-
+        public static string GetDisplayName(this Enum value)
+        {
+            Type type = value.GetType();
+            string name = value.ToString();
+            if (name.Contains(", "))
+            {
+                return string.Join(",", name.Split(',').Select(o => GetDisplayName(type, o.Trim())));
+            }
+            return GetDisplayName(type, name);
+        }
         /// <summary>
         /// 读取数据文件里的值
         /// </summary>
@@ -104,12 +113,7 @@ namespace WheelTest.Style
 
 
 
-        public static string GetDisplayName(this Enum value)
-        {
-            Type type = value.GetType();
-            string name = value.ToString();
-            return GetDisplayName(type, name);
-        }
+     
         public static t[] GetValues<t>(this Enum value)
         {
             return Enum.GetValues(typeof(t)).Cast<t>().ToArray();

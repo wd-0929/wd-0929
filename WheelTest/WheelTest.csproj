@@ -121,6 +121,9 @@
     <Compile Include="Images\InputDialog.xaml.cs">
       <DependentUpon>InputDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ItemsControlTest.xaml.cs">
+      <DependentUpon>ItemsControlTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MultipleComBoBox.xaml.cs">
       <DependentUpon>MultipleComBoBox.xaml</DependentUpon>
     </Compile>
@@ -170,6 +173,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Images\InputDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ItemsControlTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

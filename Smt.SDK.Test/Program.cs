@@ -1,10 +1,15 @@
 ﻿using Iop.Api;
 using Newtonsoft.Json;
+using NPOI.SS.Formula.Functions;
 using Smt.SDK.Test.CategoryQcquisition;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.Remoting.Channels;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Security.Policy;
 using System.Text;
 using System.Threading;
@@ -17,10 +22,49 @@ namespace Smt.SDK.Test
         static void Main(string[] args)
         {
             //new TaobaoCategoryQcquisition();
-            new GZipFilesBuilder().OnBuild();
-;            //ShopeeHttpGet();
+            // new GZipFilesBuilder().OnBuild();
+            //; ShopeeHttpGet();
             //postproduct();
             //SmtTemplateFreight.Create();
+            var a = Deserialize<AccountInfo>(new  { AccountId=12, AccountName="22222" }.ToJsonData());
+        }
+        [DataContract]
+        public class AccountInfo
+        {
+            [DataMember]
+            public int AccountId { get; set; }
+
+            public string AccountName { get; set; }
+
+            [DataMember]
+            public string AccountPassword { get; set; }
+
+            [DataMember]
+            public string Phone { get; set; }
+
+            [DataMember]
+            public bool IsVerifyPhone { get; set; }
+
+
+            [DataMember]
+            public string WeChatOpenId { get; set; }
+
+        }
+        public static T Deserialize<T>(string jsonString)
+        {
+            return JsonConvert.DeserializeObject<T>(jsonString);
+            try
+            {
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(T));
+                using (MemoryStream ms = new MemoryStream(Encoding.UTF8.GetBytes(jsonString)))
+                {
+                    return (T)serializer.ReadObject(ms);
+                }
+            }
+            catch
+            {
+                throw new Exception("数据格式不正确");
+            }
         }
         //public static void postproduct() 
         //{
@@ -40,14 +84,18 @@ namespace Smt.SDK.Test
         //}
         public static void ShopeeHttpGet()
         {
-            var textData = System.IO.File.ReadAllText(@"C:\Users\Administrator\Desktop\Shopee采集文本.txt");
+            //var textData = System.IO.File.ReadAllText(@"C:\Users\Administrator\Desktop\Shopee采集文本.txt");
             Dictionary<string, string> headerDic = new Dictionary<string, string>();
-            foreach (var item in textData.SplitExt("\r\n"))
+            //foreach (var item in textData.SplitExt("\r\n"))
+            //{
+            //    if (!string.IsNullOrWhiteSpace(item))
+            //        headerDic.Add(item.SplitExt(":")[0], item.Replace(item.SplitExt(":")[0]+":", ""));
+            //}
+            using (WebClient webClient=new WebClient())
             {
-                if (!string.IsNullOrWhiteSpace(item))
-                    headerDic.Add(item.SplitExt(":")[0], item.Replace(item.SplitExt(":")[0]+":", ""));
+                webClient.DownloadFile("https://files.alicdn.com/tpsservice/c37222cc12fc4352b347c02c8771a341.xlsx?spm=5261.25812464.0.0.1c0b3648u3mgmw&file=c37222cc12fc4352b347c02c8771a341.xlsx", "C:\\Users\\Administrator\\Desktop\\ef1ae29e-f0fb-49cd-998d-c40c293aa612.xlsx");
+
             }
-            var a = Helper.HttpGet("https://shopee.com.br/api/v4/pdp/get_pc?shop_id=392144922&item_id=12338656474", headerDic, isHttps: true);
         }
     }
 }

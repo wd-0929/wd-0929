@@ -10,9 +10,36 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using NPOI.OpenXml4Net.OPC.Internal;
+using System.Net;
+using WheelTest.Style;
+using System.ComponentModel.DataAnnotations;
 
 namespace Smt.SDK.Test
 {
+    public enum OssBucketName : byte
+    {
+        None = 0,
+        [Display(Name = "gta-product")]
+        OffineProduct = 1,
+        [Display(Name = "gta-product-timing")]
+        TimingProduct = 2,
+        [Display(Name = "gta-img")]
+        Watermark = 3,
+        //白底图
+        [Display(Name = "gta-imgsc")]
+        WhiteFigure = 4,
+        /// <summary>
+        /// 库存图片
+        /// </summary>
+        [Display(Name = "gta-inventory")]
+        GtaInventory = 5,
+        /// <summary>
+        /// 不清理的路径
+        /// </summary>
+        [Display(Name = "gta-data")]
+        GtaData = 6,
+    }
     public class GZipFilesBuilder
     {   
         private readonly string _gzipPath;
@@ -23,7 +50,36 @@ namespace Smt.SDK.Test
             var ExecPath = Path.GetDirectoryName(ExecFile);
             _gzipPath = Path.Combine(ExecPath, "GZip");
         }
-
+        private static string OcsUrl = "http://oss-cn-zhangjiakou.aliyuncs.com";
+        private static string OcsAccessKeyId = "LTAI3dwsh1uIBPzb";
+        private static string OcsAccessKeySecret = "rU6UMftm6C50Ke9bnjK8scFde12Ocv";
+        public static bool UploadFileByGtaProduct(byte[] file, string key, OssBucketName bucketName, string ocsUrl = null)
+        {
+            int retryCount = 0;
+        retry:
+            try
+            {
+                if (ocsUrl == null)
+                {
+                    ocsUrl = OcsUrl;
+                }
+                var conf = new Aliyun.OSS.Common.ClientConfiguration();
+                conf.ConnectionTimeout = 30000;
+                var client = new Aliyun.OSS.OssClient(new Uri(ocsUrl), OcsAccessKeyId, OcsAccessKeySecret, conf);
+                var steam = new MemoryStream(file);
+                return client.PutObject(bucketName.GetDisplayName(), key, steam).HttpStatusCode == HttpStatusCode.OK;
+            }
+            catch (Exception ex)
+            {
+                retryCount++;
+                if (retryCount < 2)
+                {
+                    goto retry;
+                }
+                string errorMessage = $"上传至OSS失败：{key},{bucketName.GetDisplayName()},{ex}";
+                throw new Exception(errorMessage);
+            }
+        }
         public string OnBuild()
         {
             var sourcePath = "D:\\自己的项目\\wd-0929\\CollectLogin\\bin\\Debug";
@@ -96,7 +152,7 @@ namespace Smt.SDK.Test
         }
 
         #region DownloadUriFormat Property
-        private string _downloadUriFormat = "https://gta-data.oss-cn-zhangjiakou.aliyuncs.com/CollectLoginCookie/[Identity].gzip";
+        private string _downloadUriFormat = "https://gta-data.oss-cn-zhangjiakou.aliyuncs.com/CollectLogin/[Identity].gzip";
         /// <summary>
         /// 下载链接格式
         /// </summary>
