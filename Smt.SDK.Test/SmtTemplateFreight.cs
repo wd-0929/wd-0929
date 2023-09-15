@@ -14,22 +14,29 @@ using WheelTest.Style;
 using Newtonsoft.Json.Linq;
 using WheelTest.Style.Multitask;
 using NPOI.Util;
+using CollectLoginBLL;
+using NPOI.SS.Util;
 
 namespace Smt.SDK.Test
 {
     public class SmtTemplateFreight
     {
-        private double UsCurrencyRate = 7.2415;
-        private SmtTemplateFreight()
+        private double UsCurrencyRate = 7.2894;
+        private Action<string> SetSrogress;
+        private SmtTemplateFreight(Action<string> setSrogress)
         {
+            SetSrogress = setSrogress;
+            //需要修改excel 有些有问题 菜鸟无忧物流-简易  菜鸟无忧物流-标准
             var excelFileName = System.IO.Path.Combine(AppContext.BaseDirectory, "Excel", "ef1ae29e-f0fb-49cd-998d-c40c293aa612.xlsx");
-            using (WebClient webClient = new WebClient())
+            if (!System.IO.Directory.Exists(System.IO.Path.Combine(AppContext.BaseDirectory, "Excel")))
             {
-                webClient.DownloadFile("https://files.alicdn.com/tpsservice/c37222cc12fc4352b347c02c8771a341.xlsx?spm=5261.25812464.0.0.1c0b3648u3mgmw&file=c37222cc12fc4352b347c02c8771a341.xlsx", excelFileName);
+                System.IO.Directory.CreateDirectory(System.IO.Path.Combine(AppContext.BaseDirectory, "Excel"));
             }
-            headerDic.Add("Cookie", " ali_apache_id=33.50.161.249.1680334096644.430508.6; aep_common_f=hVRabZRXN0uYWTj1zMDXN22TXg1ds5MOWY4y897C89aOprn61CweaQ==; _ym_d=1680574396; _ym_uid=1678956230494930497; cto_bundle=veGeBF91cWxtQ21yQWQlMkJNaUpnak96QW9KTk5Ga2FJcWtaaklVNVQ1Y01qVEtlY3V4T08lMkZwRUtXR3IlMkY4V1ElMkJndGVlQTJ6SmQ5TnhEWW5YNFlQZ0FtWmVpU2xiWGQwZjZjckdHUWxScjh5WkZoWGlmQVk3b01JZW13RnkzMDB3VFFoWW04dG9EWnZKbExHRFhKb0JaV205UXpMQSUzRCUzRA; account_v=1; lzd_cid=d28607f5-4e88-43e5-8f99-21f3eb2f62c6; aeu_cid=1a48a4c8222d449e9295e252273e2ed6-1681284373362-02387-_DnmN1av; af_ss_a=1; cna=+DnJHEl78iUCAXF2wKs4jn7y; aep_history=keywords%5E%0Akeywords%09%0A%0Aproduct_selloffer%5E%0Aproduct_selloffer%091005005279196350%091005005221820596; _hvn_login=13; e_id=pt20; _ga=GA1.1.418141741.1680574392; _ga_VED1YSGNC7=GS1.1.1685344117.8.0.1685344117.60.0.0; lazop_lang=zh_CN; _lang=zh_CN; intl_common_forever=3bKL/oCpO6KN60xmFmPJUGG+Ck5eUliZNDzzt1f/xD3bpLVvjN7HsQ==; xlly_s=1; _m_h5_tk=5410238acdf5b5faf00b8dc2208522c3_1688716469466; _m_h5_tk_enc=2837d19a4f602eee93cfd81c877e88bf; ali_apache_tracktmp=W_signed=Y; ali_apache_track=mt=2|mid=cn1072250313dqhae; acs_usuc_t=acs_rt=4b9308162cb743539ccf64aa78ac9e04&x_csrf=82zuu17diaf7; havana_tgc=NTGC_1d997bed07b4c57ae8d5071268e1266d; x_router_us_f=x_alimid=251551188; xman_us_t=x_lid=cn1541248744bjyk&sign=y&rmb_pp=86-18938947182&x_user=OzpIED8fWdCjznZT1YHBfeHo7k/yjDGjyEMGmpxkqms=&ctoken=rzbq_dlxdvk9&l_source=aliexpress; aep_usuc_f=site=usa&region=US&b_locale=en_US&province=922865760000000000&iss=y&s_locale=zh_CN&isfm=y&c_tp=USD&x_alimid=251551188&city=922865766013000000; sgcookie=E100/PQZsYesttboT4OykzRIn8PG/pNiinEvh8j3T/kpt3S5B/Kpjxa2CCOspCLLJHX6pw7ssmiNpRTifK9adtP4GDu6DAExpCqOV2U/xD1Bk2k=; xman_t=QpIt2eGcHBhh02joB1mpLsFDKZ5aEd2/2Gg1nJlWcm7el+SajxVCD3kGIcddQeI5+Ja/oR3kGgrMHDlMv+pX0cpOgQcaY32csyas9r5jvP+hsjpx58P6JQCMfDMZVdFHWWrYuyKoDOj9Tk7iCNw41AT2PzC/NlydX12K2LobkdNRdxePfHEQuQ0ATMVq4Ob+BBhTZVS/OiZyVywYpYFwUS6INkuFya9TktUh7ofLp9M3g6Kme4tdxeVs5Cu7uAu5Z3pERoYqiQMBH6VRh88niEDdKZo7+MiC+JBRi1waDkv6blzYyYo0YRKaxdYaRnezpCz5LNNPye+ybCf0l+DpTxhX6Vyi9a7QQc+QDtRXfYJtHBDvO/4SFRaYMcS6dHkkXXD+m0Y7k8MVjXJI2rpZa2fdfprx2v9kQZnVyvC77VRqgULGKcfpv/dC0CKsoLR0aFKX1YLV1IGG4Y0Tib/wOWX2HAdK282MlU7i9sRa67IyRlzlroP4LKdcYv4eOCr/nwIsU9R9ToA2ISMryXdIsACAx0FMz9bkRWY/4XOcn6otruYhVGdJgOQJhxsxj79jumGYIi12CxISfeE3FmG1LbFuI+s5nwtoAi7c00O+GsS6pV1wFKdF/wjdCjmgHwqn/pkYTYFlIcUStGC7ulSbeQoDs50xR4JXLAIkrfQsyYXOs2QbQxPkLZYygiYSR9iawMvAHyG+yZR8G8PtijF8EVCfY7ZgePYTwcDUNDCRstc=; xman_f=PXJIO5gPc1yiKc4Yrmr2yT4tlC+f/bVs9ni8eHfePmEIR9ubGwvaqx+OvCJaP8sEVhzo/0m19ug336Ih0bQoGMUFnzcG70LyGCUmsT+zVXoBvHTIqQAqX3mT7YMpZx/vOUzHZ795qBz8PVpNdbk4GoEfNTOSikbKjG8tiK7zVUvXmyn91RsTkKh+i5ixRoRoQE31S32HkgHsOeU86a+ZyZ7wYf0UynaTRslpx8Co51ivOJ6mGY5SlS654Hd53ACM/DEVtm1A09I1aMnlQkDF7vru+zJATPtS9ibf1hd79t4iIePZYD08nbCIjKtV4yR+jKEWtorAs7ShLWDfIMEDVjVJ73RCRVD47W0jxPLQk4PzgjsOVW8jhimZXEizZTp/UM7B1S5xYkarz5dmX7lQYg==; xman_us_f=zero_order=y&x_locale=en_US&x_l=0&x_user=CN|default%20firstName|default%20lastName|cnfm|2673675313&x_lid=cn1072250313dqhae&acs_rt=7c46f3c19b6f4655840ffd889c2e224c; gmp_sid=251551188; tfstk=c5wcBnVpDSljtVXTPrMfH4tNKXsRZO-rkPzbUGoKwe-73-ePiGAyTxCRZ4XItC1..; l=fBgH6ESlTqwjpR7AoOfwPurza77OSIRAguPzaNbMi9fP_X5p5CDVW1soQOL9C3GVF6PDR3-eWiOXBeYBqoxxMsdPHxu6KpDmnub0G7f..; isg=BBUVReRm3fO-Y_5VYoEkItq7JBHPEskkANAj1pe60Qzb7jXgX2LZ9CMovPLYbuHc");
-            headerDic.Add("Accept-Encoding", "gzip, deflate, br");
-            headerDic.Add("Accept-Language", "zh-CN,zh;q=0.9");
+            //using (WebClient webClient = new WebClient())
+            //{
+            //    webClient.DownloadFile("https://files.alicdn.com/tpsservice/c37222cc12fc4352b347c02c8771a341.xlsx?spm=5261.25812464.0.0.1c0b3648u3mgmw&file=c37222cc12fc4352b347c02c8771a341.xlsx", excelFileName);
+            //}
+
             IWorkbook hssfworkbook = null;
             if (excelFileName != null && excelFileName.IndexOf(".xlsx") < 0)
                 using (FileStream file = new FileStream(excelFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -55,10 +62,6 @@ namespace Smt.SDK.Test
                     var sheet = hssfworkbook.GetSheetAt(index++);
                     Datas = GenerateDataFromExcelTall(sheet);
                     Name = sheet.SheetName.Trim();
-                    if (Name == "菜鸟超级经济")
-                    {
-
-                    }
                 }
                 catch (Exception ex)
                 {
@@ -83,9 +86,8 @@ namespace Smt.SDK.Test
                         {
                             codeIndex = codeIndex + 1;
                         }
-                        if (item.Key == "菜鸟无忧物流-简易")
+                        if (item.Key == "菜鸟无忧物流-标准")
                         {
-
                         }
                         var minimumNumberIndex = value.Columns.IndexOf("最低计费重量");
                         if (minimumNumberIndex == -1)
@@ -166,7 +168,6 @@ namespace Smt.SDK.Test
             CountryAcquire();
             foreach (var item in FreightsNew)
             {
-                //if(item.SheetName== "中国邮政挂号小包" || item.SheetName == "中邮e邮宝")
                 {
                     Console.WriteLine($"开始对比模板------------{item.SheetName}");
 
@@ -213,21 +214,18 @@ namespace Smt.SDK.Test
                         var data = item.Datas[i - 1];
                         mySheet.CreateRow(i);
                         mySheet.GetRow(i).CreateCell(0).SetCellValue(data.Country.Code);
-                        mySheet.GetRow(i).CreateCell(1).SetCellValue(data.StartWeight??0);
-                        mySheet.GetRow(i).CreateCell(2).SetCellValue(data.EndWeight??0);
-                        mySheet.GetRow(i).CreateCell(3).SetCellValue(data.OneWeight??0);
-                        mySheet.GetRow(i).CreateCell(4).SetCellValue(data.OneWeightFreight??0);
-                        mySheet.GetRow(i).CreateCell(5).SetCellValue(data.ContinueWeight??0);
-                        mySheet.GetRow(i).CreateCell(6).SetCellValue(data.ContinueWeightFreight??0);
-                        mySheet.GetRow(i).CreateCell(7).SetCellValue(data.RegisteredFreight??0);
+                        mySheet.GetRow(i).CreateCell(1).SetCellValue(data.StartWeight ?? 0);
+                        mySheet.GetRow(i).CreateCell(2).SetCellValue(data.EndWeight ?? 0);
+                        mySheet.GetRow(i).CreateCell(3).SetCellValue(data.OneWeight ?? 0);
+                        mySheet.GetRow(i).CreateCell(4).SetCellValue(data.OneWeightFreight ?? 0);
+                        mySheet.GetRow(i).CreateCell(5).SetCellValue(data.ContinueWeight ?? 0);
+                        mySheet.GetRow(i).CreateCell(6).SetCellValue(data.ContinueWeightFreight ?? 0);
+                        mySheet.GetRow(i).CreateCell(7).SetCellValue(data.RegisteredFreight ?? 0);
                     }
                     workbook.Write(stream);
                     workbook.Close();
                 }
             }
-            Console.WriteLine("生成成功");
-            //string allConsoleOutput = stringWriter.ToString();
-            Console.ReadLine();
         }
 
         private void NewMethod(List<LogisticsFreightDatas> Freights, DataTable value, DataRow rows, Country code, int OneWeight, Regex regex, out LogisticsFreightItem logisticsFreightItem, int itemIndex, string cloumn, out LogisticsFreightDatas logistics, string sheetName)
@@ -472,33 +470,55 @@ namespace Smt.SDK.Test
             }
             return tables.ToArray();
         }
+        public List<CellRangeAddress> GetCellRangeAddresses(ISheet sheet)
+        {
+            int numMergedRegions = sheet.NumMergedRegions;
+            var datas = new List<CellRangeAddress>();
+            for (int i = 0; i < numMergedRegions; i++)
+            {
+                datas.Add(sheet.GetMergedRegion(i));
+            }
+            return datas;
+        }
         public List<List<string>> GenerateDataFromExcelTall(ISheet sheet)
         {
             List<List<string>> Datass = new List<List<string>>();
-            for (int i = 0; i <= sheet.LastRowNum; i++)
+            try
             {
-                IRow row = sheet.GetRow(i);
-                List<string> datas = new List<string>();
-                if (row != null)
+                var Addresses = GetCellRangeAddresses(sheet);
+                for (int i = 0; i <= sheet.LastRowNum; i++)
                 {
-                    for (int c = 0; c < row.Cells.Count; c++)
+                    IRow row = sheet.GetRow(i);
+                    List<string> datas = new List<string>();
+                    if (row != null)
                     {
-                        var data = GetCellValue(row.Cells[c]);
-                        if (!string.IsNullOrWhiteSpace(data) || c == 0 || !row.Cells[c].IsMergedCell)
+                        for (int c = 0; c < row.Cells.Count; c++)
                         {
-                            datas.Add(data);
-                        }
-                        else
-                        {
-                            datas.Add(datas[c - 1]);
+                            var data = GetCellValue(row.Cells[c]);
+                            if (Addresses.FirstOrDefault(o => o.FirstColumn == c && o.FirstRow == i && o.LastColumn != o.FirstColumn) != null)
+                            {
+                                var addresse = Addresses.FirstOrDefault(o => o.FirstColumn == c && o.FirstRow == i);
+                                for (int r = 0; r < (addresse.LastColumn - addresse.FirstColumn + 1); r++)
+                                {
+                                    datas.Add(data);
+                                }
+                                c = c + (addresse.LastColumn - addresse.FirstColumn);
+                            }
+                            else
+                            {
+                                datas.Add(data);
+                            }
                         }
                     }
+                    if (i == 12)
+                    {
+                    }
+                    Datass.Add(datas);
                 }
-                if (i == 44)
-                {
+            }
+            catch (Exception)
+            {
 
-                }
-                Datass.Add(datas);
             }
             return Datass;
         }
@@ -529,9 +549,9 @@ namespace Smt.SDK.Test
             }
             return string.Empty;
         }
-        public static SmtTemplateFreight Create()
+        public static SmtTemplateFreight Create(Action<string> setSrogress)
         {
-            return new SmtTemplateFreight();
+            return new SmtTemplateFreight(setSrogress);
         }
         Dictionary<string, string> headerDic = new Dictionary<string, string>();
         Dictionary<string, string> fromCountryLists = new Dictionary<string, string>();
@@ -540,8 +560,36 @@ namespace Smt.SDK.Test
         string _csrf_token_ = "0ccc0eef-69cb-4ca1-bbe3-51b8884dc48f";
         public void CountryAcquire()
         {
+            var MainLoginSetting = new MainLoginSetting
+            {
+                AccountName = "cn1541248744bjyk",
+                AccountPassword = "8Oz67354",
+                LoginId = "fm-login-id",
+                LoginPassword = "fm-login-password",
+                Address = "https://csp.aliexpress.com/apps/home?channelId=36375",
+                LoginHost = "login.aliexpress.com",
+                OriginalString = "csp.aliexpress.com"
+            };
+            CollectLoginInfoBLL collectLoginInfoBLL = new CollectLoginInfoBLL(MainLoginSetting);
+            CollectLoginInfoBLL.Init(progressValue => { SetSrogress?.Invoke($"组件初始化...{progressValue:0.00%}"); });
+        rety:
+            var cookie = collectLoginInfoBLL.GetCookie();
+            if (string.IsNullOrWhiteSpace(cookie))
+            {
+                collectLoginInfoBLL.ExecCommand();
+                goto rety;
+            }
+            headerDic.Clear();
+            headerDic.Add("Cookie", cookie);
+            headerDic.Add("Accept-Encoding", "gzip, deflate, br");
+            headerDic.Add("Accept-Language", "zh-CN,zh;q=0.9");
             var relust = WebClientHelper.HttpWebClient("https://sg-cgmp.aliexpress.com/seller-center/logistics/service/init?_csrf_token_=" + _csrf_token_, headerDic);
             JObject jObject = JObject.Parse(relust);
+            if (!jObject.Value<bool>("success"))
+            {
+                collectLoginInfoBLL.DeleteCookie();
+                goto rety;
+            }
             var fromCountryList = jObject["data"].Value<JArray>("fromCountryList");
             foreach (var fromCountry in fromCountryList)
             {
@@ -646,7 +694,7 @@ namespace Smt.SDK.Test
             }
             if (logisticsPrice.ContainsKey(name))
             {
-                var a = ((n1 *1000* logisticsFreightItem.ContinueWeightFreight + logisticsFreightItem.RegisteredFreight) ?? 0).ToRound();
+                var a = ((n1 * 1000 * logisticsFreightItem.ContinueWeightFreight + logisticsFreightItem.RegisteredFreight) ?? 0).ToRound();
                 if (!(a == logisticsPrice.FirstOrDefault(i => i.Key == name).Value))
                 {
                     Console.WriteLine($"国家:{logisticsFreightItem.Country.Name} 对比不一致 重量:{n1}g   接口为{logisticsPrice.FirstOrDefault(i => i.Key == name).Value},自己计算{a.ToRound()}");

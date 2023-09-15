@@ -82,5 +82,14 @@ namespace WheelTest.Style {
                 return ResourceManager.GetString("_1688Token", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似  的本地化字符串。
+        /// </summary>
+        internal static string baidufanyi {
+            get {
+                return ResourceManager.GetString("baidufanyi", resourceCulture);
+            }
+        }
     }
 }

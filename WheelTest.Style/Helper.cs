@@ -118,6 +118,13 @@ namespace WheelTest.Style
             }
             return new ObservableCollection<T>(data);
         }
+        public static byte[] GetMD5HashBytes(this string strHash_)
+        {
+            System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+
+            byte[] bytes = Encoding.ASCII.GetBytes(strHash_);
+            return md5.ComputeHash(bytes);
+        }
         /// <summary>
         /// md5加密
         /// </summary>
@@ -141,7 +148,13 @@ namespace WheelTest.Style
 
             return sb.ToString();
         }
-
+        public static string MD5Encrypt16(this string password)
+        {
+            var md5 = new MD5CryptoServiceProvider();
+            string t2 = BitConverter.ToString(md5.ComputeHash(Encoding.Default.GetBytes(password)), 4, 8);
+            t2 = t2.Replace("-", "");
+            return t2;
+        }
         public static string HttpGet(string url, Dictionary<string, string> headerDic = null, bool isHttps = false, Encoding encoding = null)
         {
             if (encoding == null)
@@ -418,6 +431,8 @@ namespace WheelTest.Style
         {
             HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             AddHeader(myHttpWebRequest, Headers);
+            //停止重定向
+            myHttpWebRequest.AllowAutoRedirect = false;
             myHttpWebRequest.CookieContainer = new CookieContainer();
             myHttpWebRequest.CookieContainer.SetCookies(new Uri(url), "");
             HttpWebResponse myresponse = (HttpWebResponse)myHttpWebRequest.GetResponse();
@@ -543,6 +558,14 @@ namespace WheelTest.Style
         public static string GetTimestamp()
         {
             return ((long)(DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds).ToString();
+        }
+        public static string GetTimestamp13()
+        {
+            //ToUniversalTime()转换为标准时区的时间,去掉的话直接就用北京时间
+            TimeSpan ts = DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1);
+            //得到精确到毫秒的时间戳（长度13位）
+            long time = (long)ts.TotalMilliseconds;
+            return time.ToString();
         }
         public static string GetJsMethd(string js, object[] para)
         {
@@ -674,6 +697,13 @@ namespace WheelTest.Style
                 childList.AddRange(GetChildObjects<T>(child, ""));
             }
             return childList;
+        }
+        
+        public static string GetTranslateSign(string t,string r)
+        {
+            var baidufanyi = Resource1.baidufanyi;
+            var sign = GetJsMethd(baidufanyi, new object[] { t, r });
+            return sign;
         }
     }
 }

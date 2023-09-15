@@ -14,6 +14,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading;
 using WheelTest.Style;
+using WheelTest.Translate;
 
 namespace Smt.SDK.Test
 {
@@ -26,7 +27,7 @@ namespace Smt.SDK.Test
             //; ShopeeHttpGet();
             //postproduct();
             //SmtTemplateFreight.Create();
-            var a = Deserialize<AccountInfo>(new  { AccountId=12, AccountName="22222" }.ToJsonData());
+            //var a = Deserialize<AccountInfo>(new  { AccountId=12, AccountName="22222" }.ToJsonData());
         }
         [DataContract]
         public class AccountInfo

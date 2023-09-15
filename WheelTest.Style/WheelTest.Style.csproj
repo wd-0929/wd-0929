@@ -115,6 +115,7 @@
     <Content Include="Images\Example.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\baidufanyi.txt" />
     <None Include="Resources\1688Token.txt" />
   </ItemGroup>
   <ItemGroup>

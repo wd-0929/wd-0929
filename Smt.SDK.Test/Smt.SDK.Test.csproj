@@ -101,6 +101,10 @@
       <Project>{4a9c60a6-2f01-4494-93a9-4c24583853a4}</Project>
       <Name>WheelTest.Style</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WheelTest.Translate\WheelTest.Translate.csproj">
+      <Project>{907f94a7-2001-474b-8c16-a68ec4ca0345}</Project>
+      <Name>WheelTest.Translate</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
