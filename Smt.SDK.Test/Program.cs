@@ -34,7 +34,7 @@ namespace Smt.SDK.Test
         {
             [DataMember]
             public int AccountId { get; set; }
-
+            [Newtonsoft.Json.JsonIgnore]
             public string AccountName { get; set; }
 
             [DataMember]

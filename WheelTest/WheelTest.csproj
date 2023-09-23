@@ -279,6 +279,9 @@
     <Content Include="Assembly\x64\SQLite.Interop.dll" />
     <Content Include="Assembly\x86\libwebp.dll" />
     <Content Include="Assembly\x86\SQLite.Interop.dll" />
+    <Content Include="HotKeysList.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="JS\jquery-3.4.1.js" />
     <Content Include="JS\test.html" />
     <Content Include="JS\webmssdkes5.js" />

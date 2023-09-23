@@ -11,11 +11,49 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
+using System.Windows.Shapes;
 
 namespace WheelTest
 {
     public static class Helper
     {
+        /// <summary>
+        /// 执行程序命令
+        /// </summary>
+        /// <param name="arguments">命令</param>
+        /// <exception cref="Exception"></exception>
+        public static void ExecCommand(string programPath, string arguments)
+        {
+            Process proc = new Process();
+            proc.StartInfo.FileName = programPath;
+            //proc.StartInfo.WorkingDirectory = VideosPath;
+            proc.StartInfo.Arguments = arguments;
+            proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.UseShellExecute = false;
+            proc.StartInfo.RedirectStandardError = true;
+            List<string> errors = new List<string>();
+            errors.Add(arguments);
+            proc.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
+            {
+                errors.Add(e.Data);
+            });
+            proc.Start();
+            proc.BeginErrorReadLine();
+
+            proc.WaitForExit();
+
+            if (proc.ExitCode != 0)
+            {
+                throw new Exception("调用失败，详情请查看日志");
+            }
+#if DEBUG
+            else
+            {
+            }
+#endif
+        }
         /// <summary>
         /// js的使用
         /// </summary>

@@ -20,6 +20,11 @@
                      Height="50"
                      Margin="6"
                      Click="AESdecrypt_Click" />
+            <Button  Content="全局快捷键"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="HotKeysList_Click" />
         </WrapPanel>
         <c:ProgressBar IsShow="{Binding IsWaiting}"
                        Message="{Binding WaitMessage}"

@@ -31,8 +31,12 @@ namespace WheelTest
 
         private void AESdecrypt_Click(object sender, RoutedEventArgs e)
         {
-
             Translate.Translate.AesDecrypt();
+        }
+
+        private void HotKeysList_Click(object sender, RoutedEventArgs e)
+        {
+            Helper.ExecCommand(System.IO.Path.Combine(AppUtility.ExecPath, "HotKeysList.exe"), "/sxml "+ System.IO.Path.Combine(AppUtility.ExecPath, "HotKeysList.Txt"));
         }
     }
 }
