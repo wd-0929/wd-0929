@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Text;
@@ -121,6 +122,11 @@ namespace WheelTest.Translate
             }
         }
 
+        public static string BingTranslate(string translateText) 
+        {
+           var datas= WebClientHelper.HttpWebClient("https://cn.bing.com/search?q=%E5%BF%85%E5%BA%94%E7%BF%BB%E8%AF%91&FORM=TTAHP1", isHttps:true);
+            return "";
+        }
         public static void AesDecrypt()
         {
             //密钥和初始化向量

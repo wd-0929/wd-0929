@@ -25,6 +25,16 @@
                      Height="50"
                      Margin="6"
                      Click="HotKeysList_Click" />
+            <Button  Content="序列化"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="Json_Click" />
+            <Button  Content="更改Vs输出路径"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="UpdateVSoutputPath_Click" />
         </WrapPanel>
         <c:ProgressBar IsShow="{Binding IsWaiting}"
                        Message="{Binding WaitMessage}"
