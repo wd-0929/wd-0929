@@ -122,6 +122,7 @@ namespace WheelTest.Style
                                     {
                                         //string[] cookstr = item.Value.Split(';');
                                         //CookieContainer myCookieContainer = new CookieContainer();
+                                        //myCookieContainer.PerDomainCapacity= cookstr.Length;
                                         //foreach (string str in cookstr)
                                         //{
                                         //    string[] cookieNameValue = str.Split('=');
