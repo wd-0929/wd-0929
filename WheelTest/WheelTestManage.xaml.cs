@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -30,7 +31,7 @@ namespace WheelTest
 
         private void Translate_Click(object sender, RoutedEventArgs e)
         {
-            Translate.Translate.BingTranslate("啊实打实");
+            Translate.Translate.YouDaoTranslate("啊实打实");
         }
 
         private void AESdecrypt_Click(object sender, RoutedEventArgs e)
@@ -57,7 +58,7 @@ namespace WheelTest
             //{
             //    return;
             //}
-            var SelectedPath = "D:\\助手的项目\\GTA-BUG\\GTA";
+            var SelectedPath = "D:\\助手的项目\\GTA-BUG\\GTA\\Logistics";
             List<string> paths = new List<string>();
             List<PropertyGroup> PropertyGroups = new List<PropertyGroup>();
              var datas = LoadAllFile(SelectedPath, paths);
@@ -73,6 +74,7 @@ namespace WheelTest
                     bool IspropertyGroupDebugx64 = false;
                     PropertyGroup propertyGroupReleaseAnyCPU = null;
                     bool IspropertyGroupReleasex64 = false;
+                    XmlNode InsertBefore = null;
                     foreach (XmlNode childNode in childNodes.ChildNodes)
                     {
                         if (childNode.Name == "PropertyGroup" && childNode.Attributes["Condition"] != null)
@@ -97,7 +99,7 @@ namespace WheelTest
                                             propertyGroupDebugAnyCPU.DebugType = item.InnerText;
                                             break;
                                         case "PlatformTarget":
-                                            propertyGroupDebugAnyCPU.PlatformTarget = item.InnerText;
+                                            propertyGroupDebugAnyCPU.PlatformTarget = "x64";
                                             break;
                                         case "ErrorReport":
                                             propertyGroupDebugAnyCPU.ErrorReport = item.InnerText;
@@ -132,7 +134,7 @@ namespace WheelTest
                                             propertyGroupReleaseAnyCPU.DebugType = item.InnerText;
                                             break;
                                         case "PlatformTarget":
-                                            propertyGroupReleaseAnyCPU.PlatformTarget = item.InnerText;
+                                            propertyGroupReleaseAnyCPU.PlatformTarget = "x64";
                                             break;
                                         case "ErrorReport":
                                             propertyGroupReleaseAnyCPU.ErrorReport = item.InnerText;
@@ -148,15 +150,15 @@ namespace WheelTest
                                 PropertyGroups.Add(propertyGroupReleaseAnyCPU);
                             }
 
-                            else if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Debug|x64'")
+                            if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Debug|x64'")
                             {
                                 IspropertyGroupDebugx64 = true;
                                 foreach (XmlNode item in childNode.ChildNodes)
                                 {
                                     switch (item.Name)
                                     {
-                                        case "OutputPath":
-                                            item.InnerText = propertyGroupDebugAnyCPU.OutputPath.Replace("Debug\\", "x64\\Debug\\");
+                                        case "PlatformTarget":
+                                            item.InnerText = "x64";
                                             break;
                                     }
                                 }
@@ -170,8 +172,8 @@ namespace WheelTest
                                 {
                                     switch (item.Name)
                                     {
-                                        case "OutputPath":
-                                            item.InnerText = propertyGroupReleaseAnyCPU.OutputPath.Replace("Release\\", "x64\\Release\\");
+                                        case "PlatformTarget":
+                                            item.InnerText = "x64";
                                             break;
                                     }
                                 }
@@ -179,85 +181,89 @@ namespace WheelTest
                                     NewPath.Add(data);
                             }
                         }
+                        if (childNode.Name == "PropertyGroup" && childNode.Attributes["Condition"] == null) 
+                        {
+                            InsertBefore = childNode;
+                        }
                     }
-                    //if (propertyGroupDebugAnyCPU != null && !IspropertyGroupDebugx64)
-                    //{
-                    //    XmlElement book1 = doc.CreateElement( "PropertyGroup", childNodes.Attributes["xmlns"].Value);
-                    //    book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Debug|x64'");
-                    //    childNodes.AppendChild(book1);
-                    //    XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
-                    //    debugSymbols.InnerText = propertyGroupDebugAnyCPU.DebugSymbols;
-                    //    book1.AppendChild(debugSymbols);
+                    if (propertyGroupDebugAnyCPU != null && !IspropertyGroupDebugx64)
+                    {
+                        XmlElement book1 = doc.CreateElement("PropertyGroup", childNodes.Attributes["xmlns"].Value);
+                        book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Debug|x64'");
+                        InsertBefore.ParentNode.InsertBefore(book1, InsertBefore);
+                        XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
+                        debugSymbols.InnerText = propertyGroupDebugAnyCPU.DebugSymbols;
+                        book1.AppendChild(debugSymbols);
 
-                    //    XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
-                    //    OutputPath.InnerText = propertyGroupDebugAnyCPU.OutputPath.Replace("Debug\\", "x64\\Debug\\");
-                    //    book1.AppendChild(OutputPath);
+                        XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
+                        OutputPath.InnerText = propertyGroupDebugAnyCPU.OutputPath.Replace("Debug\\", "x64\\Debug\\");
+                        book1.AppendChild(OutputPath);
 
-                    //    XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
-                    //    DefineConstants.InnerText = "TRACE";
-                    //    book1.AppendChild(DefineConstants);
+                        XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
+                        DefineConstants.InnerText = "TRACE";
+                        book1.AppendChild(DefineConstants);
 
-                    //    XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
-                    //    DebugType.InnerText = propertyGroupDebugAnyCPU.DebugType;
-                    //    book1.AppendChild(DebugType);
+                        XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
+                        DebugType.InnerText = propertyGroupDebugAnyCPU.DebugType;
+                        book1.AppendChild(DebugType);
 
-                    //    XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
-                    //    PlatformTarget.InnerText = "x64";
-                    //    book1.AppendChild(PlatformTarget);
+                        XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
+                        PlatformTarget.InnerText = "x64";
+                        book1.AppendChild(PlatformTarget);
 
-                    //    XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
-                    //    ErrorReport.InnerText = propertyGroupDebugAnyCPU.ErrorReport;
-                    //    book1.AppendChild(ErrorReport);
+                        XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
+                        ErrorReport.InnerText = propertyGroupDebugAnyCPU.ErrorReport;
+                        book1.AppendChild(ErrorReport);
 
-                    //    XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
-                    //    CodeAnalysisRuleSet.InnerText = propertyGroupDebugAnyCPU.CodeAnalysisRuleSet;
-                    //    book1.AppendChild(CodeAnalysisRuleSet);
+                        XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
+                        CodeAnalysisRuleSet.InnerText = propertyGroupDebugAnyCPU.CodeAnalysisRuleSet;
+                        book1.AppendChild(CodeAnalysisRuleSet);
 
-                    //    XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
-                    //    Prefer32Bit.InnerText = propertyGroupDebugAnyCPU.Prefer32Bit;
-                    //    book1.AppendChild(Prefer32Bit);
-                    //    if (!NewPath.Contains(data))
-                    //        NewPath.Add(data);
-                    //}
-                    //if (propertyGroupReleaseAnyCPU != null && !IspropertyGroupReleasex64)
-                    //{
-                    //    XmlElement book1 = doc.CreateElement("PropertyGroup", childNodes.Attributes["xmlns"].Value);
-                    //    book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Release|x64'");
-                    //    childNodes.AppendChild(book1);
-                    //    XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
-                    //    debugSymbols.InnerText = propertyGroupReleaseAnyCPU.DebugSymbols;
-                    //    book1.AppendChild(debugSymbols);
+                        XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
+                        Prefer32Bit.InnerText = propertyGroupDebugAnyCPU.Prefer32Bit;
+                        book1.AppendChild(Prefer32Bit);
+                        if (!NewPath.Contains(data))
+                            NewPath.Add(data);
+                    }
+                    if (propertyGroupReleaseAnyCPU != null && !IspropertyGroupReleasex64)
+                    {
+                        XmlElement book1 = doc.CreateElement("PropertyGroup", childNodes.Attributes["xmlns"].Value);
+                        book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Release|x64'");
+                        InsertBefore.ParentNode.InsertBefore(book1, InsertBefore);
+                        XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
+                        debugSymbols.InnerText = propertyGroupReleaseAnyCPU.DebugSymbols;
+                        book1.AppendChild(debugSymbols);
 
-                    //    XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
-                    //    OutputPath.InnerText = propertyGroupReleaseAnyCPU.OutputPath.Replace("Release\\", "x64\\Release\\");
-                    //    book1.AppendChild(OutputPath);
+                        XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
+                        OutputPath.InnerText = propertyGroupReleaseAnyCPU.OutputPath.Replace("Release\\", "x64\\Release\\");
+                        book1.AppendChild(OutputPath);
 
-                    //    XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
-                    //    DefineConstants.InnerText = "TRACE";
-                    //    book1.AppendChild(DefineConstants);
+                        XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
+                        DefineConstants.InnerText = "TRACE";
+                        book1.AppendChild(DefineConstants);
 
-                    //    XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
-                    //    DebugType.InnerText = propertyGroupReleaseAnyCPU.DebugType;
-                    //    book1.AppendChild(DebugType);
+                        XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
+                        DebugType.InnerText = propertyGroupReleaseAnyCPU.DebugType;
+                        book1.AppendChild(DebugType);
 
-                    //    XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
-                    //    PlatformTarget.InnerText = "x64";
-                    //    book1.AppendChild(PlatformTarget);
+                        XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
+                        PlatformTarget.InnerText = "x64";
+                        book1.AppendChild(PlatformTarget);
 
-                    //    XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
-                    //    ErrorReport.InnerText = propertyGroupReleaseAnyCPU.ErrorReport;
-                    //    book1.AppendChild(ErrorReport);
+                        XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
+                        ErrorReport.InnerText = propertyGroupReleaseAnyCPU.ErrorReport;
+                        book1.AppendChild(ErrorReport);
 
-                    //    XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
-                    //    CodeAnalysisRuleSet.InnerText = propertyGroupReleaseAnyCPU.CodeAnalysisRuleSet;
-                    //    book1.AppendChild(CodeAnalysisRuleSet);
+                        XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
+                        CodeAnalysisRuleSet.InnerText = propertyGroupReleaseAnyCPU.CodeAnalysisRuleSet;
+                        book1.AppendChild(CodeAnalysisRuleSet);
 
-                    //    XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
-                    //    Prefer32Bit.InnerText = propertyGroupReleaseAnyCPU.Prefer32Bit;
-                    //    book1.AppendChild(Prefer32Bit);
-                    //    if (!NewPath.Contains(data))
-                    //        NewPath.Add(data);
-                    //}
+                        XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
+                        Prefer32Bit.InnerText = propertyGroupReleaseAnyCPU.Prefer32Bit;
+                        book1.AppendChild(Prefer32Bit);
+                        if (!NewPath.Contains(data))
+                            NewPath.Add(data);
+                    }
                 }
                 doc.Save(data);
             }
