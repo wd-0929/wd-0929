@@ -6,6 +6,10 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows;
 using System.Windows.Resources;
 using System.Xml.Linq;
 
@@ -112,8 +116,62 @@ namespace WheelTest.Style
         }
 
 
+        public static IEnumerable<T> FindChildren<T>(DependencyObject parent) where T : class
+        {
+            //子元素
+            var count = VisualTreeHelper.GetChildrenCount(parent);
+            if (count > 0)
+            {
+                for (var i = 0; i < count; i++)
+                {
+                    var child = VisualTreeHelper.GetChild(parent, i);
+                    var t = child as T;
+                    if (t != null)
+                        yield return t;
+                    //递归
+                    var children = FindChildren<T>(child);
+                    foreach (var item in children)
+                        yield return item;
+                }
+            }
+        }
+        private static void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                //是否移动光标
+                bool _is = false;
+                //选中的TextBox控件
+                TextBox text = sender as TextBox;
+                Grid grid = VisualTreeHelper.GetParent(text) as Grid;
+                var contentcontrol = VisualTreeHelper.GetParent(grid);
+                //取到多个文本框的容器
+                var stackpanel = VisualTreeHelper.GetParent(contentcontrol);
+                //取到多个文本框
+                IEnumerable<TextBox> AllButtons = FindChildren<TextBox>(stackpanel);
+                foreach (var item in AllButtons)
+                {
+                    if (_is && item.Name == text.Name)
+                    {
+                        //移动光标
+                        item.Focus();
 
-     
+                        item.SelectionStart = item.Text.Length;
+                        item.SelectAll();
+
+                        _is = false;
+                    }
+                    else
+                    {
+                        if (item == text)
+                        {
+                            _is = true;
+                        }
+                    }
+                }
+            }
+        }
+
         public static t[] GetValues<t>(this Enum value)
         {
             return Enum.GetValues(typeof(t)).Cast<t>().ToArray();
