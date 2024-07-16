@@ -18,6 +18,12 @@ namespace WheelTest.Translate
         //{
         //    BaiDuTranslate(translateText);
         //}
+        private static string getCookie;
+        public static void GetCookie(Dictionary<string, string> header)
+        {
+            if (string.IsNullOrWhiteSpace(getCookie))
+                getCookie = Helper.GetCookie("https://fanyi.baidu.com/", header);
+        }
         public static string BaiDuTranslate(string translateText)
         {
             List<string> strings = new List<string>();
@@ -35,7 +41,7 @@ namespace WheelTest.Translate
             header.Add("Sec-Fetch-Dest", "empty");
             header.Add("Accept-Encoding", "gzip, deflate, br");
             header.Add("Accept-Language", "zh-CN,zh;q=0.9");
-            var getCookie = Helper.GetCookie("https://fanyi.baidu.com/", header);
+            GetCookie(header);
             Regex getCookieRegex = new Regex("BAIDUID=([^;]+);");
             if (getCookieRegex.IsMatch(getCookie))
             {

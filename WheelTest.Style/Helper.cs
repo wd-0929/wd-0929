@@ -52,6 +52,15 @@ namespace WheelTest.Style
             }
             return url;
         }
+        public static string FirstLetterToUpperWithRegex(this string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            return System.Text.RegularExpressions.Regex.Replace(input, "^.", match => match.Value.ToUpper());
+        }
         public static string[] SplitExt(this string sourceString, string splitString)
         {
             List<string> arrayList = new List<string>();

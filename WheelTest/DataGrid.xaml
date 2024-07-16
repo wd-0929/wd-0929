@@ -1,0 +1,97 @@
+﻿<Window x:Class="WheelTest.DataGrid"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WheelTest"
+        mc:Ignorable="d"
+        Title="DataGrid" Height="450" Width="800">
+    <Grid>
+        <DataGrid Name="dgQuestionTemplate"
+                  HorizontalAlignment="Left"
+                  FrozenColumnCount="1"
+                  CanUserAddRows="false"
+                  CanUserDeleteRows="False"
+                  Grid.Row="1"
+                  GridLinesVisibility="None"
+                  CanUserResizeColumns="False"
+                  EnableColumnVirtualization="True"
+                  EnableRowVirtualization="True"
+                  CanUserResizeRows="False"
+                  RowHeaderWidth="0"
+                  Width="200"
+                  ColumnHeaderHeight="40"
+                  AutoGenerateColumns="False"
+                  Height="400"
+                  IsReadOnly="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="尺码">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock VerticalAlignment="Center" IsEnabled="True" Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="数据">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox VerticalAlignment="Center"
+                                     IsEnabled="True"
+                                     Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                         Color="Transparent" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}"
+                                         Color="Transparent" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                                         Color="Black" />
+                    </Style.Resources>
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Center" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Center" />
+                    <Setter Property="IsSelected"
+                            Value="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver,Mode=OneWay}" />
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness"
+                            Value="0,0,1,1" />
+                    <Setter Property="BorderBrush"
+                            Value="#CBCBCB" />
+                    <Setter Property="Width"
+                            Value="100" />
+                    <Setter Property="Height"
+                            Value="40" />
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Center" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Center" />
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background"
+                            Value="#f2f2f2" />
+                    <Setter Property="BorderThickness"
+                            Value="0,0,1,1" />
+                    <Setter Property="BorderBrush"
+                            Value="#CBCBCB" />
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Center" />
+                    <Setter Property="VerticalContentAlignment"
+                            Value="Center" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+    </Grid>
+</Window>

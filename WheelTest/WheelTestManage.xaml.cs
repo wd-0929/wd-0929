@@ -59,243 +59,279 @@ namespace WheelTest
             //{
             //    return;
             //}
-            var SelectedPath = "D:\\助手的项目\\GTA-BUG\\GTA\\Logistics";
+            var SelectedPath = "D:\\助手的项目\\GTA";
             List<string> paths = new List<string>();
             List<PropertyGroup> PropertyGroups = new List<PropertyGroup>();
-             var datas = LoadAllFile(SelectedPath, paths);
+            var datas = LoadAllFile(SelectedPath, paths);
             List<string> NewPath = new List<string>();
-             foreach (var data in datas)
+
+            #region 更改记录
             {
-                //var data = "D:\\助手的项目\\GTA-BUG\\GTA\\JSON.GTA.AliChoice\\JSON.GTA.POPChoice\\JSON.GTA.POPChoice.csproj";
+                // foreach (var data in datas)
+                //{
+                //    //var data = "D:\\助手的项目\\GTA-BUG\\GTA\\JSON.GTA.AliChoice\\JSON.GTA.POPChoice\\JSON.GTA.POPChoice.csproj";
+                //    XmlDocument doc = new XmlDocument();
+                //    doc.Load(data);
+                //    foreach (XmlNode childNodes in doc.ChildNodes)
+                //    {
+                //        #region x64
+
+                //        //PropertyGroup propertyGroupDebugAnyCPU = null;
+                //        //bool IspropertyGroupDebugx64 = false;
+                //        //PropertyGroup propertyGroupReleaseAnyCPU = null;
+                //        //bool IspropertyGroupReleasex64 = false;
+                //        //XmlNode InsertBefore = null;
+                //        //foreach (XmlNode childNode in childNodes.ChildNodes)
+                //        //{
+                //        //    if (childNode.Name == "PropertyGroup" && childNode.Attributes["Condition"] != null)
+                //        //    {
+                //        //        if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'")
+                //        //        {
+                //        //            propertyGroupDebugAnyCPU = new PropertyGroup();
+                //        //            foreach (XmlNode item in childNode.ChildNodes)
+                //        //            {
+                //        //                switch (item.Name)
+                //        //                {
+                //        //                    case "DebugSymbols":
+                //        //                        propertyGroupDebugAnyCPU.DebugSymbols = item.InnerText;
+                //        //                        break;
+                //        //                    case "OutputPath":
+                //        //                        propertyGroupDebugAnyCPU.OutputPath = item.InnerText;
+                //        //                        break;
+                //        //                    case "DefineConstants":
+                //        //                        propertyGroupDebugAnyCPU.DefineConstants = item.InnerText;
+                //        //                        break;
+                //        //                    case "DebugType":
+                //        //                        propertyGroupDebugAnyCPU.DebugType = item.InnerText;
+                //        //                        break;
+                //        //                    case "PlatformTarget":
+                //        //                        propertyGroupDebugAnyCPU.PlatformTarget = "x64";
+                //        //                        break;
+                //        //                    case "ErrorReport":
+                //        //                        propertyGroupDebugAnyCPU.ErrorReport = item.InnerText;
+                //        //                        break;
+                //        //                    case "CodeAnalysisRuleSet":
+                //        //                        propertyGroupDebugAnyCPU.CodeAnalysisRuleSet = item.InnerText;
+                //        //                        break;
+                //        //                    case "Prefer32Bit":
+                //        //                        propertyGroupDebugAnyCPU.Prefer32Bit = item.InnerText;
+                //        //                        break;
+                //        //                }
+                //        //            }
+                //        //            PropertyGroups.Add(propertyGroupDebugAnyCPU);
+                //        //        }
+                //        //        else if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Release|AnyCPU'")
+                //        //        {
+                //        //            propertyGroupReleaseAnyCPU = new PropertyGroup();
+                //        //            foreach (XmlNode item in childNode.ChildNodes)
+                //        //            {
+                //        //                switch (item.Name)
+                //        //                {
+                //        //                    case "DebugSymbols":
+                //        //                        propertyGroupReleaseAnyCPU.DebugSymbols = item.InnerText;
+                //        //                        break;
+                //        //                    case "OutputPath":
+                //        //                        propertyGroupReleaseAnyCPU.OutputPath = item.InnerText;
+                //        //                        break;
+                //        //                    case "DefineConstants":
+                //        //                        propertyGroupReleaseAnyCPU.DefineConstants = item.InnerText;
+                //        //                        break;
+                //        //                    case "DebugType":
+                //        //                        propertyGroupReleaseAnyCPU.DebugType = item.InnerText;
+                //        //                        break;
+                //        //                    case "PlatformTarget":
+                //        //                        propertyGroupReleaseAnyCPU.PlatformTarget = "x64";
+                //        //                        break;
+                //        //                    case "ErrorReport":
+                //        //                        propertyGroupReleaseAnyCPU.ErrorReport = item.InnerText;
+                //        //                        break;
+                //        //                    case "CodeAnalysisRuleSet":
+                //        //                        propertyGroupReleaseAnyCPU.CodeAnalysisRuleSet = item.InnerText;
+                //        //                        break;
+                //        //                    case "Prefer32Bit":
+                //        //                        propertyGroupReleaseAnyCPU.Prefer32Bit = item.InnerText;
+                //        //                        break;
+                //        //                }
+                //        //            }
+                //        //            PropertyGroups.Add(propertyGroupReleaseAnyCPU);
+                //        //        }
+
+                //        //        if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Debug|x64'")
+                //        //        {
+                //        //            IspropertyGroupDebugx64 = true;
+                //        //            foreach (XmlNode item in childNode.ChildNodes)
+                //        //            {
+                //        //                switch (item.Name)
+                //        //                {
+                //        //                    case "PlatformTarget":
+                //        //                        item.InnerText = "x64";
+                //        //                        break;
+                //        //                }
+                //        //            }
+                //        //            if (!NewPath.Contains(data))
+                //        //                NewPath.Add(data);
+                //        //        }
+                //        //        else if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Release|x64'")
+                //        //        {
+                //        //            IspropertyGroupReleasex64 = true;
+                //        //            foreach (XmlNode item in childNode.ChildNodes)
+                //        //            {
+                //        //                switch (item.Name)
+                //        //                {
+                //        //                    case "PlatformTarget":
+                //        //                        item.InnerText = "x64";
+                //        //                        break;
+                //        //                }
+                //        //            }
+                //        //            if (!NewPath.Contains(data))
+                //        //                NewPath.Add(data);
+                //        //        }
+                //        //    }
+                //        //    if (childNode.Name == "PropertyGroup" && childNode.Attributes["Condition"] == null) 
+                //        //    {
+                //        //        InsertBefore = childNode;
+                //        //    }
+                //        //}
+                //        //if (propertyGroupDebugAnyCPU != null && !IspropertyGroupDebugx64)
+                //        //{
+                //        //    XmlElement book1 = doc.CreateElement("PropertyGroup", childNodes.Attributes["xmlns"].Value);
+                //        //    book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Debug|x64'");
+                //        //    InsertBefore.ParentNode.InsertBefore(book1, InsertBefore);
+                //        //    XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
+                //        //    debugSymbols.InnerText = propertyGroupDebugAnyCPU.DebugSymbols;
+                //        //    book1.AppendChild(debugSymbols);
+
+                //        //    XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
+                //        //    OutputPath.InnerText = propertyGroupDebugAnyCPU.OutputPath.Replace("Debug\\", "x64\\Debug\\");
+                //        //    book1.AppendChild(OutputPath);
+
+                //        //    XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
+                //        //    DefineConstants.InnerText = "TRACE";
+                //        //    book1.AppendChild(DefineConstants);
+
+                //        //    XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
+                //        //    DebugType.InnerText = propertyGroupDebugAnyCPU.DebugType;
+                //        //    book1.AppendChild(DebugType);
+
+                //        //    XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
+                //        //    PlatformTarget.InnerText = "x64";
+                //        //    book1.AppendChild(PlatformTarget);
+
+                //        //    XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
+                //        //    ErrorReport.InnerText = propertyGroupDebugAnyCPU.ErrorReport;
+                //        //    book1.AppendChild(ErrorReport);
+
+                //        //    XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
+                //        //    CodeAnalysisRuleSet.InnerText = propertyGroupDebugAnyCPU.CodeAnalysisRuleSet;
+                //        //    book1.AppendChild(CodeAnalysisRuleSet);
+
+                //        //    XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
+                //        //    Prefer32Bit.InnerText = propertyGroupDebugAnyCPU.Prefer32Bit;
+                //        //    book1.AppendChild(Prefer32Bit);
+                //        //    if (!NewPath.Contains(data))
+                //        //        NewPath.Add(data);
+                //        //}
+                //        //if (propertyGroupReleaseAnyCPU != null && !IspropertyGroupReleasex64)
+                //        //{
+                //        //    XmlElement book1 = doc.CreateElement("PropertyGroup", childNodes.Attributes["xmlns"].Value);
+                //        //    book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Release|x64'");
+                //        //    InsertBefore.ParentNode.InsertBefore(book1, InsertBefore);
+                //        //    XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
+                //        //    debugSymbols.InnerText = propertyGroupReleaseAnyCPU.DebugSymbols;
+                //        //    book1.AppendChild(debugSymbols);
+
+                //        //    XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
+                //        //    OutputPath.InnerText = propertyGroupReleaseAnyCPU.OutputPath.Replace("Release\\", "x64\\Release\\");
+                //        //    book1.AppendChild(OutputPath);
+
+                //        //    XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
+                //        //    DefineConstants.InnerText = "TRACE";
+                //        //    book1.AppendChild(DefineConstants);
+
+                //        //    XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
+                //        //    DebugType.InnerText = propertyGroupReleaseAnyCPU.DebugType;
+                //        //    book1.AppendChild(DebugType);
+
+                //        //    XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
+                //        //    PlatformTarget.InnerText = "x64";
+                //        //    book1.AppendChild(PlatformTarget);
+
+                //        //    XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
+                //        //    ErrorReport.InnerText = propertyGroupReleaseAnyCPU.ErrorReport;
+                //        //    book1.AppendChild(ErrorReport);
+
+                //        //    XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
+                //        //    CodeAnalysisRuleSet.InnerText = propertyGroupReleaseAnyCPU.CodeAnalysisRuleSet;
+                //        //    book1.AppendChild(CodeAnalysisRuleSet);
+
+                //        //    XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
+                //        //    Prefer32Bit.InnerText = propertyGroupReleaseAnyCPU.Prefer32Bit;
+                //        //    book1.AppendChild(Prefer32Bit);
+                //        //    if (!NewPath.Contains(data))
+                //        //        NewPath.Add(data);
+                //        //}
+                //        #endregion
+
+                //        #region 不复制本地
+                //        foreach (XmlNode childNode in childNodes.ChildNodes) 
+                //        {
+                //            if (childNode.Name == "ItemGroup") 
+                //            {
+                //                foreach (XmlNode item in childNode.ChildNodes)
+                //                {
+                //                    if ((item.Name == "ProjectReference"|| item.Name == "Reference") && item.Attributes["Include"]?.Value?.Contains("JSON.GTA")==true)
+                //                    {
+                //                        if (item.ChildNodes.OfType<XmlNode>().FirstOrDefault(o => o.Name == "Private") != null)
+                //                        {
+                //                            item.ChildNodes.OfType<XmlNode>().FirstOrDefault(o => o.Name == "Private").InnerText = "False";
+                //                        }
+                //                        else
+                //                        {
+                //                            XmlElement debugSymbols = doc.CreateElement("Private", childNodes.Attributes["xmlns"].Value);
+                //                            debugSymbols.InnerText = "False";
+                //                            item.AppendChild(debugSymbols);
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //        #endregion
+                //    }
+                //    doc.Save(data);
+                //    }
+            }
+            #endregion
+
+            #region 获取整个项目的一个引用的全部路径     
+            Dictionary<string,string> HintPath = new Dictionary<string, string>();
+            foreach (var data in datas)
+            {
+                //var data = "D:\\助手的项目\\GTA\\JSON.GTA.Shopyy\\JSON.GTA.Shopyy.API\\JSON.GTA.Shopyy.API.csproj";
                 XmlDocument doc = new XmlDocument();
                 doc.Load(data);
                 foreach (XmlNode childNodes in doc.ChildNodes)
                 {
-                    #region x64
-
-                    //PropertyGroup propertyGroupDebugAnyCPU = null;
-                    //bool IspropertyGroupDebugx64 = false;
-                    //PropertyGroup propertyGroupReleaseAnyCPU = null;
-                    //bool IspropertyGroupReleasex64 = false;
-                    //XmlNode InsertBefore = null;
-                    //foreach (XmlNode childNode in childNodes.ChildNodes)
-                    //{
-                    //    if (childNode.Name == "PropertyGroup" && childNode.Attributes["Condition"] != null)
-                    //    {
-                    //        if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'")
-                    //        {
-                    //            propertyGroupDebugAnyCPU = new PropertyGroup();
-                    //            foreach (XmlNode item in childNode.ChildNodes)
-                    //            {
-                    //                switch (item.Name)
-                    //                {
-                    //                    case "DebugSymbols":
-                    //                        propertyGroupDebugAnyCPU.DebugSymbols = item.InnerText;
-                    //                        break;
-                    //                    case "OutputPath":
-                    //                        propertyGroupDebugAnyCPU.OutputPath = item.InnerText;
-                    //                        break;
-                    //                    case "DefineConstants":
-                    //                        propertyGroupDebugAnyCPU.DefineConstants = item.InnerText;
-                    //                        break;
-                    //                    case "DebugType":
-                    //                        propertyGroupDebugAnyCPU.DebugType = item.InnerText;
-                    //                        break;
-                    //                    case "PlatformTarget":
-                    //                        propertyGroupDebugAnyCPU.PlatformTarget = "x64";
-                    //                        break;
-                    //                    case "ErrorReport":
-                    //                        propertyGroupDebugAnyCPU.ErrorReport = item.InnerText;
-                    //                        break;
-                    //                    case "CodeAnalysisRuleSet":
-                    //                        propertyGroupDebugAnyCPU.CodeAnalysisRuleSet = item.InnerText;
-                    //                        break;
-                    //                    case "Prefer32Bit":
-                    //                        propertyGroupDebugAnyCPU.Prefer32Bit = item.InnerText;
-                    //                        break;
-                    //                }
-                    //            }
-                    //            PropertyGroups.Add(propertyGroupDebugAnyCPU);
-                    //        }
-                    //        else if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Release|AnyCPU'")
-                    //        {
-                    //            propertyGroupReleaseAnyCPU = new PropertyGroup();
-                    //            foreach (XmlNode item in childNode.ChildNodes)
-                    //            {
-                    //                switch (item.Name)
-                    //                {
-                    //                    case "DebugSymbols":
-                    //                        propertyGroupReleaseAnyCPU.DebugSymbols = item.InnerText;
-                    //                        break;
-                    //                    case "OutputPath":
-                    //                        propertyGroupReleaseAnyCPU.OutputPath = item.InnerText;
-                    //                        break;
-                    //                    case "DefineConstants":
-                    //                        propertyGroupReleaseAnyCPU.DefineConstants = item.InnerText;
-                    //                        break;
-                    //                    case "DebugType":
-                    //                        propertyGroupReleaseAnyCPU.DebugType = item.InnerText;
-                    //                        break;
-                    //                    case "PlatformTarget":
-                    //                        propertyGroupReleaseAnyCPU.PlatformTarget = "x64";
-                    //                        break;
-                    //                    case "ErrorReport":
-                    //                        propertyGroupReleaseAnyCPU.ErrorReport = item.InnerText;
-                    //                        break;
-                    //                    case "CodeAnalysisRuleSet":
-                    //                        propertyGroupReleaseAnyCPU.CodeAnalysisRuleSet = item.InnerText;
-                    //                        break;
-                    //                    case "Prefer32Bit":
-                    //                        propertyGroupReleaseAnyCPU.Prefer32Bit = item.InnerText;
-                    //                        break;
-                    //                }
-                    //            }
-                    //            PropertyGroups.Add(propertyGroupReleaseAnyCPU);
-                    //        }
-
-                    //        if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Debug|x64'")
-                    //        {
-                    //            IspropertyGroupDebugx64 = true;
-                    //            foreach (XmlNode item in childNode.ChildNodes)
-                    //            {
-                    //                switch (item.Name)
-                    //                {
-                    //                    case "PlatformTarget":
-                    //                        item.InnerText = "x64";
-                    //                        break;
-                    //                }
-                    //            }
-                    //            if (!NewPath.Contains(data))
-                    //                NewPath.Add(data);
-                    //        }
-                    //        else if (childNode.Attributes["Condition"].Value.Trim() == "'$(Configuration)|$(Platform)' == 'Release|x64'")
-                    //        {
-                    //            IspropertyGroupReleasex64 = true;
-                    //            foreach (XmlNode item in childNode.ChildNodes)
-                    //            {
-                    //                switch (item.Name)
-                    //                {
-                    //                    case "PlatformTarget":
-                    //                        item.InnerText = "x64";
-                    //                        break;
-                    //                }
-                    //            }
-                    //            if (!NewPath.Contains(data))
-                    //                NewPath.Add(data);
-                    //        }
-                    //    }
-                    //    if (childNode.Name == "PropertyGroup" && childNode.Attributes["Condition"] == null) 
-                    //    {
-                    //        InsertBefore = childNode;
-                    //    }
-                    //}
-                    //if (propertyGroupDebugAnyCPU != null && !IspropertyGroupDebugx64)
-                    //{
-                    //    XmlElement book1 = doc.CreateElement("PropertyGroup", childNodes.Attributes["xmlns"].Value);
-                    //    book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Debug|x64'");
-                    //    InsertBefore.ParentNode.InsertBefore(book1, InsertBefore);
-                    //    XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
-                    //    debugSymbols.InnerText = propertyGroupDebugAnyCPU.DebugSymbols;
-                    //    book1.AppendChild(debugSymbols);
-
-                    //    XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
-                    //    OutputPath.InnerText = propertyGroupDebugAnyCPU.OutputPath.Replace("Debug\\", "x64\\Debug\\");
-                    //    book1.AppendChild(OutputPath);
-
-                    //    XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
-                    //    DefineConstants.InnerText = "TRACE";
-                    //    book1.AppendChild(DefineConstants);
-
-                    //    XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
-                    //    DebugType.InnerText = propertyGroupDebugAnyCPU.DebugType;
-                    //    book1.AppendChild(DebugType);
-
-                    //    XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
-                    //    PlatformTarget.InnerText = "x64";
-                    //    book1.AppendChild(PlatformTarget);
-
-                    //    XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
-                    //    ErrorReport.InnerText = propertyGroupDebugAnyCPU.ErrorReport;
-                    //    book1.AppendChild(ErrorReport);
-
-                    //    XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
-                    //    CodeAnalysisRuleSet.InnerText = propertyGroupDebugAnyCPU.CodeAnalysisRuleSet;
-                    //    book1.AppendChild(CodeAnalysisRuleSet);
-
-                    //    XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
-                    //    Prefer32Bit.InnerText = propertyGroupDebugAnyCPU.Prefer32Bit;
-                    //    book1.AppendChild(Prefer32Bit);
-                    //    if (!NewPath.Contains(data))
-                    //        NewPath.Add(data);
-                    //}
-                    //if (propertyGroupReleaseAnyCPU != null && !IspropertyGroupReleasex64)
-                    //{
-                    //    XmlElement book1 = doc.CreateElement("PropertyGroup", childNodes.Attributes["xmlns"].Value);
-                    //    book1.SetAttribute("Condition", "'$(Configuration)|$(Platform)' == 'Release|x64'");
-                    //    InsertBefore.ParentNode.InsertBefore(book1, InsertBefore);
-                    //    XmlElement debugSymbols = doc.CreateElement("DebugSymbols", childNodes.Attributes["xmlns"].Value);
-                    //    debugSymbols.InnerText = propertyGroupReleaseAnyCPU.DebugSymbols;
-                    //    book1.AppendChild(debugSymbols);
-
-                    //    XmlElement OutputPath = doc.CreateElement("OutputPath", childNodes.Attributes["xmlns"].Value);
-                    //    OutputPath.InnerText = propertyGroupReleaseAnyCPU.OutputPath.Replace("Release\\", "x64\\Release\\");
-                    //    book1.AppendChild(OutputPath);
-
-                    //    XmlElement DefineConstants = doc.CreateElement("DefineConstants", childNodes.Attributes["xmlns"].Value);
-                    //    DefineConstants.InnerText = "TRACE";
-                    //    book1.AppendChild(DefineConstants);
-
-                    //    XmlElement DebugType = doc.CreateElement("DebugType", childNodes.Attributes["xmlns"].Value);
-                    //    DebugType.InnerText = propertyGroupReleaseAnyCPU.DebugType;
-                    //    book1.AppendChild(DebugType);
-
-                    //    XmlElement PlatformTarget = doc.CreateElement("PlatformTarget", childNodes.Attributes["xmlns"].Value);
-                    //    PlatformTarget.InnerText = "x64";
-                    //    book1.AppendChild(PlatformTarget);
-
-                    //    XmlElement ErrorReport = doc.CreateElement("ErrorReport", childNodes.Attributes["xmlns"].Value);
-                    //    ErrorReport.InnerText = propertyGroupReleaseAnyCPU.ErrorReport;
-                    //    book1.AppendChild(ErrorReport);
-
-                    //    XmlElement CodeAnalysisRuleSet = doc.CreateElement("CodeAnalysisRuleSet", childNodes.Attributes["xmlns"].Value);
-                    //    CodeAnalysisRuleSet.InnerText = propertyGroupReleaseAnyCPU.CodeAnalysisRuleSet;
-                    //    book1.AppendChild(CodeAnalysisRuleSet);
-
-                    //    XmlElement Prefer32Bit = doc.CreateElement("Prefer32Bit", childNodes.Attributes["xmlns"].Value);
-                    //    Prefer32Bit.InnerText = propertyGroupReleaseAnyCPU.Prefer32Bit;
-                    //    book1.AppendChild(Prefer32Bit);
-                    //    if (!NewPath.Contains(data))
-                    //        NewPath.Add(data);
-                    //}
-                    #endregion
-
-                    #region 不复制本地
-                    foreach (XmlNode childNode in childNodes.ChildNodes) 
+                    foreach (XmlNode childNode in childNodes.ChildNodes)
                     {
-                        if (childNode.Name == "ItemGroup") 
+                        if (childNode.Name == "ItemGroup")
                         {
-                            foreach (XmlNode item in childNode.ChildNodes)
-                            {
-                                if ((item.Name == "ProjectReference"|| item.Name == "Reference") && item.Attributes["Include"]?.Value?.Contains("JSON.GTA")==true)
+                            if (childNode.ChildNodes.Count > 0)
+                                foreach (XmlNode childNode1 in childNode.ChildNodes)
                                 {
-                                    if (item.ChildNodes.OfType<XmlNode>().FirstOrDefault(o => o.Name == "Private") != null)
+                                    if (childNode1.Attributes["Include"] != null&& childNode1.Attributes["Include"].Value.Contains("Newtonsoft.Json"))
                                     {
-                                        item.ChildNodes.OfType<XmlNode>().FirstOrDefault(o => o.Name == "Private").InnerText = "False";
-                                    }
-                                    else
-                                    {
-                                        XmlElement debugSymbols = doc.CreateElement("Private", childNodes.Attributes["xmlns"].Value);
-                                        debugSymbols.InnerText = "False";
-                                        item.AppendChild(debugSymbols);
+                                        foreach (XmlNode item in childNode1.ChildNodes)
+                                        {
+                                            if(item.Name== "HintPath")
+                                            HintPath.Add(data, item.InnerText);
+                                        }
                                     }
                                 }
-                            }
                         }
                     }
-                    #endregion
                 }
-                doc.Save(data);
             }
+            #endregion
         }
 
         // 注意: 生成的代码可能至少需要 .NET Framework 4.5 或 .NET Core/Standard 2.0。
@@ -451,7 +487,7 @@ namespace WheelTest
         /// 读取文件夹中指定文件
         /// </summary>
         public List<string> LoadAllFile(string path, List<string> paths)
-       {
+        {
             string mFilePath = path;
             string[] directories = Directory.GetDirectories(mFilePath);
             string[] fileNames = Directory.GetFiles(mFilePath);
@@ -460,12 +496,12 @@ namespace WheelTest
                 {
                     var Extension = System.IO.Path.GetExtension(fileName);
                     string[] noPath = new string[] { ".git", ".idea", ".vs" };
-                    if (!noPath.Contains(Extension)) 
+                    if (!noPath.Contains(Extension))
                     {
                         LoadAllFile(fileName, paths);
                     }
                 }
-            if (fileNames.IsEmptyAndGreaterThanZero()) 
+            if (fileNames.IsEmptyAndGreaterThanZero())
             {
                 foreach (var item in fileNames)
                 {
@@ -479,10 +515,16 @@ namespace WheelTest
             }
             return paths;
         }
-       private bool IsTexture(string ext)
-       {
-           string[] exts = { ".csproj" };
-           return exts.Contains(ext.ToLower());
-       }
+        private bool IsTexture(string ext)
+        {
+            string[] exts = { ".csproj" };
+            return exts.Contains(ext.ToLower());
+        }
+
+        private void translate_Click(object sender, RoutedEventArgs e)
+        {
+            TranslateText translateText = new TranslateText();
+            translateText.ShowDialog();
+        }
     }
 }

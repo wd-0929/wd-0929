@@ -35,6 +35,11 @@
                      Height="50"
                      Margin="6"
                      Click="UpdateVSoutputPath_Click" />
+            <Button  Content="翻译文本"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="translate_Click" />
         </WrapPanel>
         <c:ProgressBar IsShow="{Binding IsWaiting}"
                        Message="{Binding WaitMessage}"

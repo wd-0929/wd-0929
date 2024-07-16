@@ -1,0 +1,22 @@
+﻿<Window x:Class="WheelTest.TranslateText"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WheelTest"
+        mc:Ignorable="d"
+        Title="TranslateText"
+        Height="450"
+        Width="800">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition  Height="30" />
+        </Grid.RowDefinitions>
+        <TextBox AcceptsReturn="True" x:Name="_text"
+                 TextWrapping="Wrap" />
+        <StackPanel Grid.Row="1">
+            <Button Content="翻译并生成文件" Click="Button_Click" />
+        </StackPanel>
+    </Grid>
+</Window>
