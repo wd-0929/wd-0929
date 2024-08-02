@@ -24,20 +24,20 @@ namespace WheelTest
         {
             InitializeComponent();
         }
-
+        int index = 3;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var text= textbox.Text;
             var texts=text.SplitExt("\r\n");
             List<Data> infos = new List<Data>();
-            for (int i = 0; i < texts.Length/4; i++)
+            for (int i = 0; i < texts.Length/ index; i++)
             {
                 infos.Add(new Data
                 {
-                    Name = texts[i * 4],
-                    Type = texts[i * 4 + 1],
-                    Required = texts[i * 4 + 2],
-                    Synopsis = texts[i * 4 + 3],
+                    Name = texts[i * index],
+                    Type = texts[i * index + 1],
+                    Required = texts[i * index + 2],
+                    Synopsis = texts[i * index + 2],
                 });
             }
             //{
@@ -55,6 +55,7 @@ namespace WheelTest
                     string type = "string";
                     switch (item.Type)
                     {
+                        case "Number":
                         case "integer(int64)":
                             type = "long";
                             break;
@@ -62,8 +63,10 @@ namespace WheelTest
                             type = "int";
                             break;
                         case "boolean":
+                        case "Boolean":
                             type = "bool";
                             break;
+                        case "String":
                         case "string":
                             type = "string";
                             break;
@@ -73,53 +76,68 @@ namespace WheelTest
                         case "array":
                             type = "List<>";
                             break;
+                        case "Object":
+                            type = CapitalizeFirstLetter(item.Name);
+                            break;
+                        case "Object[]":
+                            type = CapitalizeFirstLetter(item.Name)+"[]";
+                            break;
+                        case "string[]":
+                        case "String[]":
+                            type =  "string[]";
+                            break;
+                        case "Number[]":
+                            type = "long[]";
+                            break;
                         default:
-                            throw new Exception("生成错误");
+                            type = item.Type;
+                            break;
                     }
-                    stringBuilder.AppendFormat("       #region {0} Property", CapitalizeFirstLetter(item.Name));
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat(" private {1} _{0};", item.Name, type);
-                    stringBuilder.AppendLine();
+                    //stringBuilder.AppendFormat("       #region {0} Property", CapitalizeFirstLetter(item.Name));
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendFormat(" private {1} _{0};", item.Name, type);
+                    //stringBuilder.AppendLine();
                     stringBuilder.Append("/// <summary>");
                     stringBuilder.AppendLine();
                     stringBuilder.AppendFormat("/// {0}", item.Synopsis);
                     stringBuilder.AppendLine();
                     stringBuilder.Append("/// </summary>");
                     stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("public {1} {0}", CapitalizeFirstLetter(item.Name), type);
+                    stringBuilder.AppendFormat("public {1} {0} ",item.Name, type);
+                    stringBuilder.Append("   { get; set; }");
                     stringBuilder.AppendLine();
-                    stringBuilder.Append("{");
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append(" get");
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("{");
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("return _{0};", item.Name);
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append(" }");
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("set");
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("{");
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("if (_{0} != value)", item.Name);
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("{");
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat(" _{0} = value;", item.Name);
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("OnPropertyChanged(nameof({0}));", CapitalizeFirstLetter(item.Name));
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("}");
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("}");
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("}");
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("#endregion {0} Property", CapitalizeFirstLetter(item.Name));
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendLine();
+                    //stringBuilder.Append("{");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append(" get");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append("{");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendFormat("return _{0};", item.Name);
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append(" }");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append("set");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append("{");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendFormat("if (_{0} != value)", item.Name);
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append("{");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendFormat(" _{0} = value;", item.Name);
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendFormat("OnPropertyChanged(nameof({0}));", CapitalizeFirstLetter(item.Name));
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append("}");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append("}");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.Append("}");
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendFormat("#endregion {0} Property", CapitalizeFirstLetter(item.Name));
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendLine();
+                    //stringBuilder.AppendLine();
                 }
                 textbox1.Text = stringBuilder.ToString();
             }
@@ -129,6 +147,15 @@ namespace WheelTest
             if (string.IsNullOrEmpty(input))
             {
                 return input; // 如果输入字符串为空或null，直接返回
+            }
+            if (input.Contains("_")) 
+            {
+                string strs = string.Empty; 
+                foreach (var item in input.SplitExt("_"))
+                {
+                    strs += CapitalizeFirstLetter(item);
+                }
+                return strs;
             }
 
             return input[0].ToString().ToUpper() + input.Substring(1);

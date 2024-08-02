@@ -33,24 +33,24 @@ namespace WheelTest.Console
                 //}
             }
             {
-                //var text = "WOMENS_BOTTOMS(\"女式下装\"), WOMENS_SWIMWEAR(\"女式泳装\"), WOMENS_OUTERWEAR(\"女士外套\"), WOMENS_JUMPSUITS(\"女士连体裤\"), WOMENS_BODAYSUITS(\"女士紧身衣\"), WOMENS_SKIRTS(\"女士短裙\"), WOMENS_TOPS(\"女上装\"), DRESSES(\"连衣裙\"), PLUS_SIZE_WOMENS_BOTTOMS(\"大码-女式下装\"), PLUS_SIZE_WOMENS_SWIMWEAR(\"大码-女式泳装\"), PLUS_SIZE_WOMENS_OUTERWAER(\"大码-女士外套\"), PLUS_SIZE_WOMENS_JUMPSUITS(\"大码-女士连体裤\"), PLUS_SIZE_WOMENS_BODAYSUITS(\"大码-女士紧身衣\"), PLUS_SIZE_WOMENS_SKIRTS(\"大码-女士短裙\"), PLUS_SIZE_WOMENS_TOPS(\"大码-女上装\"), PLUS_SIZE_DRESSES(\"大码-连衣裙\")";
-                //var texts = text.SplitExt(",");
-                //Dictionary<string, string> datas = new Dictionary<string, string>();
-                //foreach (var t in texts)
-                //{
-                //    var ts = t.Replace("(\"", ",").Replace("\")", "").Split(',');
-                //    {
-                //        datas.Add(ts[0], ts[1]);
-                //    }
-                //}
-                //string da = string.Empty;
-                //int index = 0;
-                //foreach (var t in datas)
-                //{
-                //    da = da + string.Format("[Display(Name = \"{0}\")]", t.Value)+"\r\n";
-                //    da = da + string.Format("{0} = {1},\r\n", t.Key, index);
-                //    index++;
-                //}
+                var text = "MENS_SHOES(\"男鞋\"),WOMENS_SHOES(\"女鞋\"),MENS_BOOTS(\"男靴\"),WOMENS_BOOTS(\"女靴\"),MENS_SPORTS_SHOES(\"男运动鞋\"),WOMANS_SPORTS_SHOES(\"女运动鞋\")";
+                var texts = text.SplitExt(",");
+                Dictionary<string, string> datas = new Dictionary<string, string>();
+                foreach (var t in texts)
+                {
+                    var ts = t.Replace("(\"", ",").Replace("\")", "").Split(',');
+                    {
+                        datas.Add(ts[0], ts[1]);
+                    }
+                }
+                string da = string.Empty;
+                int index = 0;
+                foreach (var t in datas)
+                {
+                    da = da + string.Format("[Display(Name = \"{0}\")]", t.Value) + "\r\n";
+                    da = da + string.Format("{0} = {1},\r\n", t.Key, index);
+                    index++;
+                }
             }
 
             //using (System.IO.MemoryStream ms = new System.IO.MemoryStream())

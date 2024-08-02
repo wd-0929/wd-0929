@@ -23,6 +23,7 @@ namespace CollectLogin
             try
             {
                 InitializeComponent();
+
                 BaseDirectory = System.IO.Path.Combine(AppContext.BaseDirectory);
                 MainLoginSetting = System.IO.File.ReadAllText(System.IO.Path.Combine(BaseDirectory, "MainLoginSetting.txt")).ToJsonData<MainLoginSetting>();
                 _cefSharpWPF.Address = MainLoginSetting.Address;
@@ -118,12 +119,18 @@ namespace CollectLogin
                             await InputPassword((ChromiumWebBrowser)sender);
                         }
                     }
+                    //await CheckShopLogin1((ChromiumWebBrowser)sender);
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private async Task CheckShopLogin1(ChromiumWebBrowser Browser)
+        {
+            Browser.ExecuteScriptAsync("document.querySelector('embed').contentDocument.querySelector('.download-button').click();");
+            return;
         }
         private async Task CheckShopLogin(ChromiumWebBrowser sender)
         {
