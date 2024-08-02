@@ -1,0 +1,59 @@
+﻿<Window x:Class="WheelTest.MultiFonctionListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WheelTest"
+        xmlns:c="http://wpf.cnfth.com/Controls"
+        mc:Ignorable="d"
+        Title="MultiFonctionListView" Height="450" Width="800">
+    <Grid>
+
+        <c:MultiFonctionListView  x:Name="exelist"
+                                  Grid.Row="1"
+                                  AllowDrop="True"
+                                  ItemsSource="{Binding ExeterItems}"
+                                  BorderThickness="0"
+                                  VerticalAlignment="Stretch"
+                                  CanFilter="False"
+                                  CanSort="False">
+            <ListView.View>
+                <GridView x:Name="gridView1">
+                    <c:MultiFonctionGridViewColumn  IsFixedWidth="True">
+                        <c:MultiFonctionGridViewColumn.Header>
+                            <CheckBox Click="SelectAll1_Click"
+                                      HorizontalAlignment="Left"
+                                      ToolTip="全选" />
+                        </c:MultiFonctionGridViewColumn.Header>
+                        <c:MultiFonctionGridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox ToolTip="按住Ctrl或Shift选中多个"
+                                          IsChecked="{Binding IsSelected,Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListViewItem}}" />
+                            </DataTemplate>
+                        </c:MultiFonctionGridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="排序"
+                                                    Width="44">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="移动"
+                                           AllowDrop="True"
+                                           PreviewMouseLeftButtonDown="Image_PreviewMouseLeftButtonDown" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                </GridView>
+            </ListView.View>
+        </c:MultiFonctionListView>
+    </Grid>
+</Window>
