@@ -40,6 +40,11 @@
                      Height="50"
                      Margin="6"
                      Click="translate_Click" />
+            <Button  Content="合成ICO图标"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="compoundIco_Click" />
         </WrapPanel>
         <c:ProgressBar IsShow="{Binding IsWaiting}"
                        Message="{Binding WaitMessage}"

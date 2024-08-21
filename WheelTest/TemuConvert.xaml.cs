@@ -24,11 +24,11 @@ namespace WheelTest
         {
             InitializeComponent();
         }
-        int index = 3;
+        int index = 4;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var text= textbox.Text;
-            var texts=text.SplitExt("\r\n");
+            var texts=text.SplitExt("\n");
             List<Data> infos = new List<Data>();
             for (int i = 0; i < texts.Length/ index; i++)
             {
@@ -37,7 +37,7 @@ namespace WheelTest
                     Name = texts[i * index],
                     Type = texts[i * index + 1],
                     Required = texts[i * index + 2],
-                    Synopsis = texts[i * index + 2],
+                    Synopsis = texts[i * index + index-1],
                 });
             }
             //{

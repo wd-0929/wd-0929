@@ -1,0 +1,2 @@
+
+            WaitMessage = string.Format("加载产品数据 {0}%....", Math.Round(((double)data.FinishCount * 100 / data.Count), 2));

@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +17,6 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Xml;
 using WheelTest.Style;
 using WheelTest.Translate;
@@ -525,6 +528,162 @@ namespace WheelTest
         {
             TranslateText translateText = new TranslateText();
             translateText.ShowDialog();
+        }
+
+        private void compoundIco_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            folderBrowser.Description = "请选择一个文件夹";
+
+            if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var directoryPath = folderBrowser.SelectedPath;
+                List<Bitmap> bitmaps = new List<Bitmap>();
+
+                // 加载所有图片
+                foreach (string imagePath in Directory.GetFiles(directoryPath, "*.png"))
+                {
+                    Bitmap bitmap = new Bitmap(imagePath);
+
+                    bitmaps.Add(bitmap);
+                }
+
+                if (folderBrowser.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    // 创建ICO文件
+                    CreateIconFile(folderBrowser.SelectedPath, bitmaps);
+                }
+            }
+
+        }
+
+        private static void CreateIconFile(string path, List<Bitmap> bitmaps)
+        {
+            // 创建一个空的IconGroup结构体
+            IconGroup iconGroup = new IconGroup();
+
+            // 添加每个Bitmap到IconGroup
+            foreach (Bitmap bitmap in bitmaps)
+            {
+                AddBitmapToIconGroup(ref iconGroup, bitmap);
+            }
+
+            // 将IconGroup保存为ICO文件
+            SaveIconGroupToFile(iconGroup, Path.Combine(path, Guid.NewGuid() + ".ico"));
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct IconDir
+        {
+            public ushort Reserved;
+            public ushort Type;
+            public ushort Count;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct IconDirEntry
+        {
+            public byte Width;
+            public byte Height;
+            public byte ColorCount;
+            public byte Reserved;
+            public short Planes;
+            public short BitCount;
+            public int BytesInRes;
+            public int ImageOffset;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        private struct IconGroup
+        {
+            public IconDir Dir;
+            public List<IconDirEntry> Entries;
+            public List<byte[]> Data;
+        }
+        
+        public static byte[] BitmapToIconBytes(Bitmap bitmap)
+        {
+            if (bitmap == null)
+            {
+                throw new ArgumentNullException(nameof(bitmap), "The bitmap cannot be null.");
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // 将Bitmap转换为Icon
+                using (Icon icon = System.Drawing.Icon.FromHandle(bitmap.GetHicon()))
+                {
+                    icon.Save(ms);
+                }
+
+                // 重置流的位置以便读取整个流
+                ms.Position = 0;
+
+                // 从流中读取字节
+                byte[] bytes = new byte[ms.Length];
+                ms.Read(bytes, 0, bytes.Length);
+
+                return bytes;
+            }
+        }
+        private static void AddBitmapToIconGroup(ref IconGroup iconGroup, Bitmap bitmap)
+        {
+            if (iconGroup.Entries == null)
+            {
+                iconGroup.Entries = new List<IconDirEntry>();
+                iconGroup.Data = new List<byte[]>();
+            }
+
+            byte[] data = BitmapToIconBytes(bitmap);
+
+            IconDirEntry entry = new IconDirEntry
+            {
+                Width = (byte)bitmap.Width,
+                Height = (byte)bitmap.Height,
+                ColorCount = 0,
+                Reserved = 0,
+                Planes = 1,
+                BitCount = 32,
+                BytesInRes = (int)data.Length,
+                ImageOffset = (int)iconGroup.Data.Count * data.Length
+            };
+
+            iconGroup.Entries.Add(entry);
+            iconGroup.Data.Add(data);
+        }
+
+        private static void SaveIconGroupToFile(IconGroup iconGroup, string filePath)
+        {
+            using (FileStream fs = new FileStream(filePath, FileMode.Create))
+            {
+                iconGroup.Dir.Reserved = 0;
+                iconGroup.Dir.Type = 1; // 1 for icons
+                iconGroup.Dir.Count = (ushort)iconGroup.Entries.Count;
+
+                // 写入IconDir
+                fs.Write(BitConverter.GetBytes(iconGroup.Dir.Reserved), 0, 2);
+                fs.Write(BitConverter.GetBytes(iconGroup.Dir.Type), 0, 2);
+                fs.Write(BitConverter.GetBytes(iconGroup.Dir.Count), 0, 2);
+
+                // 写入IconDirEntry
+                foreach (var entry in iconGroup.Entries)
+                {
+                    fs.WriteByte(entry.Width);
+                    fs.WriteByte(entry.Height);
+                    fs.WriteByte(entry.ColorCount);
+                    fs.WriteByte(entry.Reserved);
+                    fs.Write(BitConverter.GetBytes(entry.Planes), 0, 2);
+                    fs.Write(BitConverter.GetBytes(entry.BitCount), 0, 2);
+                    fs.Write(BitConverter.GetBytes(entry.BytesInRes), 0, 4);
+                    fs.Write(BitConverter.GetBytes(entry.ImageOffset), 0, 4);
+                }
+
+                // 写入Bitmap数据
+                foreach (var data in iconGroup.Data)
+                {
+                    fs.Write(data, 0, data.Length);
+                }
+            }
         }
     }
 }

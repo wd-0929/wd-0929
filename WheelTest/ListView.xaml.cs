@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace WheelTest
 {
-    /// <summary>
+    /// <summary>   
     /// ListView.xaml 的交互逻辑
     /// </summary>
     public partial class ListView : Window
@@ -22,9 +22,20 @@ namespace WheelTest
         public ListView()
         {
             InitializeComponent();
-            exelist.ItemsSource = new string[] { "11111", "22222", "333333" };
+            ExeterItems = new string[] { "11111", "22222", "333333" }.ToList();
         }
 
+
+        public List<string> ExeterItems
+        {
+            get { return (List<string>)GetValue(ExeterItemsProperty); }
+            set { SetValue(ExeterItemsProperty, value); }
+        }
+
+        public static readonly DependencyProperty ExeterItemsProperty =
+            DependencyProperty.Register(nameof(ExeterItems), typeof(List<string>), typeof(ListView), new PropertyMetadata(null));
+
+            
 
         public static T FindParentOfType<T>(DependencyObject child) where T : DependencyObject
         {
@@ -59,9 +70,14 @@ namespace WheelTest
 
         private void aaaa(object sender, GiveFeedbackEventArgs e)
         {
-            _ssss.Text = string.Format("{0}:{1}", System.Windows.Forms.Control.MousePosition.X, System.Windows.Forms.Control.MousePosition.Y);
-            mAdornerLayer.Margin =new Thickness(System.Windows.Forms.Control.MousePosition.X, System.Windows.Forms.Control.MousePosition.Y,0,0) ;
-            mAdornerLayer.InvalidateArrange();
+            //_ssss.Text = string.Format("{0}:{1}", System.Windows.Forms.Control.MousePosition.X, System.Windows.Forms.Control.MousePosition.Y);
+            //mAdornerLayer.Margin =new Thickness(System.Windows.Forms.Control.MousePosition.X, System.Windows.Forms.Control.MousePosition.Y,0,0) ;
+            //mAdornerLayer.InvalidateArrange();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ExeterItems = new string[] { "333", "42", "333331231233" }.ToList();
         }
     }
 }

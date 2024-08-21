@@ -38,5 +38,15 @@ namespace WheelTest
                 },
             });
         }
+
+        private void SelectAll1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

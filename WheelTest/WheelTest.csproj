@@ -165,6 +165,9 @@
     <Compile Include="TemuConvert.xaml.cs">
       <DependentUpon>TemuConvert.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextBoxxaml.xaml.cs">
+      <DependentUpon>TextBoxxaml.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TranslateText.xaml.cs">
       <DependentUpon>TranslateText.xaml</DependentUpon>
     </Compile>
@@ -272,6 +275,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TextBoxxaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TranslateText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -349,6 +356,7 @@
     <Content Include="Assembly\x64\SQLite.Interop.dll" />
     <Content Include="Assembly\x86\libwebp.dll" />
     <Content Include="Assembly\x86\SQLite.Interop.dll" />
+    <Resource Include="GTAMemo\gta.txt" />
     <Content Include="HotKeysList.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

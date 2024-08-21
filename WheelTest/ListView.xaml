@@ -6,19 +6,26 @@
         xmlns:local="clr-namespace:WheelTest"
         xmlns:c="http://wpf.cnfth.com/Controls"
         mc:Ignorable="d"
-        Title="ListView" Height="450" Width="800">
+        Title="ListView"
+        x:Name="root"
+        Height="450"
+        Width="800">
     <StackPanel x:Name="mTopLevelGrid">
-<TextBlock x:Name="_ssss"/>
+        <Button Content="刷新"
+                Click="Button_Click" />
         <c:MultiFonctionListView  x:Name="exelist"
-                                 Grid.Row="1"
-                                 AllowDrop="True"
-                                 ItemsSource="{Binding ExeterItems}"
-                                 BorderThickness="0"
-                                 VerticalAlignment="Stretch"
-                                 CanFilter="False"
-                                 CanSort="False">
+                                  Grid.Row="1"
+                                  AllowDrop="True"
+                                  Width="200"
+                                  Style="{StaticResource DefaultListViewStyle}"
+                                  ItemsSource="{Binding ExeterItems,ElementName=root}"
+                                  BorderThickness="0"
+                                  VerticalAlignment="Stretch"
+                                  CanFilter="False"
+                                  CanSort="False">
             <ListView.View>
-                <GridView x:Name="gridView1">
+                <GridView x:Name="gridView1"
+                          ColumnHeaderContainerStyle="{StaticResource DefaultGridViewColumnHeaderStyle}">
                     <c:MultiFonctionGridViewColumn  IsFixedWidth="True">
                         <c:MultiFonctionGridViewColumn.Header>
                             <CheckBox Click="SelectAll1_Click"
@@ -31,6 +38,76 @@
                                           IsChecked="{Binding IsSelected,Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListViewItem}}" />
                             </DataTemplate>
                         </c:MultiFonctionGridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding }"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </c:MultiFonctionGridViewColumn>
                     <c:MultiFonctionGridViewColumn  Header="优先级"
                                                     Width="60">
