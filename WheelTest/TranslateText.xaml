@@ -15,8 +15,12 @@
         </Grid.RowDefinitions>
         <TextBox AcceptsReturn="True" x:Name="_text"
                  TextWrapping="Wrap" />
-        <StackPanel Grid.Row="1">
-            <Button Content="翻译并生成文件" Click="Button_Click" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Content="翻译并生成文件"
+                    x:Name="_translate"
+                    Click="Button_Click" />
+            <Button Content="json转换"
+                    Click="Button1_Click" />
         </StackPanel>
     </Grid>
 </Window>

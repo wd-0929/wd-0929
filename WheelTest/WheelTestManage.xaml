@@ -45,6 +45,11 @@
                      Height="50"
                      Margin="6"
                      Click="compoundIco_Click" />
+            <Button  Content="json转换"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="jsonTransition_Click" />
         </WrapPanel>
         <c:ProgressBar IsShow="{Binding IsWaiting}"
                        Message="{Binding WaitMessage}"

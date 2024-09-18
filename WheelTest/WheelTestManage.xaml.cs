@@ -685,5 +685,12 @@ namespace WheelTest
                 }
             }
         }
+
+        private void jsonTransition_Click(object sender, RoutedEventArgs e)
+        {
+            TranslateText translateText = new TranslateText();
+            translateText._translate.Visibility = Visibility.Collapsed;
+            translateText.ShowDialog();
+        }
     }
 }
