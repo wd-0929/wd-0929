@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using MediatR;
+using MS.Temu.Sdk.ProductResponse;
+using MS.Miravia.SDK.Impl;
+namespace Modules.StockPre.Application.Ensure
+{
+    public class &Handler : IRequestHandler<&Command, IEnumerable<string>>
+    {
+        private readonly AliStockPre _aliStockPreApi;
+        private readonly ISender _sender;
+        public &Handler(AliStockPre aliStockPreApi, ISender sender)
+        {
+            this._aliStockPreApi = aliStockPreApi;
+            this._sender = sender;
+        }
+
+        public async Task<IEnumerable<string>> Handle(&Command request, CancellationToken cancellationToken)
+        {
+              var result = await _aliStockPreApi.&(, request.CurrentShop.AccessToken);
+
+            return result.result.ToString();
+        }
+    }
+}

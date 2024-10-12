@@ -79,6 +79,9 @@
       <HintPath>..\packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.JScript" />
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAPICodePack-Core.1.1.2\lib\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assembly\Newtonsoft.Json.dll</HintPath>
@@ -126,6 +129,9 @@
     <Compile Include="DynamicImages.xaml.cs">
       <DependentUpon>DynamicImages.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ErpClassGenerate.xaml.cs">
+      <DependentUpon>ErpClassGenerate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="HtmlImage.xaml.cs">
       <DependentUpon>HtmlImage.xaml</DependentUpon>
@@ -160,6 +166,14 @@
     </Compile>
     <Compile Include="PublicMethod\ThreadProxy.cs" />
     <Compile Include="PublicMethod\WebSnapshotsHelper.cs" />
+    <Compile Include="QrCodeRecognize.xaml.cs">
+      <DependentUpon>QrCodeRecognize.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource1.resx</DependentUpon>
+    </Compile>
     <Compile Include="RichTextBox.xaml.cs">
       <DependentUpon>RichTextBox.xaml</DependentUpon>
     </Compile>
@@ -215,6 +229,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ErpClassGenerate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HtmlImage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -266,6 +284,10 @@
     <Page Include="MultipleComBoBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QrCodeRecognize.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="RichTextBox.xaml">
       <SubType>Designer</SubType>
@@ -322,6 +344,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resource1.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -360,6 +386,8 @@
     <Content Include="Assembly\x64\SQLite.Interop.dll" />
     <Content Include="Assembly\x86\libwebp.dll" />
     <Content Include="Assembly\x86\SQLite.Interop.dll" />
+    <None Include="Resources\Handler.txt" />
+    <None Include="Resources\Command.txt" />
     <Resource Include="GTAMemo\gta.txt" />
     <Content Include="HotKeysList.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

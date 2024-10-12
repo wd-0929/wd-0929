@@ -13,11 +13,18 @@
                  AcceptsReturn="True"
                  x:Name="textbox"
                  TextWrapping="WrapWithOverflow" />
-        <Button  Content="生成"
-                 Margin="0,5"
-                 Click="Button_Click"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Left" />
+        <StackPanel Orientation="Horizontal">
+            <Button  Content="生成"
+                     Margin="0,5"
+                     Click="Button_Click"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Left" />
+            <TextBlock Margin="5,0" Text="每行个数：" VerticalAlignment="Center"/>
+            <TextBox x:Name="_index"
+                     Margin="5,0"
+                     VerticalAlignment="Center" Width="50" />
+            <CheckBox IsChecked="True" x:Name="_CapitalizeFirstLetter" Content="字段名大写" VerticalAlignment="Center"/>
+        </StackPanel>
         <TextBox Height="105"
                  x:Name="textbox1"
                  IsReadOnly="True"

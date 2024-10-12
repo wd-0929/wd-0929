@@ -692,5 +692,10 @@ namespace WheelTest
             translateText._translate.Visibility = Visibility.Collapsed;
             translateText.ShowDialog();
         }
+
+        private void ErpClassGenerate_Click(object sender, RoutedEventArgs e)
+        {
+            ErpClassGenerate erpClassGenerate=new ErpClassGenerate(); erpClassGenerate.ShowDialog();
+        }
     }
 }

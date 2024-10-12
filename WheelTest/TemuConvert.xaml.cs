@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,10 +24,11 @@ namespace WheelTest
         public TemuConvert()
         {
             InitializeComponent();
+            _index.Text = "3";
         }
-        int index = 4;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var index = Convert.ToInt32(_index.Text);
             var text= textbox.Text;
             var texts=text.SplitExt("\n");
             List<Data> infos = new List<Data>();
@@ -50,10 +52,11 @@ namespace WheelTest
             //}
             {
                 StringBuilder stringBuilder = new StringBuilder();
+                StringBuilder stringBuilder1 = new StringBuilder();
                 foreach (var item in infos)
                 {
                     string type = "string";
-                    switch (item.Type)
+                    switch (item.Type.Trim())
                     {
                         case "Number":
                         case "integer(int64)":
@@ -90,7 +93,7 @@ namespace WheelTest
                             type = "long[]";
                             break;
                         default:
-                            type = item.Type;
+                            type = item.Type.Trim();
                             break;
                     }
                     //stringBuilder.AppendFormat("       #region {0} Property", CapitalizeFirstLetter(item.Name));
@@ -99,11 +102,14 @@ namespace WheelTest
                     //stringBuilder.AppendLine();
                     stringBuilder.Append("/// <summary>");
                     stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("/// {0}", item.Synopsis);
+                    stringBuilder.AppendFormat("/// {0}", item.Synopsis.Trim());
                     stringBuilder.AppendLine();
                     stringBuilder.Append("/// </summary>");
                     stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("public {1} {0} ",item.Name, type);
+                    if (_CapitalizeFirstLetter.IsChecked == true)
+                        stringBuilder.AppendFormat("public {1} {0} ", CapitalizeFirstLetter(item.Name.Trim()), type.Trim());
+                    else
+                        stringBuilder.AppendFormat("public {1} {0} ", item.Name.Trim(), type.Trim());
                     stringBuilder.Append("   { get; set; }");
                     stringBuilder.AppendLine();
                     //stringBuilder.Append("{");
@@ -138,8 +144,9 @@ namespace WheelTest
                     //stringBuilder.AppendLine();
                     //stringBuilder.AppendLine();
                     //stringBuilder.AppendLine();
+                    stringBuilder1.AppendLine("apiUtils.AddApiParameter(\""+ item.Name.Trim() + "\", request."+ CapitalizeFirstLetter(item.Name.Trim()) + ");");
                 }
-                textbox1.Text = stringBuilder.ToString();
+                textbox1.Text = stringBuilder.ToString()+"\r\n"+ stringBuilder1.ToString();
             }
         }
         public string CapitalizeFirstLetter(string input)
@@ -148,17 +155,17 @@ namespace WheelTest
             {
                 return input; // 如果输入字符串为空或null，直接返回
             }
-            if (input.Contains("_")) 
+            if (input.Contains("_"))
             {
-                string strs = string.Empty; 
+                string strs = string.Empty;
                 foreach (var item in input.SplitExt("_"))
                 {
                     strs += CapitalizeFirstLetter(item);
                 }
-                return strs;
+                return strs.Trim();
             }
 
-            return input[0].ToString().ToUpper() + input.Substring(1);
+            return (input[0].ToString().ToUpper() + input.Substring(1)).Trim();
         }
     }
     public class Data 
