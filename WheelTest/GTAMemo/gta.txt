@@ -11,3 +11,7 @@
         {
             return orderInfo.Adapt<OrderInfoForUI>();
         }
+
+
+
+        打开vs更新面板 工具=>获取工具和功能

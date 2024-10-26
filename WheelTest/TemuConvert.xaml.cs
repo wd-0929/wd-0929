@@ -30,7 +30,7 @@ namespace WheelTest
         {
             var index = Convert.ToInt32(_index.Text);
             var text= textbox.Text;
-            var texts=text.SplitExt("\n");
+            var texts=text.Split('\n');
             List<Data> infos = new List<Data>();
             for (int i = 0; i < texts.Length/ index; i++)
             {

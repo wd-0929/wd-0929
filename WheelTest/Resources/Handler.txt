@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 using MediatR;
 using MS.Temu.Sdk.ProductResponse;
 using MS.Miravia.SDK.Impl;
-namespace Modules.StockPre.Application.Ensure
+namespace Modules.StockPre.Application.AliStockPre
 {
-    public class &Handler : IRequestHandler<&Command, IEnumerable<string>>
+    public class &Handler : IRequestHandler<&Command, string>
     {
-        private readonly AliStockPre _aliStockPreApi;
+        private readonly AliStockPreApi _aliStockPreApi;
         private readonly ISender _sender;
-        public &Handler(AliStockPre aliStockPreApi, ISender sender)
+        public &Handler(AliStockPreApi aliStockPreApi, ISender sender)
         {
             this._aliStockPreApi = aliStockPreApi;
             this._sender = sender;
         }
 
-        public async Task<IEnumerable<string>> Handle(&Command request, CancellationToken cancellationToken)
+        public async Task<string> Handle(&Command request, CancellationToken cancellationToken)
         {
-              var result = await _aliStockPreApi.&(, request.CurrentShop.AccessToken);
+              var result = await _aliStockPreApi.@(new MS.Miravia.SDK.Dtos.Request.@Request{}  , request.CurrentShop.AccessToken);
 
             return result.result.ToString();
         }

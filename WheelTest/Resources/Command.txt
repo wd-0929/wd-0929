@@ -2,14 +2,14 @@
 using MediatR;
 using Modules.StockPre.Domain;
 using Modules.Shared.Domain;
-namespace Modules.StockPre.Application.Ensure
+namespace Modules.StockPre.Application.AliStockPre
 {
     public class &Command : IRequest<string>
     {
         
         public NewShopInfo CurrentShop { set; get; }
 
-        public &Command(NewShopInfo currentShop,)
+        public &Command(NewShopInfo currentShop)
         {
             CurrentShop = currentShop;
         }

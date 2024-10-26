@@ -47,12 +47,13 @@ namespace WheelTest
 
             foreach (var item in text.SplitExt("\r\n"))
             {
-                var text1= item.Trim();
-                var Command = Resource1.Command.Replace("&", text1);
-                var Handler = Resource1.Handler.Replace("&", text1);
-                var compath = System.IO.Path.Combine(path, text1 + "Command.cs");
+                var text1 = item.Trim();
+                var text2 = text1.Replace("Aliexpress", "");
+                var Command = Resource1.Command.Replace("&", text2);
+                var Handler = Resource1.Handler.Replace("&", text2).Replace("@", text1);
+                var compath = System.IO.Path.Combine(path, text2 + "Command.cs");
                 System.IO.File.WriteAllText(compath, Command);
-                System.IO.File.WriteAllText(System.IO.Path.Combine(path, text1 + "Handler.cs"), Handler);
+                System.IO.File.WriteAllText(System.IO.Path.Combine(path, text2 + "Handler.cs"), Handler);
             }
 
             string commandLineArgs = $"/select, \"{path}\"";
