@@ -146,7 +146,7 @@ namespace WheelTest
                     //stringBuilder.AppendLine();
                     stringBuilder1.AppendLine("apiUtils.AddApiParameter(\""+ item.Name.Trim() + "\", request."+ CapitalizeFirstLetter(item.Name.Trim()) + ");");
                 }
-                textbox1.Text = stringBuilder.ToString()+"\r\n"+ stringBuilder1.ToString();
+                textbox1.Text = stringBuilder.ToString()/*+"\r\n"+ stringBuilder1.ToString()*/;
             }
         }
         public string CapitalizeFirstLetter(string input)
