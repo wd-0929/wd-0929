@@ -216,8 +216,11 @@
     <Compile Include="searchTextBox.xaml.cs">
       <DependentUpon>searchTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TemuConvert.xaml.cs">
-      <DependentUpon>TemuConvert.xaml</DependentUpon>
+    <Compile Include="拖拽操作.xaml.cs">
+      <DependentUpon>拖拽操作.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="请求字段生成.xaml.cs">
+      <DependentUpon>请求字段生成.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextBoxxaml.xaml.cs">
       <DependentUpon>TextBoxxaml.xaml</DependentUpon>
@@ -340,7 +343,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TemuConvert.xaml">
+    <Page Include="拖拽操作.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="请求字段生成.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
