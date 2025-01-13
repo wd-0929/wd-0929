@@ -55,6 +55,21 @@
                      Height="50"
                      Margin="6"
                      Click="ErpClassGenerate_Click" />
+            <Button  Content="请求字段生成"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="请求字段生成_Click" />
+            <Button  Content="属性转wpf的可通知属性"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="属性转wpf的可通知属性_Click" />
+            <Button  Content="类的转换"
+                     Width="100"
+                     Height="50"
+                     Margin="6"
+                     Click="类的转换_Click" /> 
         </WrapPanel>
         <c:ProgressBar IsShow="{Binding IsWaiting}"
                        Message="{Binding WaitMessage}"

@@ -697,5 +697,23 @@ namespace WheelTest
         {
             ErpClassGenerate erpClassGenerate=new ErpClassGenerate(); erpClassGenerate.ShowDialog();
         }
+
+        private void 请求字段生成_Click(object sender, RoutedEventArgs e)
+        {
+            TemuConvert  temuConvert=new TemuConvert();
+            temuConvert.ShowDialog();
+        }
+
+        private void 属性转wpf的可通知属性_Click(object sender, RoutedEventArgs e)
+        {
+            属性转wpf的可通知属性 adsd=new 属性转wpf的可通知属性();
+            adsd.ShowDialog();
+        }
+
+        private void 类的转换_Click(object sender, RoutedEventArgs e)
+        {
+            ClassConvert classConvert=new ClassConvert();
+            classConvert.ShowDialog();
+        }
     }
 }

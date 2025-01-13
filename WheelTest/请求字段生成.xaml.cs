@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -32,11 +33,22 @@ namespace WheelTest
             var text= textbox.Text;
             var texts=text.Split('\n');
             List<Data> infos = new List<Data>();
+            //ArrayList aaa = new ArrayList();
+
+            //for (int i = 0; i < texts.Length / index; i++)
+            //{
+            //    aaa.Add(new
+            //    {
+            //        name = texts[i * index].Trim(),
+            //        code = texts[i * index + 1].Trim(),
+            //    });
+            //}
+            //var datas = aaa.ToJsonData();
             for (int i = 0; i < texts.Length/ index; i++)
             {
                 infos.Add(new Data
                 {
-                    Name = texts[i * index],
+                    Name = texts[i * index].Replace("-","").Trim(),
                     Type = texts[i * index + 1],
                     Required = texts[i * index + 2],
                     Synopsis = texts[i * index + index-1],
@@ -56,40 +68,38 @@ namespace WheelTest
                 foreach (var item in infos)
                 {
                     string type = "string";
-                    switch (item.Type.Trim())
+                    switch (item.Type.Trim().ToLowerInvariant())
                     {
-                        case "Number":
+                        case "number":
+                        case "long":
                         case "integer(int64)":
                             type = "long";
                             break;
+                        case "integer":
+                        case "int":
                         case "integer(int32)":
                             type = "int";
                             break;
                         case "boolean":
-                        case "Boolean":
                             type = "bool";
                             break;
-                        case "String":
                         case "string":
                             type = "string";
-                            break;
-                        case "object":
-                            type = "object";
                             break;
                         case "array":
                             type = "List<>";
                             break;
-                        case "Object":
+                        case "object":
+                        case "LIST":
                             type = CapitalizeFirstLetter(item.Name);
                             break;
-                        case "Object[]":
+                        case "object[]":
                             type = CapitalizeFirstLetter(item.Name)+"[]";
                             break;
                         case "string[]":
-                        case "String[]":
                             type =  "string[]";
                             break;
-                        case "Number[]":
+                        case "number[]":
                             type = "long[]";
                             break;
                         default:
@@ -107,7 +117,11 @@ namespace WheelTest
                     stringBuilder.Append("/// </summary>");
                     stringBuilder.AppendLine();
                     if (_CapitalizeFirstLetter.IsChecked == true)
-                        stringBuilder.AppendFormat("public {1} {0} ", CapitalizeFirstLetter(item.Name.Trim()), type.Trim());
+                    {
+                        stringBuilder.AppendFormat("[XmlElement(\"{0}\")]", item.Name);
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat("public {1} {0} ", CapitalizeFirstLetter(item.Name), type.Trim());
+                    }
                     else
                         stringBuilder.AppendFormat("public {1} {0} ", item.Name.Trim(), type.Trim());
                     stringBuilder.Append("   { get; set; }");

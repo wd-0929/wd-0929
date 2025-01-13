@@ -132,5 +132,52 @@
                 </GridView>
             </ListView.View>
         </c:MultiFonctionListView>
+        <Grid>
+        <ListView Name="myListView"
+                  AlternationCount="2">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Tag"
+                            Value="{Binding RelativeSource={RelativeSource Self}, Path=(ItemsControl.AlternationIndex)}" />
+                    <Style.Triggers>
+                        <!-- 偶数行 -->
+                        <Trigger Property="ItemsControl.AlternationIndex"
+                                 Value="0">
+                            <Setter Property="Background"
+                                    Value="LightGray" />
+                        </Trigger>
+                        <!-- 奇数行 -->
+                        <Trigger Property="ItemsControl.AlternationIndex"
+                                 Value="1">
+                            <Setter Property="Background"
+                                    Value="White" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name"
+                                    DisplayMemberBinding="{Binding}" />
+                    <GridViewColumn Header="Alternating Text">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Center"
+                                           Foreground="#000000"
+                                           VerticalAlignment="Center">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="模特{0}">
+                                            <Binding RelativeSource="{RelativeSource AncestorType=ListViewItem}"
+                                                     Path="Tag" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        </Grid>
     </StackPanel>
 </Window>

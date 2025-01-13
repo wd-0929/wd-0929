@@ -13,6 +13,7 @@
                                   Grid.Row="1"
                                   AllowDrop="True"
                                   ItemsSource="{Binding ExeterItems}"
+                                  AlternationCount="{Binding ExeterItems.Count}"
                                   BorderThickness="0"
                                   VerticalAlignment="Stretch"
                                   CanFilter="False"
@@ -31,6 +32,26 @@
                                           IsChecked="{Binding IsSelected,Mode=TwoWay, RelativeSource={RelativeSource AncestorType=ListViewItem}}" />
                             </DataTemplate>
                         </c:MultiFonctionGridViewColumn.CellTemplate>
+                    </c:MultiFonctionGridViewColumn>
+                    <c:MultiFonctionGridViewColumn  Header="优先级"
+                                                    Width="60">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <TextBlock HorizontalAlignment="Center"
+                                           Foreground="#000000"
+                                           Grid.Row="1"
+                                           VerticalAlignment="Center">
+                                    <TextBlock.Text>
+                                        <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}"
+                                                 Path="(ItemsControl.AlternationIndex)"
+                                                 Converter="{StaticResource NumberConverter}"
+                                                 ConverterParameter="1"
+                                                 StringFormat="主图{0}" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
                     </c:MultiFonctionGridViewColumn>
                     <c:MultiFonctionGridViewColumn  Header="优先级"
                                                     Width="60">

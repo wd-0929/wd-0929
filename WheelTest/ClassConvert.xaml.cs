@@ -43,7 +43,7 @@ namespace WheelTest
                 TextBox1.Text = list.ToJoin("");
                 TextBox2.Text = TextBox1.Text + "Request";
                 TextBox3.Text = TextBox1.Text + "Response";
-                TextBox4.Text = "   public Task<"+ TextBox3.Text + "> "+ TextBox1.Text + "("+ TextBox2.Text + " request)\r\n        {\r\n            string methodName = \""+ _TextBox.Text + "\";\r\n            return ApiUtility.RequestAsync<"+ TextBox3.Text + ">(methodName, Access_Token, request);\r\n        }";
+                TextBox4.Text = "   public Task<"+ TextBox3.Text + "> "+ TextBox1.Text + "("+ TextBox2.Text + " request, string access_token = null)\r\n        {\r\n            string methodName = \"" + _TextBox.Text + "\";\r\n            return RequestAsync<"+ TextBox3.Text + ">(methodName, access_token, request);\r\n        }";
                 TextBox3.Text = TextBox3.Text + ":BaseResponse<"+ TextBox3.Text + ".Result>";
             }
         }
