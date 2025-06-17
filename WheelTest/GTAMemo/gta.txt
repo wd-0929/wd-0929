@@ -15,3 +15,15 @@
 
 
         打开vs更新面板 工具=>获取工具和功能
+
+
+         var newNationalQuotesDict = NewNationalQuotes.ToDictionary(i => i.SkuPropertys);
+
+                    foreach (var item in product.NationalQuoteConfiguration.NewNationalQuotes)
+                    {
+                        if (product.JoinedCountryList.OfType<string>().Contains(item.CountryCode)
+                            && newNationalQuotesDict.TryGetValue(item.SkuPropertys, out var matchingQuote))
+                        {
+                            item.QuotePrice = matchingQuote.QuotePrice;
+                        }
+                    }

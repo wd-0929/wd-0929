@@ -6,8 +6,258 @@
         xmlns:local="clr-namespace:WheelTest"
         mc:Ignorable="d"
         Title="ComBoBox" Height="450" Width="800">
-    <Grid>
-        <ComboBox VerticalAlignment="Center"
+    <Window.Resources>
+
+        <Style TargetType="{x:Type ComboBox}"
+               x:Key="delComboBoxStyle">
+            <Setter Property="OverridesDefaultStyle"
+                    Value="True" />
+            <Setter Property="Validation.ErrorTemplate"
+                    Value="{x:Null}" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="BorderThickness"
+                    Value="1" />
+            <Setter Property="Padding"
+                    Value="0,0.5" />
+            <Setter Property="Margin"
+                    Value="0" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                    Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                    Value="Auto" />
+            <Setter Property="ScrollViewer.CanContentScroll"
+                    Value="True" />
+            <Setter Property="VirtualizingStackPanel.IsVirtualizing"
+                    Value="True" />
+            <Setter Property="VirtualizingStackPanel.VirtualizationMode"
+                    Value="Recycling" />
+            <Setter Property="ScrollViewer.PanningMode"
+                    Value="Both" />
+            <Setter Property="Stylus.IsFlicksEnabled"
+                    Value="False" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <Border x:Name="Bd"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    SnapsToDevicePixels="true">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="15" />
+                                    </Grid.ColumnDefinitions>
+                                    <ContentPresenter x:Name="selectContent"
+                                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                      ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                      Content="{TemplateBinding SelectionBoxItem}"
+                                                      ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      Margin="3,1"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    <TextBlock x:Name="noSelectContent"
+                                               Visibility="Collapsed"
+                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                               Margin="3,1"
+                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    <TextBox x:Name="PART_EditableTextBox"
+                                             Visibility="Collapsed"
+                                             TextWrapping="Wrap"
+                                             Margin="3,0"
+                                             VerticalContentAlignment="Center"
+                                             BorderThickness="0"
+                                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    <ToggleButton x:Name="downArrow"
+                                                  Grid.Column="0"
+                                                  Grid.ColumnSpan="2"
+                                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                                  Foreground="{TemplateBinding Foreground}"
+                                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                        <ToggleButton.Style>
+                                            <Style TargetType="{x:Type ToggleButton}">
+                                                <Setter Property="MinWidth"
+                                                        Value="0" />
+                                                <Setter Property="MinHeight"
+                                                        Value="0" />
+                                                <Setter Property="Width"
+                                                        Value="Auto" />
+                                                <Setter Property="Background"
+                                                        Value="Transparent" />
+                                                <Setter Property="Focusable"
+                                                        Value="False" />
+                                                <Setter Property="ClickMode"
+                                                        Value="Press" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                                            <Border Background="{TemplateBinding Background}"
+                                                                    CornerRadius="3">
+                                                                <Border Width="13"
+                                                                        HorizontalAlignment="Right"
+                                                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                                                        BorderThickness="1,0,0,0">
+                                                                    <Path x:Name="ArrowDownPath"
+                                                                          Data="M2.5,0L8.5,0 5.5,3z"
+                                                                          Fill="{TemplateBinding Foreground}"
+                                                                          VerticalAlignment="Center" />
+                                                                </Border>
+                                                            </Border>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </ToggleButton.Style>
+                                    </ToggleButton>
+                                    <Polygon x:Name="errorPolygon"
+                                             Grid.ColumnSpan="2"
+                                             Visibility="Collapsed"
+                                             Grid.ZIndex="2"
+                                             Margin="-1"
+                                             Points="6,6 6,0 0,0"
+                                             HorizontalAlignment="Right"
+                                             VerticalAlignment="Top"
+                                             IsHitTestVisible="True"    
+                                             Fill="{TemplateBinding BorderBrush}" />
+                                    <Polyline x:Name="errorPolyline"
+                                              Grid.ColumnSpan="2"
+                                              Visibility="Collapsed"
+                                              Grid.ZIndex="3"
+                                              Margin="-1"
+                                              Points="7,7 0,0"
+                                              HorizontalAlignment="Right"
+                                              StrokeThickness="1.5"
+                                              StrokeEndLineCap="Round"
+                                              StrokeStartLineCap="Round"
+                                              VerticalAlignment="Top"
+                                              IsHitTestVisible="True"></Polyline>
+
+                                    <Button Content="删除"
+                                            x:Name="delButton" Grid.ColumnSpan="2" HorizontalAlignment="Right" Click="Button_Click"/>
+                                </Grid>
+                            </Border>
+                            <Popup x:Name="PART_Popup"
+                                   AllowsTransparency="true"
+                                   Focusable="False"
+                                   MaxWidth="800"
+                                   IsOpen="{TemplateBinding IsDropDownOpen}"
+                                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                                   Placement="Bottom">
+                                <Border x:Name="Shdw"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        MinWidth="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                        BorderThickness="1"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}">
+                                    <ScrollViewer x:Name="DropDownScrollViewer">
+                                        <ItemsPresenter x:Name="ItemsPresenter"
+                                                        Margin="2"
+                                                        KeyboardNavigation.DirectionalNavigation="Contained"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsFocused , ElementName=PART_EditableTextBox}"
+                                         Value="true">
+                                <Setter TargetName="PART_Popup"
+                                        Property="IsOpen"
+                                        Value="true" />
+                            </DataTrigger>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter TargetName="delButton"
+                                        Property="Visibility"
+                                        Value="Visible" />
+                                <Setter TargetName="downArrow"
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Text"
+                                     Value="{x:Null}">
+                                <Setter TargetName="delButton"
+                                        Property="Visibility"
+                                        Value="Hidden" />
+                                <Setter TargetName="downArrow"
+                                        Property="Visibility"
+                                        Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="SelectedIndex"
+                                     Value="-1">
+                                <Setter TargetName="noSelectContent"
+                                        Property="Visibility"
+                                        Value="Visible" />
+                                <Setter TargetName="PART_EditableTextBox"
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="IsEditable"
+                                     Value="True">
+                                <Setter TargetName="selectContent"
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                <Setter TargetName="noSelectContent"
+                                        Property="Visibility"
+                                        Value="Collapsed" />
+                                <Setter TargetName="PART_EditableTextBox"
+                                        Property="Visibility"
+                                        Value="Visible" />
+                                <Setter TargetName="downArrow"
+                                        Property="Grid.Column"
+                                        Value="1" />
+                                <Setter TargetName="downArrow"
+                                        Property="Grid.ColumnSpan"
+                                        Value="1" />
+                            </Trigger>
+                            <Trigger Property="HasItems"
+                                     Value="False">
+                                <Setter TargetName="Shdw"
+                                        Property="MinHeight"
+                                        Value="50" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Validation.HasError"
+                                               Value="True" />
+                                    <Condition Property="IsEnabled"
+                                               Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="errorPolygon"
+                                        Property="Visibility"
+                                        Value="Visible" />
+                                <Setter TargetName="errorPolygon"
+                                        Property="Visibility"
+                                        Value="Visible" />
+                                <Setter TargetName="Bd"
+                                        Property="CornerRadius"
+                                        Value="0" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemsPanel">
+                <Setter.Value>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid >
+        <ComboBox Style="{StaticResource delComboBoxStyle}"  Width="150" VerticalAlignment="Center" HorizontalAlignment="Left"
+                  x:Name="categoryList2" />
+        <!--<ComboBox VerticalAlignment="Center"
                            Grid.Column="3"
                            x:Name="categoryList2"
                            SelectionChanged="categoryList2_SelectionChanged"
@@ -101,6 +351,6 @@
                     <TextBlock Text="{Binding  }" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
-        </ComboBox>
+        </ComboBox>-->
     </Grid>
 </Window>

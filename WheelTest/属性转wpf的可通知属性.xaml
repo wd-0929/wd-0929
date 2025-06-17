@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WheelTest"
         mc:Ignorable="d"
-        Title="属性转wpf的可通知属性" Height="450" Width="800">
+        Title="属性转wpf的可通知属性"
+        Height="450"
+        Width="800">
 
     <StackPanel Margin="5">
         <TextBox Height="105"
@@ -18,6 +20,16 @@
                      Click="Button_Click"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left" />
+            <CheckBox  Content="json转键值对"
+            x:Name="_json"
+                       Margin="10,5"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />
+            <CheckBox  Content="base64图片"
+                       x:Name="_json1"
+                       Margin="10,5"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left" />
         </StackPanel>
         <TextBox Height="105"
                  x:Name="textbox1"

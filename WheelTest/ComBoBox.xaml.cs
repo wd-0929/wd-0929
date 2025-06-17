@@ -22,6 +22,12 @@ namespace WheelTest
         public ComBoBox()
         {
             InitializeComponent();
+            var datas= new List<string>(); 
+            for(int i = 0; i < 10; i++)
+            {
+                datas.Add(i.ToString());
+            }
+            categoryList2.ItemsSource= datas;
         }
 
         private void categoryList2_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -38,5 +44,11 @@ namespace WheelTest
         {
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
+

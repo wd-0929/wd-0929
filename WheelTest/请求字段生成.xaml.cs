@@ -33,17 +33,17 @@ namespace WheelTest
             var text= textbox.Text;
             var texts=text.Split('\n');
             List<Data> infos = new List<Data>();
-            //ArrayList aaa = new ArrayList();
+            ArrayList aaa = new ArrayList();
 
-            //for (int i = 0; i < texts.Length / index; i++)
-            //{
-            //    aaa.Add(new
-            //    {
-            //        name = texts[i * index].Trim(),
-            //        code = texts[i * index + 1].Trim(),
-            //    });
-            //}
-            //var datas = aaa.ToJsonData();
+            for (int i = 0; i < texts.Length / index; i++)
+            {
+                aaa.Add(new
+                {
+                    code = texts[i * index].Trim(),
+                    name = texts[i * index + 1].Trim(),
+                });
+            }
+            var datas = aaa.ToJsonData();
             for (int i = 0; i < texts.Length/ index; i++)
             {
                 infos.Add(new Data
