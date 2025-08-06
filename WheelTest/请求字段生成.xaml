@@ -23,7 +23,18 @@
             <TextBox x:Name="_index"
                      Margin="5,0"
                      VerticalAlignment="Center" Width="50" />
-            <CheckBox IsChecked="True" x:Name="_CapitalizeFirstLetter" Content="字段名大写" VerticalAlignment="Center"/>
+            <CheckBox IsChecked="True"
+                      x:Name="_CapitalizeFirstLetter"
+                      Content="字段名大写"
+                      VerticalAlignment="Center" />
+            <CheckBox IsChecked="false"
+                      x:Name="_fields"
+                      Content="生成字段"
+                      VerticalAlignment="Center" />
+            <CheckBox IsChecked="false"
+                      x:Name="_xml"
+                      Content="XML注释"
+                      VerticalAlignment="Center" />
         </StackPanel>
         <TextBox Height="105"
                  x:Name="textbox1"

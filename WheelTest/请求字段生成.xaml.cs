@@ -106,59 +106,74 @@ namespace WheelTest
                             type = item.Type.Trim();
                             break;
                     }
-                    //stringBuilder.AppendFormat("       #region {0} Property", CapitalizeFirstLetter(item.Name));
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendFormat(" private {1} _{0};", item.Name, type);
-                    //stringBuilder.AppendLine();
-                    stringBuilder.Append("/// <summary>");
-                    stringBuilder.AppendLine();
-                    stringBuilder.AppendFormat("/// {0}", item.Synopsis.Trim());
-                    stringBuilder.AppendLine();
-                    stringBuilder.Append("/// </summary>");
-                    stringBuilder.AppendLine();
+                    var convertName = item.Name.Trim();
                     if (_CapitalizeFirstLetter.IsChecked == true)
+                        CapitalizeFirstLetter(item.Name.Trim());
+                    if (_fields.IsChecked==true)
                     {
-                        stringBuilder.AppendFormat("[XmlElement(\"{0}\")]", item.Name);
+                        stringBuilder.Append("/// <summary>");
                         stringBuilder.AppendLine();
-                        stringBuilder.AppendFormat("public {1} {0} ", CapitalizeFirstLetter(item.Name), type.Trim());
+                        stringBuilder.AppendFormat("/// {0}", item.Synopsis.Trim());
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("/// </summary>");
+                        stringBuilder.AppendLine();
+                        if (_xml.IsChecked == true)
+                        {
+                            stringBuilder.AppendFormat("[XmlElement(\"{0}\")]", item.Name);
+                            stringBuilder.AppendLine();
+                        }
+                            stringBuilder.AppendFormat("public {1} {0} ", convertName, type.Trim());
+                        stringBuilder.Append("   { get; set; }");
+                        stringBuilder.AppendLine();
                     }
                     else
-                        stringBuilder.AppendFormat("public {1} {0} ", item.Name.Trim(), type.Trim());
-                    stringBuilder.Append("   { get; set; }");
-                    stringBuilder.AppendLine();
-                    //stringBuilder.Append("{");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append(" get");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append("{");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendFormat("return _{0};", item.Name);
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append(" }");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append("set");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append("{");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendFormat("if (_{0} != value)", item.Name);
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append("{");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendFormat(" _{0} = value;", item.Name);
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendFormat("OnPropertyChanged(nameof({0}));", CapitalizeFirstLetter(item.Name));
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append("}");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append("}");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.Append("}");
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendFormat("#endregion {0} Property", CapitalizeFirstLetter(item.Name));
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendLine();
-                    //stringBuilder.AppendLine();
-                    stringBuilder1.AppendLine("apiUtils.AddApiParameter(\""+ item.Name.Trim() + "\", request."+ CapitalizeFirstLetter(item.Name.Trim()) + ");");
+                    {
+                      
+                        stringBuilder.AppendFormat("       #region {0} Property", convertName);
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat(" private {1} _{0};", convertName, type);
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("/// <summary>");
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat("/// {0}", item.Synopsis.Trim());
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("/// </summary>");
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat("public {1} {0} ", convertName, type.Trim());
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("{");
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append(" get");
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("{");
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat("return _{0};", convertName);
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append(" }");
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("set");
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("{");
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat("if (_{0} != value)", convertName);
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("{");
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat(" _{0} = value;", convertName);
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat("OnPropertyChanged(nameof({0}));", convertName);
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("}");
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("}");
+                        stringBuilder.AppendLine();
+                        stringBuilder.Append("}");
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendFormat("#endregion {0} Property", convertName);
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendLine();
+                        stringBuilder.AppendLine();
+                    }
                 }
                 textbox1.Text = stringBuilder.ToString()/*+"\r\n"+ stringBuilder1.ToString()*/;
             }

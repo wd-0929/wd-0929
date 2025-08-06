@@ -61,7 +61,7 @@ namespace WheelTest.Style
 
             return System.Text.RegularExpressions.Regex.Replace(input, "^.", match => match.Value.ToUpper());
         }
-        public static string[] SplitExt(this string sourceString, string splitString)
+        public static string[]  SplitExt(this string sourceString, string splitString)
         {
             List<string> arrayList = new List<string>();
             string s = string.Empty;
