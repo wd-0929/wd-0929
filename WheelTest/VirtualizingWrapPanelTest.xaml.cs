@@ -29,5 +29,12 @@ namespace WheelTest
             }
             _values.ItemsSource= list;
         }
+
+        private void CustomImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+           var tag= button.Tag as TextBox;
+            tag.Visibility = Visibility.Visible;
+        }
     }
 }

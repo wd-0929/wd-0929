@@ -80,7 +80,6 @@ namespace WheelTest
                         var name = item.Groups["name"].Value;
                         var type = item.Groups["type"].Value;
                         var Description = item.Groups["Description"].Value;
-                        stringBuilder.AppendFormat("       #region {0} Property", name);
                         stringBuilder.AppendLine();
                         stringBuilder.AppendFormat(" private {1} _{0};", name, type);
                         stringBuilder.AppendLine();
@@ -116,7 +115,6 @@ namespace WheelTest
                         stringBuilder.AppendLine();
                         stringBuilder.Append("}");
                         stringBuilder.AppendLine();
-                        stringBuilder.AppendFormat("#endregion {0} Property", name);
                         stringBuilder.AppendLine();
                         stringBuilder.AppendLine();
                         stringBuilder.AppendLine();

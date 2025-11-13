@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WheelTest.Style;
+using static OpenCvSharp.ML.DTrees;
 
 namespace WheelTest
 {
@@ -30,8 +31,13 @@ namespace WheelTest
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var index = Convert.ToInt32(_index.Text);
-            var text= textbox.Text;
-            var texts=text.Split('\n');
+            //if (string.IsNullOrWhiteSpace(_split.Text)) 
+            //{
+            //    MessageBox.Show("分隔符不能为空");
+            //    return;
+            //}
+            var text = textbox.Text;
+            var texts = text.SplitExt(_split.Text).Where(i=>!string.IsNullOrWhiteSpace(i)).ToArray();
             List<Data> infos = new List<Data>();
             ArrayList aaa = new ArrayList();
 
@@ -44,14 +50,14 @@ namespace WheelTest
                 });
             }
             var datas = aaa.ToJsonData();
-            for (int i = 0; i < texts.Length/ index; i++)
+            for (int i = 0; i < texts.Length / index; i++)
             {
                 infos.Add(new Data
                 {
-                    Name = texts[i * index].Replace("-","").Trim(),
+                    Name = texts[i * index].Replace("-", "").Trim(),
                     Type = texts[i * index + 1],
                     Required = texts[i * index + 2],
-                    Synopsis = texts[i * index + index-1],
+                    Synopsis = texts[i * index + index - 1],
                 });
             }
             //{
@@ -94,10 +100,10 @@ namespace WheelTest
                             type = CapitalizeFirstLetter(item.Name);
                             break;
                         case "object[]":
-                            type = CapitalizeFirstLetter(item.Name)+"[]";
+                            type = CapitalizeFirstLetter(item.Name) + "[]";
                             break;
                         case "string[]":
-                            type =  "string[]";
+                            type = "string[]";
                             break;
                         case "number[]":
                             type = "long[]";
@@ -108,8 +114,8 @@ namespace WheelTest
                     }
                     var convertName = item.Name.Trim();
                     if (_CapitalizeFirstLetter.IsChecked == true)
-                        CapitalizeFirstLetter(item.Name.Trim());
-                    if (_fields.IsChecked==true)
+                        convertName = CapitalizeFirstLetter(item.Name.Trim());
+                    if (_fields.IsChecked == true)
                     {
                         stringBuilder.Append("/// <summary>");
                         stringBuilder.AppendLine();
@@ -122,13 +128,18 @@ namespace WheelTest
                             stringBuilder.AppendFormat("[XmlElement(\"{0}\")]", item.Name);
                             stringBuilder.AppendLine();
                         }
-                            stringBuilder.AppendFormat("public {1} {0} ", convertName, type.Trim());
+                        if (_Json.IsChecked == true)
+                        {
+                            stringBuilder.AppendFormat("   [JsonProperty(\"{0}\")]", item.Name);
+                            stringBuilder.AppendLine();
+                        }
+                        stringBuilder.AppendFormat("public {1} {0} ", convertName, type.Trim());
                         stringBuilder.Append("   { get; set; }");
                         stringBuilder.AppendLine();
                     }
                     else
                     {
-                      
+
                         stringBuilder.AppendFormat("       #region {0} Property", convertName);
                         stringBuilder.AppendLine();
                         stringBuilder.AppendFormat(" private {1} _{0};", convertName, type);
@@ -197,7 +208,7 @@ namespace WheelTest
             return (input[0].ToString().ToUpper() + input.Substring(1)).Trim();
         }
     }
-    public class Data 
+    public class Data
     {
         public string Name { get; set; }
         public string Type { get; set; }

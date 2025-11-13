@@ -9,31 +9,7 @@
         Height="450"
         Width="800">
     <Window.Resources>
-        <Style x:Key="DefaultMultiSelectListBoxItemStyle"
-               TargetType="ListBoxItem">
-            <Setter Property="OverridesDefaultStyle"
-                    Value="True" />
-            <Setter Property="HorizontalContentAlignment"
-                    Value="Left" />
-            <Setter Property="VerticalContentAlignment"
-                    Value="Center" />
-            <Setter Property="Margin"
-                    Value="0,0,20,0" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <CheckBox Content="{TemplateBinding Content}"
-                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                  ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                  ContentStringFormat="{TemplateBinding ContentStringFormat}"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}" />
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="{x:Type local:MultiSelectListBox}"
+        <Style x:Key="VirtualizingWrapPanelTest"
                TargetType="{x:Type local:MultiSelectListBox}">
             <Setter Property="Background"
                     Value="Transparent" />
@@ -47,38 +23,50 @@
                 <Setter.Value>
                     <ItemsPanelTemplate>
                         <local:VirtualizingWrapPanel  ScrollOffset="50"
-                                                      ChildHeight="70"
-                                                      ChildWidth="70" />
+                                                   ChildHeight="21"
+                                                   ChildWidth="150" />
                     </ItemsPanelTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="ItemContainerStyle"
-                    Value="{StaticResource DefaultMultiSelectListBoxItemStyle}" />
         </Style>
     </Window.Resources>
     <Grid>
-        <local:MultiSelectListBox Margin="0,3"
-                                  Grid.Row="1"
-                                  Height="150"
-                                  Grid.Column="1"
-                                  x:Name="_values"
-                                  VerticalAlignment="Center">
+
+        <local:MultiSelectListBox 
+                               Margin="0,3"
+                               MaxHeight="150"
+                               MinHeight="50"
+                               Style="{StaticResource VirtualizingWrapPanelTest}"
+                               Grid.Column="1"
+                               x:Name="_values"
+                               VerticalAlignment="Center">
             <local:MultiSelectListBox.ItemContainerStyle>
                 <Style TargetType="ListBoxItem">
                     <Setter Property="OverridesDefaultStyle"
                             Value="True" />
                     <Setter Property="Height"
                             Value="21" />
-                    <Setter Property="Width"
-                            Value="90" />
+                    <Setter Property="Margin"
+                            Value="0,0,0,0" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <CheckBox VerticalAlignment="Center"
-                                          IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsSelected, Mode=TwoWay}">
-                                    <AccessText Text="{Binding }"
-                                                TextTrimming="CharacterEllipsis"></AccessText>
-                                </CheckBox>
+
+                                <StackPanel Orientation="Horizontal"
+                                            x:Name="_tianjia">
+                                    <TextBox Width="90"
+                                             Margin="5,0,5,0"
+                                             x:Name="_textBox"
+                                             MaxLength="30"
+                                             VerticalAlignment="Center" />
+                                    <Button  Content="添加"
+                                             Tag="{Binding ElementName=_textBox}"
+                                             x:Name="_tianjiaButton"
+                                             Width="40"
+                                             Click="CustomImageButton_Click"
+                                             VerticalAlignment="Center" />
+                                </StackPanel>
+
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>

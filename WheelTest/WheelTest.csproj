@@ -185,6 +185,9 @@
     <Compile Include="ComBoBox.xaml.cs">
       <DependentUpon>ComBoBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ContextMenuTest.xaml.cs">
+      <DependentUpon>ContextMenuTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataGrid.xaml.cs">
       <DependentUpon>DataGrid.xaml</DependentUpon>
     </Compile>
@@ -266,6 +269,9 @@
     <Compile Include="拖拽操作.xaml.cs">
       <DependentUpon>拖拽操作.xaml</DependentUpon>
     </Compile>
+    <Compile Include="根据多个类生成一个类.xaml.cs">
+      <DependentUpon>根据多个类生成一个类.xaml</DependentUpon>
+    </Compile>
     <Compile Include="请求字段生成.xaml.cs">
       <DependentUpon>请求字段生成.xaml</DependentUpon>
     </Compile>
@@ -303,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ComBoBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ContextMenuTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -407,6 +417,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="拖拽操作.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="根据多个类生成一个类.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
